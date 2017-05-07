@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  * Partie conçernant un plateau de cases et des joueurs
- * @author Vincent G. , ...
+ * @author Vincent G. , Kerian G.
  */
 public class Partie {
 
