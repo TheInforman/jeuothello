@@ -11,7 +11,7 @@ import othello.Plateau;
 
 /**
  * Tests sur la méthode outilsConsole
- * @author Vincent
+ * @author Vincent G.
  */
 public class testOutilsConsole {
 
