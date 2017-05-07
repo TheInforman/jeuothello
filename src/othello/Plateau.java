@@ -16,6 +16,7 @@ import java.util.Arrays;
  */
 public class Plateau {
 	
+	
 	/** La largeur du plateau */
 	public static final int LARGEUR = 8;
 	
@@ -95,7 +96,18 @@ public class Plateau {
 	}
 	
 	/**
-	 * Renvoit un tableau contenant l'ensemble des cases sur lesquelles
+	 * Le joueur pose un pion sur le plateau
+	 * @param colonne	la colonne ou l'on poser le pion
+	 * @param ligne		la ligne où l'on pose le pion
+	 */
+	public void poserPion(int colonne, int ligne, int couleur) {
+		tablier[colonne][ligne].setCouleur(couleur);
+		appliquerCoups(tablier[colonne][ligne]);
+	}
+
+	
+	/**
+	 * Renvoi un tableau contenant l'ensemble des cases sur lesquelles
 	 * sont posés des pions d'une couleur donnée.
 	 *
 	 * @param couleur	la couleur des pions que l'on recherche

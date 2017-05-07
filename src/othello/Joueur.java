@@ -26,7 +26,7 @@ public class Joueur {
 	/** Booléen égal à vrai si le joueur a pu agir au tour précédent,  sinon */
 	private boolean peutAgir;
 	
-	/* Récupère la couleur de this */
+	/** Récupère la couleur de this */
 	public int getCouleur() {
 		return couleur;
 	}
@@ -58,16 +58,6 @@ public class Joueur {
 	
 	//TODO : constructeur dans le cas ou on charge une sauvegarde
 	
-	/**
-	 * Le joueur pose un pion sur le plateau
-	 * @param colonne	la colonne ou l'on poser le pion
-	 * @param ligne		la ligne où l'on pose le pion
-	 */
-	public void poserPion(int colonne, int ligne) {
-		plateau.tableauCase[colonne][ligne].setCouleur(this.getCouleur());
-		plateau.tableauCase[colonne][ligne].appliquerAction();
-	}
-
 	/**
 	 * Permet de passer son tour à un joueur par choix
 	 */

@@ -24,6 +24,9 @@ public class Partie {
 	 */
 	private Case[][] historiqueCoups;
 	
+	/** Partie courante */
+	private Plateau plateauDeJeu;
+	
 	/** Joueur devant jouer le tour courant */
 	private int doitJouer;
 	
@@ -53,7 +56,15 @@ public class Partie {
 		doitJouer = 0;
 	}
 	
+	
+	
+	
 	//TODO : constructeur dans le cas où on charge une sauvegarde
+	
+	public Plateau getplateauDeJeu() {
+		return plateauDeJeu;
+	}
+	
 	
 	/** 
 	 * Passe au tour suivant 
@@ -61,7 +72,7 @@ public class Partie {
 	public void tourSuivant() {
 		//TODO : Programmer la méthode
 		doitJouer = (doitJouer + 1) % 2 ;
-		plateau.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
+		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
 		tour++;
 	}
 	
