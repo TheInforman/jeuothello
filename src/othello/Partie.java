@@ -1,6 +1,7 @@
 /*
  * Partie.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier,
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 
 package othello;
@@ -21,7 +22,7 @@ public class Partie {
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
 	 *  passant du noir au blanc ou du blanc au noir.
 	 */
-	private Case[][] listeCoups;
+	private Case[][] historiqueCoups;
 	
 	/** Joueur devant jouer le tour courant */
 	private int doitJouer;
@@ -54,9 +55,13 @@ public class Partie {
 	
 	//TODO : constructeur dans le cas où on charge une sauvegarde
 	
-	/** TODO : Javadoc */
+	/** 
+	 * Passe au tour suivant 
+	 */
 	public void tourSuivant() {
 		//TODO : Programmer la méthode
+		doitJouer = (doitJouer + 1) % 2 ;
+		plateau.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
 		tour++;
 	}
 	
@@ -67,8 +72,14 @@ public class Partie {
 	}
 	
 	/** TODO : Javadoc */
-	private void actualiserListeCoups() {
+	private void actualiserHisto() {
 		//TODO : Programmer la méthode
+	}
+	
+	/** TODO : Javadoc */
+	public void archiverTour( Case[] plateauPrecedent ){
+		//TODO : Programmer la méthode
+		// on utilisera le tableau retourner par appliquer coup
 	}
 	
 	/* (non-Javadoc)
@@ -76,15 +87,9 @@ public class Partie {
 	 */
 	@Override
 	public String toString() {
-		return "Partie [listeCoups=" + Arrays.toString(listeCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
+		return "Partie [listeCoups=" + Arrays.toString(historiqueCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
 				+ ", partieBloquee=" + partieBloquee + ", listeJoueur=" + Arrays.toString(listeJoueur) + "]";
+		
 	}
-
-	/** TODO : Javadoc */
-	public Case determinerCoupsPossibles(int couleurDuJoueur) {
-		//TODO : Programmer la méthode
-		return null;
-	}
-	
 	
 }

@@ -1,6 +1,7 @@
 /*
  * Case.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier, 
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 
 package othello;
@@ -22,10 +23,10 @@ public class Case {
 	/** Couleur de la case */
 	private int couleur;
 	
-	/** numero de la case */
+	/** numéro de la case */
 	private int ligne;
 	
-	/** numero de la colonne */
+	/** numéro de la colonne */
 	private int colonne;
 	
 	

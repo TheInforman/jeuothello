@@ -1,6 +1,7 @@
 /*
  * Plateau.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier,
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 
 package othello;
@@ -46,7 +47,7 @@ public class Plateau {
 	
 	//TODO : retrouver pourquoi on retourne une Case déjà.
 	/**
-	 * Applique l'action d'un joueur en retournan les pions de l'adversaire.
+	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
 	 * 
 	 * @param caseConcernee		la case sur laquelle un applique le coups
 	 * @return		TODO compléter et trouver

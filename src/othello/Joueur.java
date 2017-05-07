@@ -1,6 +1,7 @@
 /*
  * Joueur.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier,
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 
 package othello;
@@ -22,9 +23,14 @@ public class Joueur {
 	/** Couleur du joueur */
 	private int couleur;
 	
-	/** Boolen égal à vrai si le joueur a pu agir au tour précédent, faux sinon */
+	/** Booléen égal à vrai si le joueur a pu agir au tour précédent,  sinon */
 	private boolean peutAgir;
 	
+	/* Récupère la couleur de this */
+	public int getCouleur() {
+		return couleur;
+	}
+
 	/** Ensembles des coups possibles du joueur pour un tour donné */
 	private Case[] coupsPossibles;
 	
@@ -58,11 +64,15 @@ public class Joueur {
 	 * @param ligne		la ligne où l'on pose le pion
 	 */
 	public void poserPion(int colonne, int ligne) {
-		//TODO : Programmer la méthode
+		plateau.tableauCase[colonne][ligne].setCouleur(this.getCouleur());
+		plateau.tableauCase[colonne][ligne].appliquerAction();
 	}
 
-	public void paserTour() {
-		//TODO : Programmer la méthode	
+	/**
+	 * Permet de passer son tour à un joueur par choix
+	 */
+	public void passerTour() {
+		//TODO : Programmer la méthode
 	}
 
 	/* (non-Javadoc)
