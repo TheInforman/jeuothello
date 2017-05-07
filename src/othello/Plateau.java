@@ -78,6 +78,7 @@ public class Plateau {
 		 * une case vide sur laquelle le joueur pourra poser son pion.
 		 */
 		for (int i = 0; i < pionsDuJoueur.length; i++) {
+			// TODO tableau ?
 			//haut 	   : li - 1		col
 			//droit	   : li			col + 1
 			//bas	   : li + 1		col
