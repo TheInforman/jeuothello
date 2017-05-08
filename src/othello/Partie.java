@@ -39,7 +39,8 @@ public class Partie {
 	/** Liste des joueurs disputant la partie */
 	private Joueur[] listeJoueur = new Joueur[2];
 	
-	
+
+
 	//TODO : Javadoc
 	/** (constructeur d'état d'instance)
 	 * 
@@ -65,9 +66,29 @@ public class Partie {
 	
 	
 	/**
+	 * @return le numéro du joueur qui doit jouer
+	 */
+	public int getDoitJouer() {
+		return doitJouer;
+	}
+
+
+
+	
+	/**
+	 * @return la liste des joueurs de la partie
+	 */
+	public Joueur[] getListeJoueur() {
+		return listeJoueur;
+	}
+
+
+	
+	
+	/**
 	 * @return le plateau de jeu de la partie
 	 */
-	public Plateau getplateauDeJeu() {
+	public Plateau getPlateauDeJeu() {
 		return plateauDeJeu;
 	}
 	

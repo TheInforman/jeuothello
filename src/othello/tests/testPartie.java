@@ -31,13 +31,37 @@ public class testPartie {
 		partie.tourSuivant();
 		System.out.println(partie);
 		
-		// Test déroulement partie 2 tour (appliquer action pas encore prog)
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+		// Test déroulement de 2 tour 
 		Joueur player1 = new Joueur("Test",0);
 		Joueur player2 = new Joueur();
 		Partie partieTest = new Partie(player1, player2);
-
+		Plateau courant = partieTest.getPlateauDeJeu();
 		
-		//faire la suite avec vincent car je pense qu'il faut modifier des méthodes qu'il a écrit
+		// Fais jouer un tour au joueur un
+		System.out.println(partieTest.getPlateauDeJeu());
+		
+		
+		courant.appliquerCoups(OutilsConsole.demanderCase(courant),
+													partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
+		partieTest.tourSuivant();
+		
+		System.out.println(partieTest.getPlateauDeJeu());
+		
+		// Fais jouer le tour 2 au joueur deux
+		
+		courant.appliquerCoups(OutilsConsole.demanderCase(courant),
+													partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
+		partieTest.tourSuivant();
+		
+		System.out.println(partieTest.getPlateauDeJeu());
+
 		
 	}
 
