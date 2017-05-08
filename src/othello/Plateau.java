@@ -1,6 +1,7 @@
 /*
  * Plateau.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier,
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 
 package othello;
@@ -12,6 +13,7 @@ package othello;
  * @author Vincent G.
  */
 public class Plateau {
+	
 	
 	/** La largeur du plateau */
 	public static final int LARGEUR = 8;
@@ -46,7 +48,7 @@ public class Plateau {
 	
 	//TODO : retrouver pourquoi on retourne une Case déjà.
 	/**
-	 * Applique l'action d'un joueur en retournan les pions de l'adversaire.
+	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
 	 * 
 	 * @param caseConcernee		la case sur laquelle un applique le coups
 	 * @return		TODO compléter et trouver // c'est pour le archiver tour
@@ -156,6 +158,19 @@ public class Plateau {
 
 	/**
 	 * Renvoit un tableau contenant l'ensemble des cases vides du plateau
+	 * Le joueur pose un pion sur le plateau
+	 * @param colonne	la colonne ou l'on poser le pion
+	 * @param ligne		la ligne où l'on pose le pion
+	 */
+	public void poserPion(int colonne, int ligne, int couleur) {
+		tablier[colonne][ligne].setCouleur(couleur);
+		appliquerCoups(tablier[colonne][ligne]);
+	}
+
+	
+	/**
+	 * Renvoi un tableau contenant l'ensemble des cases sur lesquelles
+	 * sont posés des pions d'une couleur donnée.
 	 *
 	 * @param couleur	la couleur des pions que l'on recherche
 	 * @return		l'ensemble des cases de la couleur passée en argument

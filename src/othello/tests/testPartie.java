@@ -1,6 +1,7 @@
 /*
  * testPartie.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier, Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Groupe  Adrien Bouyssou, Vincent Galinier,
+ * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
  */
 package othello.tests;
 
