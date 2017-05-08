@@ -71,6 +71,6 @@ public class Joueur {
 	@Override
 	public String toString() {
 		return "Joueur [nom=" + nom + ", score=" + score + ", couleur=" + couleur + ", peutAgir=" + peutAgir
-				+ ", \ncoupsPossibles=" + Arrays.toString(coupsPossibles) + "]";
+				+ ", coupsPossibles=" + Arrays.toString(coupsPossibles) + "]";
 	}
 }

@@ -21,6 +21,10 @@ public class testJoueur {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		Joueur joueurTest = new Joueur("test", 0);
+		
+		System.out.println(joueurTest);
 
 	}
 

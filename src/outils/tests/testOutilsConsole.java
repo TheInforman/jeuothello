@@ -20,7 +20,7 @@ public class testOutilsConsole {
 	 * @param args inutilisé
 	 */
 	public static void main(String[] args) {
-		//testDemanderCase();
+		testDemanderCase();
 		testDemanderNom();
 	}
 	

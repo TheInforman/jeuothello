@@ -52,7 +52,7 @@ public class Case {
 	public Case(int ligne, int colonne, int couleur) {
 		this.ligne = ligne;
 		this.colonne = colonne;
-		couleur = COULEUR_NEUTRE;
+		setCouleur(couleur);
 	}
 	
 	/**
@@ -70,6 +70,11 @@ public class Case {
 		if (couleurValide(nouvelleCouleur)){
 			couleur = nouvelleCouleur;
 		}
+		//même si c'est faux, une couleur blanche est attribué
+		//dans tous les cas (tester avec 2 / -2 / 5 / -10)
+		//et comme il la couleur ne sera pas touchable par le
+		// joueur, est-il vraiment utile de vérifier qu'elle soit
+		// valide ?
 	}
 	
 	/**
@@ -86,6 +91,9 @@ public class Case {
 		return colonne;
 	}
 	
+	/**
+	 * @return true si la couleur est valide, false sinon
+	 */
 	private boolean couleurValide(int couleurATester) {
 		switch (couleurATester) {
 			case COULEUR_NEUTRE : //fallsthrough
@@ -100,7 +108,7 @@ public class Case {
 	 */
 	@Override
 	public String toString() {
-		return "Case [couleur=" + couleur + ", ligne=" + ligne + ", colonne=" + colonne + "]";
+		return "Case [couleur=" + getCaractere() + ", ligne=" + ligne + ", colonne=" + colonne + "]";
 	}
 	
 	/**

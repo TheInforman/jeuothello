@@ -37,7 +37,7 @@ public class Partie {
 	private boolean partieBloquee;
 	
 	/** Liste des joueurs disputant la partie */
-	private Joueur[] listeJoueur;
+	private Joueur[] listeJoueur = new Joueur[2];
 	
 	
 	//TODO : Javadoc
@@ -52,6 +52,8 @@ public class Partie {
 		
 		partieBloquee = false;
 		
+		plateauDeJeu = new Plateau();
+		
 		tour = 0;
 		doitJouer = 0;
 	}
@@ -61,6 +63,10 @@ public class Partie {
 	
 	//TODO : constructeur dans le cas où on charge une sauvegarde
 	
+	
+	/**
+	 * @return le plateau de jeu de la partie
+	 */
 	public Plateau getplateauDeJeu() {
 		return plateauDeJeu;
 	}
@@ -83,6 +89,7 @@ public class Partie {
 	}
 	
 	/** TODO : Javadoc */
+	@SuppressWarnings("unused")
 	private void actualiserHisto() {
 		//TODO : Programmer la méthode
 	}
@@ -99,7 +106,7 @@ public class Partie {
 	@Override
 	public String toString() {
 		return "Partie [listeCoups=" + Arrays.toString(historiqueCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", partieBloquee=" + partieBloquee + ", listeJoueur=" + Arrays.toString(listeJoueur) + "]";
+				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" + Arrays.toString(listeJoueur) + "]";
 		
 	}
 	

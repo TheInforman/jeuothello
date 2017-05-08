@@ -46,14 +46,15 @@ public class Plateau {
 	
 	//TODO : créer un constructeur dans le cas où l'on charge une sauvegarde
 	
-	//TODO : retrouver pourquoi on retourne une Case déjà.
+	//TODO : retrouver pourquoi on retourne une Case déjà. 
+	// => un tableau de case avec tous les pions changés par l'action qu'on stockera (Kérian)
 	/**
 	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
 	 * 
 	 * @param caseConcernee		la case sur laquelle un applique le coups
 	 * @return		TODO compléter et trouver // c'est pour le archiver tour
 	 */
-	public Case appliquerCoups(Case caseConcernee) {
+	public Case[] appliquerCoups(Case caseConcernee) {
 		//TODO : écrire le corps de la méthode
 		return null;
 	}
@@ -157,7 +158,6 @@ public class Plateau {
 	}
 
 	/**
-	 * Renvoit un tableau contenant l'ensemble des cases vides du plateau
 	 * Le joueur pose un pion sur le plateau
 	 * @param colonne	la colonne ou l'on poser le pion
 	 * @param ligne		la ligne où l'on pose le pion
