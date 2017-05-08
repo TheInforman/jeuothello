@@ -4,6 +4,7 @@
  */
 package othello.tests;
 
+import othello.Case;
 import othello.Plateau;
 
 /**
@@ -22,6 +23,44 @@ public class testPlateau {
 		// TODO Auto-generated method stub
 		Plateau plateau = new Plateau();
 		System.out.println(plateau);
+		
+		/*
+		System.out.println("Le joueur noir peut poser ses pions en : ");
+		
+		Case[] tableauCoupsPossibles = plateau.determinerCoupsPossibles(Case.COULEUR_NOIR);
+		for (int i = 0; i < tableauCoupsPossibles.length; i++) {
+			if (tableauCoupsPossibles[i] != null) {
+				System.out.println(tableauCoupsPossibles[i]);
+			}
+		}*/
+		
+		System.out.println("\n");
+		
+		plateau.tablier[5][4].setCouleur(Case.COULEUR_BLANC);
+
+		System.out.println(plateau);
+		
+		System.out.println("Le joueur noir peut poser ses pions en : ");
+		
+		Case[] tableauCoupsPossibles = plateau.determinerCoupsPossibles(Case.COULEUR_NOIR);
+		for (int i = 0; i < tableauCoupsPossibles.length; i++) {
+			if (tableauCoupsPossibles[i] != null) {
+				System.out.println(tableauCoupsPossibles[i]);
+			}
+		}
+		
+		/*
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][2], Case.COULEUR_NOIR));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][3], Case.COULEUR_NOIR));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][4], Case.COULEUR_NOIR));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][5], Case.COULEUR_NOIR));
+		
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][2], Case.COULEUR_BLANC));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][3], Case.COULEUR_BLANC));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][4], Case.COULEUR_BLANC));
+		System.out.println(plateau.aUnePaire(plateau.tablier[2][5], Case.COULEUR_BLANC));
+		*/
+		
 	}
 
 }

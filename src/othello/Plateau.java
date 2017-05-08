@@ -5,8 +5,6 @@
 
 package othello;
 
-import java.util.Arrays;
-
 /**
  * Un plateau comprenant des cases autour du quel des joueurs disputent
  * une partie.
@@ -67,56 +65,118 @@ public class Plateau {
 	 * @return		une liste de cases où le joueur peut poser ses pions
 	 */
 	public Case[] determinerCoupsPossibles(int couleur) {
-		//TODO : écrire le corps de la méthode
 		
-		/* On détermine quels pions posés sur
-		 * le plateau appartiennent au joueur
-		 */
-		Case[] pionsDuJoueur = toutLesPions(couleur);
+		/* On détermine l'ensemble des cases vides */
+		Case[] casesVides = casesVides();
 		
-		/* Pour chaque pions on détermine s'il peut être couplé avec au moins
-		 * une case vide sur laquelle le joueur pourra poser son pion.
+		//TODO : Voir s'il n'y a pas moyen de faire autrement :
+		/* Tableau des coups possibles */
+		Case[] coupsPossibles = new Case[casesVides.length];
+		
+		int indice = 0;
+		
+		/* Pour chaque cases on détermine si elle peut être couplé avec au moins
+		 * une case sur laquelle un joueur a posé son pion.
 		 */
-		for (int i = 0; i < pionsDuJoueur.length; i++) {
-			// TODO tableau ??
-			//haut 	   : li - 1		col
-			//droit	   : li			col + 1
-			//bas	   : li + 1		col
-			//gauche   : li			col -1
+		for (int i = 0; i < casesVides.length && casesVides[i] !=null ; i++) {
 			
-			//diag h-d : li - 1		col + 1
-			//diag b-d : li + 1		col + 1
-			//diag b-g : li + 1		col - 1
-			//diag h-g : li - 1		col - 1
+			if (aUnePaire(casesVides[i], couleur)) {
+				coupsPossibles[indice] = casesVides[i];
+				indice ++;
+			}
 		}
-		
-		return null;
+		return coupsPossibles;
 	}
 	
 	/**
-	 * Renvoit un tableau contenant l'ensemble des cases sur lesquelles
-	 * sont posés des pions d'une couleur donnée.
+	 * Détermine si la case spécifiée en paramètre a au moins une paire
+	 * @param case1
+	 * @return
+	 */
+	public boolean aUnePaire(Case aCoupler, int couleur) {
+
+		int couleurInverse = couleur == Case.COULEUR_BLANC ?
+				Case.COULEUR_NOIR : Case.COULEUR_BLANC;
+
+		int[][] tableauDeplacement = {{-1,0},{-1,1},{0,1},{1,1},
+				{1,0},{1,-1},{0,-1},{-1,-1}};
+		boolean aUnePaire = false;
+		boolean arretRechercheDirection;  /* booléen passant à vrai lorsqu'on
+		 * sait si la case n'a pas de paire
+		 * dans une direction donnée
+		 */
+		
+		int deplacementLigne,
+			deplacementColonne;
+		
+		/* Pour chaque direction du tableau */
+		for (int direction = 0; direction < tableauDeplacement.length
+				&& !aUnePaire; direction++ ) {
+			arretRechercheDirection = false;
+			
+			deplacementLigne = tableauDeplacement[direction][0];
+			deplacementColonne = tableauDeplacement[direction][1];
+			
+			/* On "avance" d'un pas dans la direction donnée (largeur) */
+			for (int ligne = aCoupler.getLigne() + deplacementLigne,
+					colonne = aCoupler.getColonne() + deplacementColonne;
+					
+					(0 <= colonne && colonne < LARGEUR)
+					&& (0 <= ligne && ligne < HAUTEUR)
+
+					&& !arretRechercheDirection;
+
+					colonne += deplacementColonne, ligne += deplacementLigne) {				
+				
+				/* Si case vide : pas de paire dans cette direction */
+				if (tablier[ligne][colonne].getCouleur()
+						== Case.COULEUR_NEUTRE ) {
+					arretRechercheDirection = true;
+				}
+
+				/* Si la case courante est de la couleur 'couleur' et que
+				 *    la case précédente est de la couleur inverse.
+				 */
+				if (tablier[ligne][colonne].getCouleur() == couleur ) {
+					if (tablier[ligne - deplacementLigne]
+							[colonne - deplacementColonne].getCouleur()
+							== couleurInverse) {
+						arretRechercheDirection = true;
+						aUnePaire = true;
+					} else {
+						arretRechercheDirection = true;
+					}
+				}
+				
+				
+			}
+		}
+		return aUnePaire;
+	}
+
+	/**
+	 * Renvoit un tableau contenant l'ensemble des cases vides du plateau
 	 *
 	 * @param couleur	la couleur des pions que l'on recherche
 	 * @return		l'ensemble des cases de la couleur passée en argument
 	 */
-	private Case[] toutLesPions(int couleur){
+	private Case[] casesVides(){
 
-		int indice = calculerNbPions(couleur);
-		Case[] pionsDuJoueur = new Case[indice];
+		//TODO : init à revoir ?
+		Case[] casesVides = new Case[64];
 		
-		indice = 0;
+		int indice = 0;
 
 		for (int colonne = 0; colonne < LARGEUR; colonne++) {
 			for (int ligne = 0; ligne < HAUTEUR; ligne ++) {
-				if (tablier[colonne][ligne].getCouleur() == couleur) {
-					pionsDuJoueur[indice] = tablier[colonne][ligne];
+				if (tablier[ligne][colonne].getCouleur() == -1) {
+					casesVides[indice] = tablier[ligne][colonne];
 					indice ++;
 				}
 			}
 		}
 		
-		return pionsDuJoueur;
+		return casesVides;
 	}
 	
 	/**
@@ -128,7 +188,7 @@ public class Plateau {
 		int nbPions = 0;
 		for (int colonne = 0; colonne < LARGEUR; colonne++) {
 			for (int ligne = 0; ligne < HAUTEUR; ligne ++) {
-				if (tablier[colonne][ligne].getCouleur() == couleur) {
+				if (tablier[ligne][colonne].getCouleur() == couleur) {
 					nbPions ++;
 				}
 			}
@@ -142,10 +202,10 @@ public class Plateau {
 	 */
 	@Override
 	public String toString() {                                                                                                                 
-		String texte = "";
-		for (int colonne = 0; colonne < LARGEUR; colonne++) {
-			texte += "|";
-			for (int ligne = 0; ligne < HAUTEUR; ligne ++) {
+		String texte = "   0 1 2 3 4 5 6 7 \n";
+		for (int ligne = 0; ligne < HAUTEUR; ligne ++) {
+			texte += ligne + " |";
+			for (int colonne = 0; colonne < LARGEUR; colonne++) {
 				texte += tablier[ligne][colonne].getCaractere() + " ";
 			}
 			texte += "|\n";
