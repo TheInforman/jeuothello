@@ -55,6 +55,7 @@ public class testPartie {
 			}
 		partieTest.tourSuivant();
 		System.out.println(partieTest.getPlateauDeJeu());
+		courant.setActionEffectuer(false);
 		}
 		
 		

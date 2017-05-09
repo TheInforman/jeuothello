@@ -33,8 +33,8 @@ public class Plateau {
 	// -- Note : Java "row major" -> ligne en premier TODO : delete ligne
 	
 	/** Ensembles des coups possibles pour le joueur jouant pendant le tour actuel */
-	private Case[] coupsPossibles = new Case[64];
-	
+	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
+
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};
 	
@@ -96,25 +96,44 @@ public class Plateau {
 			tableauRetour[i] = aRetourner[i-1];
 		}
 		actionEffectuer = true ;
+		coupsPossibles.clear();
+		}else{
+		System.out.println("Vous n'avez pas entrer les coordonées du case possible, veuillez réessayer.");	
 		}
-		
 		return null;
 	}
 	
 	
-	
+	/**
+	 * retourne la valeur du boolean actionEffectuer
+	 * @return actionEffectuer
+	 */
 	public boolean isActionEffectuer() {
 		return actionEffectuer;
 	}
+	
+	/**
+	 * Change l'état du boolean à celui passé en paramètre
+	 * @param actionEffectuer
+	 */
+	public void setActionEffectuer(boolean actionEffectuer) {
+		this.actionEffectuer = actionEffectuer;
+	}
 
+	/**
+	 * Vérifie si la case désigner par le joueur est une case jouable
+	 * @param caseConcernee case désigner par le joueur
+	 * @return true si elle appartient aux coups possibles, false sinon
+	 */
 	private boolean presentCoupPossibles(Case caseConcernee) {
 		boolean present = false;
-		int i = 0;
-		while( i < coupsPossibles.length || present == true ){
-			if(coupsPossibles[i] == null ){
-				
-			}else if(caseConcernee.getColonne() == coupsPossibles[i].getColonne() 
-					&& caseConcernee.getLigne() == coupsPossibles[i].getLigne() )	{
+		int colonneEntrer = caseConcernee.getColonne();
+		int ligneEntrer  = caseConcernee.getLigne();
+		
+		int i=0;
+		while( i < coupsPossibles.size() ){
+			if(colonneEntrer == coupsPossibles.get(i).getColonne() 
+			&& ligneEntrer == coupsPossibles.get(i).getLigne() )	{
 				present = true;
 			}
 			i++;
@@ -239,7 +258,6 @@ public class Plateau {
 		/* Tableau des coups possibles */
 		//Case[] coupsPossibles = new Case[casesVides.length];
 		
-		int indice = 0;
 		
 		/* Pour chaque cases on détermine si elle peut être couplé avec au moins
 		 * une case sur laquelle un joueur a posé son pion.
@@ -247,8 +265,7 @@ public class Plateau {
 		for (int i = 0; i < casesVides.length && casesVides[i] !=null ; i++) {
 			
 			if (aUnePaire(casesVides[i], couleur)) {
-				coupsPossibles[indice] = casesVides[i];
-				indice ++;
+				coupsPossibles.add(casesVides[i]);
 			}
 		}
 		//return coupsPossibles;
@@ -386,7 +403,10 @@ public class Plateau {
 			}
 			texte += "|\n";
 		}
-		texte += "\n\n" + "coupsPossibles=" + Arrays.toString(coupsPossibles);
+		texte += "\n\ncoupsPossibles=\n" ;
+		for(int taille = 0 ; taille < coupsPossibles.size() ; taille++){
+			texte += coupsPossibles.get(taille) + "\n";
+		}
 		return texte;
 	}
 	
