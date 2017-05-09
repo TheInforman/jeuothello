@@ -72,7 +72,12 @@ public class Partie {
 		return doitJouer;
 	}
 
-
+	/**
+	 * @return le numéro du tour
+	 */
+	public int getTour() {
+		return tour;
+	}
 
 	
 	/**

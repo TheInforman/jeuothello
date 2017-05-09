@@ -45,23 +45,23 @@ public class testPartie {
 		Plateau courant = partieTest.getPlateauDeJeu();
 		
 		// Fais jouer un tour au joueur un
+		courant.determinerCoupsPossibles(0);
 		System.out.println(partieTest.getPlateauDeJeu());
 		
-		
+		while(partieTest.getTour() < 60 ) {
+			while( courant.isActionEffectuer() == false ){
 		courant.appliquerCoups(OutilsConsole.demanderCase(courant),
 													partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
+			}
 		partieTest.tourSuivant();
-		
 		System.out.println(partieTest.getPlateauDeJeu());
+		}
 		
-		// Fais jouer le tour 2 au joueur deux
 		
-		courant.appliquerCoups(OutilsConsole.demanderCase(courant),
-													partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
-		partieTest.tourSuivant();
+		int nbBlanc = courant.calculerNbPions(0);
+		int nbNoir = courant.calculerNbPions(1);
+		System.out.println("Score : " + nbBlanc + " à " + nbNoir );
 		
-		System.out.println(partieTest.getPlateauDeJeu());
-
 		
 	}
 

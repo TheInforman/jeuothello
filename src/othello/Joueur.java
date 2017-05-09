@@ -30,9 +30,6 @@ public class Joueur {
 	public int getCouleur() {
 		return couleur;
 	}
-
-	/** Ensembles des coups possibles du joueur pour un tour donné */
-	private Case[] coupsPossibles;
 	
 	/** (constructeur d'état d'instance)
 	 * Joueur définit par son nom et sa couleur
@@ -70,7 +67,6 @@ public class Joueur {
 	 */
 	@Override
 	public String toString() {
-		return "Joueur [nom=" + nom + ", score=" + score + ", couleur=" + couleur + ", peutAgir=" + peutAgir
-				+ ", coupsPossibles=" + Arrays.toString(coupsPossibles) + "]";
+		return "Joueur [nom=" + nom + ", score=" + score + ", couleur=" + couleur + ", peutAgir=" + peutAgir + "]";
 	}
 }

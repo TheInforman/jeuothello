@@ -6,6 +6,8 @@
 
 package othello;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -23,9 +25,15 @@ public class Plateau {
 	/** La hauteur du plateau */ 
 	public static final int HAUTEUR = 8;
 	
+	/** True si le pion a été poser, false sinon */
+	private boolean actionEffectuer = false;
+	
 	/** L'ensemble des cases constituant le plateau */
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
 	// -- Note : Java "row major" -> ligne en premier TODO : delete ligne
+	
+	/** Ensembles des coups possibles pour le joueur jouant pendant le tour actuel */
+	private Case[] coupsPossibles = new Case[64];
 	
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};
@@ -70,9 +78,10 @@ public class Plateau {
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
 		//TODO : écrire le corps de la méthode
-		
+		actionEffectuer = false ;
 		Case[] aRetourner = determinerPionsARetourner(caseConcernee, couleur);
 		
+		if(presentCoupPossibles(caseConcernee)){
 		/* On pose un pion sur la caseConcernee */
 		caseConcernee.setCouleur(couleur); 
 		
@@ -86,10 +95,33 @@ public class Plateau {
 				i++) {
 			tableauRetour[i] = aRetourner[i-1];
 		}
+		actionEffectuer = true ;
+		}
 		
 		return null;
 	}
 	
+	
+	
+	public boolean isActionEffectuer() {
+		return actionEffectuer;
+	}
+
+	private boolean presentCoupPossibles(Case caseConcernee) {
+		boolean present = false;
+		int i = 0;
+		while( i < coupsPossibles.length || present == true ){
+			if(coupsPossibles[i] == null ){
+				
+			}else if(caseConcernee.getColonne() == coupsPossibles[i].getColonne() 
+					&& caseConcernee.getLigne() == coupsPossibles[i].getLigne() )	{
+				present = true;
+			}
+			i++;
+		}
+		return present;
+	}
+
 	/***
 	 *  TODO : jdoc
 	 * @param caseConcernee
@@ -159,7 +191,7 @@ public class Plateau {
 		indice = 0;
 		
 		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
-			if(derniereCase(tableauVueDirectionnel[i]).getCouleur()
+			if(derniereCase(tableauVueDirectionnel[i]) != null && derniereCase(tableauVueDirectionnel[i]).getCouleur()
 					== couleur) {
 				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
@@ -198,14 +230,14 @@ public class Plateau {
 	 * 					les coups possibles
 	 * @return		une liste de cases où le joueur peut poser ses pions
 	 */
-	public Case[] determinerCoupsPossibles(int couleur) {
+	public void determinerCoupsPossibles(int couleur) {
 		
 		/* On détermine l'ensemble des cases vides */
 		Case[] casesVides = casesVides();
 		
 		//TODO : voir s'il n'y a pas un autre moyen de faire l'init ?
 		/* Tableau des coups possibles */
-		Case[] coupsPossibles = new Case[casesVides.length];
+		//Case[] coupsPossibles = new Case[casesVides.length];
 		
 		int indice = 0;
 		
@@ -219,7 +251,7 @@ public class Plateau {
 				indice ++;
 			}
 		}
-		return coupsPossibles;
+		//return coupsPossibles;
 	}
 	
 	/**
@@ -354,6 +386,7 @@ public class Plateau {
 			}
 			texte += "|\n";
 		}
+		texte += "\n\n" + "coupsPossibles=" + Arrays.toString(coupsPossibles);
 		return texte;
 	}
 	
