@@ -169,12 +169,12 @@
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <image>
-                  <Image url="@../Ressource/Jeton0.png" />
+                  <Image url="@../Ressource/Jeton-1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <image>
-                  <Image url="@../Ressource/Jeton1.png" />
+                  <Image url="@../Ressource/Jeton-1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -199,7 +199,7 @@
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <image>
-                  <Image url="@../Ressource/Jeton1.png" />
+                  <Image url="@../Ressource/Jeton-1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="4">
@@ -209,7 +209,7 @@
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <image>
-                  <Image url="@../Ressource/Jeton0.png" />
+                  <Image url="@../Ressource/Jeton-1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">

@@ -22,16 +22,16 @@ import othello.Plateau;
 public class PlateauController {
 
 	/** Image associée à une case vide */
-	private static Image caseVide = new Image("file:///C:/Users/Pierre/Documents/Travail/Info/Java/workspace/MaquetteOthello1/src/Maquette/Ressource/Jeton-1.png");
+	private static Image caseVide = new Image("file:src/Maquette/Ressource/Jeton-1.png");
 	
 	/** Image associée à une case noire */
-	private static Image caseNoire = new Image("file:///C:/Users/Pierre/Documents/Travail/Info/Java/workspace/MaquetteOthello1/src/Maquette/Ressource/Jeton0.png");
+	private static Image caseNoire = new Image("file:src/Maquette/Ressource/Jeton1.png");
 	
 	/** Image associée à une case blanche */
-	private static Image caseBlanche = new Image("file:///C:/Users/Pierre/Documents/Travail/Info/Java/workspace/MaquetteOthello1/src/Maquette/Ressource/Jeton1.png");
+	private static Image caseBlanche = new Image("file:src/Maquette/Ressource/Jeton0.png");
 	
 	public static Joueur player1 = new Joueur("Test",0);
-	public static Joueur player2 = new Joueur();
+	public static Joueur player2 = new Joueur("Test2",1);
 	public static Partie partieTest = new Partie(player1, player2);
 	public static Plateau courant = partieTest.getPlateauDeJeu();
 	
@@ -42,6 +42,10 @@ public class PlateauController {
 		int numCols = 8;
 		int numRows = 8 ;
 
+		courant.determinerCoupsPossibles(partieTest.getDoitJouer());//initialisation
+		System.out.println(partieTest.getPlateauDeJeu());
+		updateTableau(grid);
+		
 		for (int i = 0 ; i < numCols ; i++) {
 			ColumnConstraints colConstraints = new ColumnConstraints();
 			colConstraints.setHgrow(Priority.NEVER);
@@ -57,7 +61,7 @@ public class PlateauController {
 			for (int j = 0; j < numRows; j++) {
 				addPane(i,j);				
 			}
-		
+
 		}
 	}
 
@@ -65,23 +69,21 @@ public class PlateauController {
 	public void addPane(int colIndex, int rowIndex) {
 		Pane pane = new Pane();	
 		
+
 		
 		pane.setOnMouseClicked(e -> {
 			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	
 			// Fais jouer un tour au joueur un
-			courant.determinerCoupsPossibles(0);//initialisation
-			System.out.println(partieTest.getPlateauDeJeu());
 			courant.appliquerCoups(courant.othellier[rowIndex][colIndex],
 						  		   partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
 			if (courant.isActionEffectuer() == true){	//Le joueur courant reste le même tant que son coup n'est pas valide
 				partieTest.tourSuivant();
-				//mise à jour du tableau*/
+				//mise à jour du tableau
 				updateTableau(grid);	
 			}
 			
 			System.out.println(partieTest.getPlateauDeJeu());
 			courant.setActionEffectuer(false);
-			System.out.println(partieTest.getDoitJouer());
 			//calcul du score
 			int nbBlanc = courant.calculerNbPions(0);
 			int nbNoir = courant.calculerNbPions(1);
@@ -122,4 +124,10 @@ public class PlateauController {
 			}
 		}
 	}
+	
+	public static void debutPartie() {
+		courant.determinerCoupsPossibles(partieTest.getDoitJouer());//initialisation
+		System.out.println(partieTest.getPlateauDeJeu());
+	}
+	
 }
