@@ -10,7 +10,7 @@ public class RecapitulatifController {
 	@FXML
 	public Button retour;
 
-	private RecapitulatifController () {
+	public RecapitulatifController () {
 		//TODO 
 	}
 	
