@@ -185,6 +185,7 @@ public class Main extends Application {
     		Plateau.setScene(scene);
     		
     		
+    		
     		//Affiche la fenêtre et ferme la fenêtre précédente
     		primaryStage.close();
     		Plateau.show();

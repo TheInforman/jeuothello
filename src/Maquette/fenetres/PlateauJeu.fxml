@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="anchor" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauController">
+<AnchorPane fx:id="anchor" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="35.0" layoutY="28.0" minHeight="256.0" minWidth="256.0" prefHeight="256.0" prefWidth="256.0" AnchorPane.bottomAnchor="216.0" AnchorPane.rightAnchor="209.0">
         <columnConstraints>
@@ -353,6 +354,20 @@
             </ImageView>
          </children>
       </GridPane>
+      <Label fx:id="lbl_blanc" layoutX="336.0" layoutY="96.0" text="Blanc" />
+      <Label fx:id="lbl_scoreBlanc" layoutX="416.0" layoutY="96.0" />
+      <Label fx:id="lbl_noir" layoutX="336.0" layoutY="131.0" text="Noir" />
+      <Label fx:id="lbl_scoreNoir" layoutX="416.0" layoutY="131.0" />
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="319.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Ressource/Jeton0.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="319.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Ressource/Jeton1.png" />
+         </image>
+      </ImageView>
    </children>
    <rotationAxis>
       <Point3D />
