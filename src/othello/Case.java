@@ -29,9 +29,6 @@ public class Case {
 	/** numéro de la colonne */
 	private int colonne;
 	
-	
-	//TODO où est la correspondance numéro de couleur - couleur ?
-	
     /** (constructeur d'état d'instance)
      * Case définie par sa position et sa couleur
      * @param ligne		la ligne
@@ -108,11 +105,11 @@ public class Case {
 	 */
 	@Override
 	public String toString() {
-		return "Case [couleur=" + getCaractere() + ", ligne=" + ligne + ", colonne=" + colonne + "]";
+		return "Case [couleur=" + getCaractere() + ", ligne=" + ligne
+				+ ", colonne=" + colonne + "]";
 	}
 	
 	/**
-	 * 
 	 * @return		le caractère associé à la couleur de la case
 	 */
 	public char getCaractere() {

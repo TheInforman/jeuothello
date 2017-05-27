@@ -2,19 +2,19 @@
  * Plateau.java                                            06/05/2017
  * Groupe  Adrien Bouyssou, Vincent Galinier,
  * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * 			TODO : Rendre le "Groupe" conventionnel avec un @author
  */
 
 package othello;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+
 
 /**
  * Un plateau comprenant des cases autour du quel des joueurs disputent
  * une partie.
  * 
- * @author Vincent G.
+ * @author Vincent G. , Kerian G.
  */
 public class Plateau {
 	
@@ -30,9 +30,8 @@ public class Plateau {
 	
 	/** L'ensemble des cases constituant le plateau */
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
-	// -- Note : Java "row major" -> ligne en premier TODO : delete ligne
 	
-	/** Ensembles des coups possibles pour le joueur jouant pendant le tour actuel */
+	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
 	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
@@ -40,8 +39,8 @@ public class Plateau {
 	
 	/** (constructeur d'état d'instance)
 	 *  Plateau définit par son contenu.
-	 * 	Crée un nouvel objet plateau et l'initialise avec deux pions de chaque
-	 *  couleur au centre.
+	 * 	Crée un nouvel objet plateau et l'initialise
+	 *  avec deux pions de chaque couleur au centre.
 	 *  TODO : plus d'explications ?
 	 */
 	public Plateau() {
@@ -61,7 +60,6 @@ public class Plateau {
 	
 	/**
 	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
-	 * TODO : savoir si on pose le premier pion dans cette méthode ou pas
 	 * 
 	 * @param caseConcernee		la case sur laquelle un applique le coups,
 	 * 							il aura fallu au préalable vérifier qu'un coup
@@ -77,28 +75,30 @@ public class Plateau {
 	 *  					   archive les coups joués
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
-		//TODO : écrire le corps de la méthode
 		actionEffectuer = false ;
 		Case[] aRetourner = determinerPionsARetourner(caseConcernee, couleur);
-		
+
 		if(presentCoupPossibles(caseConcernee)){
-		/* On pose un pion sur la caseConcernee */
-		caseConcernee.setCouleur(couleur); 
-		
-		for (int i = 0; i < aRetourner.length && aRetourner[i] != null ; i++) {
-			aRetourner[i].setCouleur(couleur);
-		}
-		
-		Case[] tableauRetour = new Case[aRetourner.length + 1];
-		tableauRetour[0] = caseConcernee;
-		for (int i = 1; i < tableauRetour.length && aRetourner[i-1] != null;
-				i++) {
-			tableauRetour[i] = aRetourner[i-1];
-		}
-		actionEffectuer = true ;
-		coupsPossibles.clear();
+			/* On pose un pion sur la caseConcernee */
+			caseConcernee.setCouleur(couleur); 
+
+			for (int i = 0; i < aRetourner.length && aRetourner[i] != null ;
+					i++) {
+				aRetourner[i].setCouleur(couleur);
+			}
+
+			Case[] tableauRetour = new Case[aRetourner.length + 1];
+			tableauRetour[0] = caseConcernee;
+			for (int i = 1; i < tableauRetour.length && aRetourner[i-1] != null;
+					i++) {
+				tableauRetour[i] = aRetourner[i-1];
+			}
+			actionEffectuer = true ;
+			coupsPossibles.clear();
 		}else{
-		System.out.println("Vous n'avez pas entrer les coordonées du case possible, veuillez réessayer.");	
+			System.out.println("Vous n'avez pas entré les coordonées"
+					+ "du case possible, veuillez réessayer.");
+			//TODO : à enlever, pas de syso ici
 		}
 		return null;
 	}
@@ -121,9 +121,10 @@ public class Plateau {
 	}
 
 	/**
-	 * Vérifie si la case désigner par le joueur est une case jouable
-	 * @param caseConcernee case désigner par le joueur
-	 * @return true si elle appartient aux coups possibles, false sinon
+	 * Vérifie si la case désigée par le joueur est une case jouable.
+	 * 
+	 * @param 	caseConcernee 	case désigner par le joueur
+	 * @return 		true si elle appartient aux coups possibles, false sinon
 	 */
 	private boolean presentCoupPossibles(Case caseConcernee) {
 		boolean present = false;
@@ -219,8 +220,7 @@ public class Plateau {
 				}
 			}
 		}
-		
-		return listePionsARetourner; //STUB 
+		return listePionsARetourner;
 	}
 	
 	/**
@@ -283,9 +283,9 @@ public class Plateau {
 
 		boolean aUnePaire = false;
 		boolean arretRechercheDirection;  /* booléen passant à vrai lorsqu'on
-		 * sait si la case n'a pas de paire
-		 * dans une direction donnée
-		 */
+		 								   * sait si la case n'a pas de paire
+		 								   * dans une direction donnée
+		 								   */
 		
 		int deplacementLigne,
 			deplacementColonne;
