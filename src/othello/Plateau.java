@@ -113,7 +113,7 @@ public class Plateau {
 	}
 	
 	/**
-	 * Change l'état du boolean à celui passé en paramère
+	 * Change l'état du boolean à celui passé en paramètre
 	 * @param actionEffectuer
 	 */
 	public void setActionEffectuer(boolean actionEffectuer) {
