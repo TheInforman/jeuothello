@@ -113,7 +113,7 @@ public class Plateau {
 	}
 	
 	/**
-	 * Change l'état du boolean à celui passé en paramètre
+	 * Change l'état du boolean à celui passé en paramère
 	 * @param actionEffectuer
 	 */
 	public void setActionEffectuer(boolean actionEffectuer) {
@@ -229,7 +229,7 @@ public class Plateau {
 	 * 
 	 * @param ligneDeCases	le tableau où l'on souhaite déterminer le dernier 
 	 * 						élément non nul
-	 * @return		la dernière case non nulle du tableau passé en paramère
+	 * @return		la dernière case non nulle du tableau passé en paramètre
 	 */
 	private Case derniereCase(Case[] ligneDeCases) {
 		Case derniereCaseValide = null;
