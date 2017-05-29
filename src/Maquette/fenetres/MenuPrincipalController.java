@@ -75,7 +75,7 @@ public class MenuPrincipalController {
      */
     @FXML
     private void handleCharger() {
-    	Main.SelectionFichier();
+    	Main.selectionFichier();
     }
     
     @FXML

@@ -6,11 +6,16 @@
 
 package othello;
 
+import java.io.Serializable;
+
 /**
  * Case constituant le plateau de jeu
  * @author Vincent G.
  */
-public class Case {
+public class Case implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	/** Entier associé à une case vide */
 	public static final int COULEUR_NEUTRE = -1;
 	

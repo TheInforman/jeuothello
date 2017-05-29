@@ -11,10 +11,12 @@ import Maquette.fenetres.PlateauController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import othello.Joueur;
 import othello.Partie;
+import outils.OutilFichier;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -185,6 +187,7 @@ public class Main extends Application {
     		Plateau.setScene(scene);
     		
     		
+    		
     		//Affiche la fenêtre et ferme la fenêtre précédente
     		primaryStage.close();
     		Plateau.show();
@@ -222,11 +225,28 @@ public class Main extends Application {
      * Lorsqu'un utilisateur clique sur le bouton "charger une partie", ouvre
      * un explorateur de fichier grâce auquel il ira choisir sa sauvegarde
      */
-    public static void SelectionFichier() {
+    public static void selectionFichier() {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Choix de la Sauvegarde");
-    	fileChooser.showOpenDialog(primaryStage);
-    }
+    	
+    	fileChooser.getExtensionFilters().addAll(
+    	         new ExtensionFilter("Fichier de sauvegarde", "*.bin"),
+    	         new ExtensionFilter("All Files", "*.*")
+    	         );
+    	File selectedFile = fileChooser.showOpenDialog(primaryStage);
+    	 if (selectedFile != null) {
+    		 System.out.println("fichier selectionné");
+    		 
+    		 Partie partieRestauree =
+    			OutilFichier.restaurerPartie(selectedFile.getName());
+    		 System.out.println(selectedFile.getName());
+    		 System.out.println(partieRestauree);
+    		 
+    		 primaryStage.close();
+    		 PlateauController.restaurerPartie(partieRestauree);
+    		 Main.showPlateau();
+    	 }
+    }	
 	
     /**
      * Lancement de l'application
