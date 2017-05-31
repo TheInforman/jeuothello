@@ -51,13 +51,13 @@ public class testPartie {
 		System.out.println(partieTest.getPlateau());
 
 		while(partieTest.getTour() < 60 ) {
-			while( courant.isActionEffectuer() == false ){
+			while( courant.isActionEffectuee() == false ){
 				courant.appliquerCoups(OutilsConsole.demanderCase(courant),
 						partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
 			}
 			partieTest.tourSuivant();
 			System.out.println(partieTest.getPlateau());
-			courant.setActionEffectuer(false);
+			courant.setActionEffectuee(false);
 		}
 
 
