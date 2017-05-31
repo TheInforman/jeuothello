@@ -272,6 +272,20 @@ public class PlateauController {
 	@FXML
 	private void enregistrerPartie() {
 		System.out.println("Enregistrement de la partie");
+		
+		if (!OutilFichier.isRepertoireOthelloExistant()) {
+    		System.out.println("Le répertoire Othello n'existe pas");
+    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+    		if (repertoireCree) {
+    			System.out.println("Répertoire créé avec succès");
+    		} else {
+    			System.out.println("Le répertoire n'a pas pu être créé"
+    					+ " à l'emplacement "
+    					+ OutilFichier.getRepertoireParDefaut());
+    			return;
+    		}
+    	}
+		
 		OutilFichier.enregistrerPartie(partieCourante);
 		//TODO : Quitter
 	}

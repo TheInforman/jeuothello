@@ -7,6 +7,8 @@ package Maquette;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.filechooser.FileSystemView;
+
 import Maquette.fenetres.PlateauController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -226,20 +228,43 @@ public class Main extends Application {
      * un explorateur de fichier grâce auquel il ira choisir sa sauvegarde
      */
     public static void selectionFichier() {
+    	
+    	if (!OutilFichier.isRepertoireOthelloExistant()) {
+    		System.out.println("Le répertoire Othello n'existe pas");
+    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+    		if (repertoireCree) {
+    			System.out.println("Répertoire créé avec succès");
+    		} else {
+    			System.out.println("Le répertoire n'a pas pu être créé"
+    					+ " à l'emplacement "
+    					+ OutilFichier.getRepertoireParDefaut());
+    			return;
+    		}
+    	}
+    	
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Choix de la Sauvegarde");
+    	
+    	fileChooser.setTitle("Sélection de la Sauvegarde");
     	
     	fileChooser.getExtensionFilters().addAll(
-    	         new ExtensionFilter("Fichier de sauvegarde", "*.bin"),
+    	         new ExtensionFilter("Sauvegarde Othello",
+    	        		 "*" + OutilFichier.getExtensionSauvegarde()),
     	         new ExtensionFilter("All Files", "*.*")
     	         );
+    	fileChooser.setInitialDirectory(
+    			OutilFichier.getPathRepertoireOthello()
+    			);
+    	
     	File selectedFile = fileChooser.showOpenDialog(primaryStage);
     	 if (selectedFile != null) {
     		 System.out.println("fichier selectionné");
     		 
     		 Partie partieRestauree =
-    			OutilFichier.restaurerPartie(selectedFile.getName());
+    			OutilFichier.restaurerPartie(
+    					selectedFile.getAbsolutePath()
+    					);
     		 System.out.println(selectedFile.getName());
+    		 System.out.println(selectedFile.getAbsolutePath());
     		 System.out.println(partieRestauree);
     		 
     		 primaryStage.close();
