@@ -1,8 +1,6 @@
 /*
  * Plateau.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
- * 			TODO : Rendre le "Groupe" conventionnel avec un @author
+ * Tous droits réservés à l'IUT de Rodez
  */
 
 package othello;
@@ -16,10 +14,15 @@ import java.io.Serializable;
  * Un plateau comprenant des cases autour du quel des joueurs disputent
  * une partie.
  * 
- * @author Vincent G. , Kerian G.
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Plateau implements Serializable {
 
+	//TO DO: Expliquer à quoi ça sert
 	private static final long serialVersionUID = 1L;
 
 
@@ -38,16 +41,21 @@ public class Plateau implements Serializable {
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
 	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
+	/** 
+	 * Tableau à deux dimensions représentant les déplacement 
+	 * dans toutes les directions possibles sur un plateau de jeu,
+	 * c'est à dire les lignes, colonnes,  diagonales
+	 */
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};
-	
-	
+
+
 
 	/** (constructeur d'état d'instance)
-	 *  Plateau définit par son contenu.
-	 * 	Crée un nouvel objet plateau et l'initialise
-	 *  avec deux pions de chaque couleur au centre.
-	 *  TODO : plus d'explications ?
+	 * 	Crée un nouvel objet plateau de 8x8 et l'initialise
+	 *  avec deux pions de chaque couleur en damier sur le
+	 *  carré central du plateau.
+	 *  Ceci est la configuration de départ de toutes parties d'othello
 	 */
 	public Plateau() {
 		for (int colonne = 0; colonne < LARGEUR; colonne++) {
@@ -80,23 +88,24 @@ public class Plateau implements Serializable {
 	 *  					   archive les coups joués
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
+		// TO DO : commentaire détaillé
 		actionEffectuer = false ;
-		Case[] aRetourner = determinerPionsARetourner(caseConcernee, couleur);
+		ArrayList<Case> aRetourner = determinerPionsARetourner(caseConcernee, couleur);
 
 		if(presentCoupPossibles(caseConcernee)){
 			/* On pose un pion sur la caseConcernee */
 			caseConcernee.setCouleur(couleur); 
 
-			for (int i = 0; i < aRetourner.length && aRetourner[i] != null ;
+			for (int i = 0; i < aRetourner.size() && aRetourner.get(i) != null ;
 					i++) {
-				aRetourner[i].setCouleur(couleur);
+				aRetourner.get(i).setCouleur(couleur);
 			}
 
-			Case[] tableauRetour = new Case[aRetourner.length + 1];
+			Case[] tableauRetour = new Case[aRetourner.size() + 1];
 			tableauRetour[0] = caseConcernee;
-			for (int i = 1; i < tableauRetour.length && aRetourner[i-1] != null;
+			for (int i = 1; i < tableauRetour.length && aRetourner.get(i-1) != null;
 					i++) {
-				tableauRetour[i] = aRetourner[i-1];
+				tableauRetour[i] = aRetourner.get(i-1);
 			}
 			actionEffectuer = true ;
 			coupsPossibles.clear();
@@ -126,93 +135,88 @@ public class Plateau implements Serializable {
 	}
 
 	/**
-	 * Vérifie si la case désigée par le joueur est une case jouable.
+	 * Vérifie si la case désignée par le joueur est une case jouable.
 	 * 
 	 * @param 	caseConcernee 	case désigner par le joueur
-	 * @return 		true si elle appartient aux coups possibles, false sinon
+	 * @return 	true si elle appartient aux coups possibles, false sinon
 	 */
 	private boolean presentCoupPossibles(Case caseConcernee) {
 		boolean present = false;
-		int colonneEntrer = caseConcernee.getColonne();
-		int ligneEntrer  = caseConcernee.getLigne();
 
-		int i=0;
-		while( i < coupsPossibles.size() ){
-			if(colonneEntrer == coupsPossibles.get(i).getColonne() 
-					&& ligneEntrer == coupsPossibles.get(i).getLigne() )	{
+		for(int i = 0; i < coupsPossibles.size() ; i++ ){
+			if( caseConcernee.equals(coupsPossibles.get(i))){
 				present = true;
 			}
-			i++;
 		}
 		return present;
 	}
 
 	/***
-	 *  TODO : jdoc
-	 * @param caseConcernee
-	 * @param couleur
+	 *  Méthode qui détermine les cases qui seront
+	 *  à retournées suite au coup du joueur
+	 *  
+	 * @param caseCentrale à partir de laquelle on va faire les recherches
+	 * 		  en lignes et diagonales pour déterminer les pions à retourner
+	 * @param couleur du pion posé sur la caseCentrale par le joueur
 	 * @return
 	 */
-	private Case[] determinerPionsARetourner(Case caseCentrale, int couleur) {
-
-		Case[] listePionsARetourner = new Case[21]; //TODO Valeur calculée
-		//21 étant le nombre maximal de pions qu'il est possible de retourner
-		//en un tour
-
-		int deplacementLigne,
-		deplacementColonne;
-
+	private ArrayList<Case> determinerPionsARetourner(Case caseCentrale, int couleur) {
+		ArrayList<Case> PionsARetourner = new ArrayList<Case>();
+		
+		/** int de déplacement le long des lignes */ 
+		int deplacementLigne;
+		
+		/** int de déplacement le long des colonnes */ 
+		int deplacementColonne;
+		
+		/** boolean d'arret de recherche dans une direction */
 		boolean arretRechercheDirection;
-
+		
+		/** initialisation de l'indice du tableau directionnel */
 		int indice;
 
-		/* TODO : clarifier 
-		 * Tableau dans lequel on va stocker l'ensemble des cases directement
-		 * sur la ligne, la colonne et les diagonales de la case.
+		/** 
+		 * Tableau à deux dimensions de Cases dans lequel on stocke
+		 * l'ensemble des pions présents dans les directions
+		 * autour de la case centrale
 		 */
 		Case[][] tableauVueDirectionnel = new Case[8][8];
 
-		/* Pour chaque direction du tableau */
-		for (int direction = 0; direction < TABL_DEPLACEMENT.length;
-				direction++ ) {
-
+		/* Pour chaque direction du tableau de déplacement */
+		for (int direction =0; direction<TABL_DEPLACEMENT.length; direction++){
+			
+			/* initialisation de chaque boucle de recherche */
 			arretRechercheDirection = false;
 			indice = 0;
-
 			deplacementLigne = TABL_DEPLACEMENT[direction][0];
 			deplacementColonne = TABL_DEPLACEMENT[direction][1];
 
-			/* On "avance" d'un pas dans la direction donnée (largeur) */
+			/* On se déplace d'une case dans la 
+			   direction donnée en ne sortant pas du plateau */
 			for (int ligne = caseCentrale.getLigne() + deplacementLigne,
-					colonne = caseCentrale.getColonne() + deplacementColonne;
+				 colonne = caseCentrale.getColonne() + deplacementColonne;
 
-					(0 <= colonne && colonne < LARGEUR)
-					&& (0 <= ligne && ligne < HAUTEUR)
-					&& !arretRechercheDirection;
+				 (0 <= colonne && colonne < LARGEUR)
+				 && (0 <= ligne && ligne < HAUTEUR)
+				 && !arretRechercheDirection;
 
-					colonne += deplacementColonne, ligne += deplacementLigne) {
-
-				if (othellier[ligne][colonne].getCouleur()
-						== Case.COULEUR_NEUTRE
-						|| othellier[ligne][colonne].getCouleur()
-						== couleur) {
+				 colonne += deplacementColonne, ligne += deplacementLigne) {
+				
+				/* Si la case est vide ou de la même couleur que le 
+				   pion placé on arrête la recherche dans cette direction */
+				if (othellier[ligne][colonne].getCouleur() == Case.COULEUR_NEUTRE
+					|| othellier[ligne][colonne].getCouleur() == couleur) {
+					
 					arretRechercheDirection = true;
+					
 				}
 
-				tableauVueDirectionnel[direction][indice]
-						= othellier[ligne][colonne];
+				tableauVueDirectionnel[direction][indice] = othellier[ligne][colonne];
 				indice ++;
 
 			}
 		}
-
-		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
-			for (int j = 0; j < tableauVueDirectionnel[i].length
-					&& tableauVueDirectionnel[i][j] != null; j++) {
-			}
-
-		}
-
+		
 		indice = 0;
 
 		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
@@ -220,12 +224,12 @@ public class Plateau implements Serializable {
 					== couleur) {
 				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
-					listePionsARetourner[indice] = tableauVueDirectionnel[i][j];
+					PionsARetourner.add(tableauVueDirectionnel[i][j]) ;
 					indice ++;
 				}
 			}
 		}
-		return listePionsARetourner;
+		return PionsARetourner;
 	}
 
 	/**

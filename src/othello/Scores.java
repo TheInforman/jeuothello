@@ -1,5 +1,5 @@
 /* Scores.java		29/05/2017
- * IUT Rodez 
+ * Tous droits réservés à l'IUT de Rodez
  */
 package othello;
 
@@ -7,8 +7,12 @@ package othello;
  * Gestion des 6 derniers scores des gagnants d'une partie. 
  * Les scores sont définis par le nom du joueur gagnant, son score
  * et la date à laquelle il a gagné 
- * @author Arthur
- *
+ * 
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Scores {
 	

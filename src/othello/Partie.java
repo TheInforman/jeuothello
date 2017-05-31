@@ -1,7 +1,6 @@
 /*
  * Partie.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Tous droits réservés à l'IUT de Rodez
  */
 
 package othello;
@@ -12,7 +11,12 @@ import java.io.Serializable;
 
 /**
  * Partie conçernant un plateau de cases et des joueurs
- * @author Vincent G. , Kerian G.
+ * 
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Partie implements Serializable {
 
