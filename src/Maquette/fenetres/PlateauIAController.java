@@ -1,4 +1,4 @@
-/* PlateauController		08/05/2017
+/* PlateauController		31/05/2017
  * info1 groupe Othello
  */
 package Maquette.fenetres;
@@ -6,35 +6,28 @@ package Maquette.fenetres;
 
 import Maquette.Main;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-import othello.Case;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
 import outils.OutilFichier;
 
 /**
- * Controller du plateau de jeu
+ * Controller du plateau de jeu avec l'IA. A la différence de PlateauController, 
+ * un seul joueur humain est présent. 
  * @author Arthur Pradier, Mickaël Queudet
  */
-public class PlateauController {
-
-	/** Image associée à une case vide */
-	private static Image caseVide =
-			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+public class PlateauIAController {
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
@@ -136,7 +129,7 @@ public class PlateauController {
 			
 			//Le joueur courant reste le même tant que son coup n'est pas valide
 			if (partieCourante.getPlateau().isActionEffectuer() == true){	
-				partieCourante.tourSuivant();
+				partieCourante.tourSuivant(); //TODO méthode pour faire jouer son tour à l'ia avec une latence
 				//mise à jour du tableau
 				updateTableau(grid);	
 			}

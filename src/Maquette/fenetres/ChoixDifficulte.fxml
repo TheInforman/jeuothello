@@ -13,9 +13,8 @@
          </font>
       </Label>
       <Button fx:id="Aide" layoutX="380.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleAide" text="AIDE" AnchorPane.topAnchor="200.0" />
-      <Button layoutX="196.0" layoutY="275.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="FACILE" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="204.0" />
-      <Button layoutX="196.0" layoutY="338.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="NORMAL" />
-      <Button layoutX="196.0" layoutY="403.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="DIFFICILE" />
+      <Button fx:id="Facile" layoutX="196.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleChoixDifficulte" prefHeight="40.0" prefWidth="400.0" text="FACILE" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="204.0" />
+      <Button fx:id="Normal" layoutX="196.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleChoixDifficulte" prefHeight="40.0" prefWidth="400.0" text="NORMAL" />
       <Button fx:id="MenuPrincipal" layoutX="341.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="MENU PRINCIPAL" AnchorPane.bottomAnchor="66.0" AnchorPane.topAnchor="509.0" />
    </children>
 </AnchorPane>

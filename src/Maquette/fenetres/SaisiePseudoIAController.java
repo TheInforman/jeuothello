@@ -11,18 +11,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * Gère la saisie des pseudos des deux utilisateurs sur la fenêtre associée
+ * Gère la saisie du pseudo de l'utilisateur lorsqu'il veut jouer contre l'IA
  * @author Arthur Pradier Mickaël Queudet
  */
-public class SaisiePseudoController {
+public class SaisiePseudoIAController {
 
 	/** le champ texte ou le joueur 1 entrera son pseudo */
 	@FXML
 	public TextField tf_pseudoJ1;
-
-	/** le champ texte ou le joueur 2 entrera son pseudo */
-	@FXML 
-	public TextField tf_pseudoJ2;
 
 	/** Bouton permettant de retourner au menu principal */
 	@FXML
@@ -39,7 +35,7 @@ public class SaisiePseudoController {
 	/**
 	 * Constructeur de la classe
 	 */
-	public SaisiePseudoController() {
+	public SaisiePseudoIAController() {
 
 	}
 
@@ -62,8 +58,8 @@ public class SaisiePseudoController {
 	public void handleValider(ActionEvent event) {
 		Stage stage = (Stage) Valider.getScene().getWindow();
 		stage.close();
-		PlateauController.initPartie(tf_pseudoJ1.getText(), tf_pseudoJ2.getText());
-		Main.showPlateau();
+		PlateauController.initPartie(tf_pseudoJ1.getText(), "Bot"); //attribution d'un nom par défaut à l'IA
+		Main.showPlateauIA();
 	}
 
 	/**
@@ -72,8 +68,5 @@ public class SaisiePseudoController {
 	public void handleAide() {
 		Main.showAide();
 	}
-
-	
-
 
 }
