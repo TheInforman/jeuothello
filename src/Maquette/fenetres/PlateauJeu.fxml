@@ -370,11 +370,7 @@
          </image>
       </ImageView>
       <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" onAction="#enregistrerPartie" text="Sauvegarder" />
-<<<<<<< HEAD
       <Button fx:id="MenuPrincipal" layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="Menu principal" />
-=======
-      <Button layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#quitterPartie" text="Menu principal" />
->>>>>>> branch 'master' of https://github.com/TheInforman/jeuothello
    </children>
    <rotationAxis>
       <Point3D />
