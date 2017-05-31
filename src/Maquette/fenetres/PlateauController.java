@@ -33,10 +33,6 @@ import outils.OutilFichier;
  * @author Arthur Pradier, Mickaël Queudet
  */
 public class PlateauController {
-
-	/** Image associée à une case vide */
-	private static Image caseVide =
-			new Image("file:src/Maquette/Ressource/Jeton-1.png");
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
@@ -100,7 +96,8 @@ public class PlateauController {
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
 		
-		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
+		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
+
 		
 		System.out.println(plateauCourant);
 		updateTableau(grid);
@@ -134,29 +131,47 @@ public class PlateauController {
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {
+
+			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	
+
+			
+			// Fais jouer un tour au joueur un
+
 			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	//TODO suprimmer l'affichage console
 			setQuiDoitJouer(partieCourante.getDoitJouer());
 			// Fais jouer un tour au joueur courant
+
 			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
 					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
 			
 			//Le joueur courant reste le même tant que son coup n'est pas valide
 			if (partieCourante.getPlateau().isActionEffectuer() == true){	
+				
 				partieCourante.tourSuivant();
 				//mise à jour du tableau
 				updateTableau(grid);	
+				
 			}
 
 			System.out.println(partieCourante.getPlateau());
+			
 			partieCourante.getPlateau().setActionEffectuer(false);
+			
 			//calcul du score
 			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
+			
 			System.out.println(partieCourante.getDoitJouer());
+			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
+
+			
+			// actualise le score actuel de la partie
+			changerScore(nbBlanc, nbNoir);
+
 			System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
 			changerScore(nbBlanc, nbNoir); //mise à jour du score après le coup du joueur
-			
+
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				partieCourante.tourSuivant();
 				System.out.println("TOUR PASSE");
@@ -241,22 +256,6 @@ public class PlateauController {
 					new Joueur(pseudo_J1, 1)
 					);
 		}
-	}
-	
-	public void determinerBlanc(){
-		// boolean J1commence = (Math.random() > 0.5) ? true : false;
-		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
-		
-		/*
-		if (Math.random() > 0.5){
-			lbl_blanc.setText(pseudoJ1);
-			lbl_noir.setText(pseudoJ2);
-			
-		} else {
-			lbl_blanc.setText(pseudoJ2);
-			lbl_noir.setText(pseudoJ1);
-		}
-		*/
 	}
 	
 	/**

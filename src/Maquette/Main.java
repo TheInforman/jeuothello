@@ -7,8 +7,12 @@ package Maquette;
 
 import java.io.File;
 import java.io.IOException;
+
+
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 
 import Maquette.fenetres.PlateauController;
 
@@ -20,10 +24,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 import othello.Partie;
 import outils.OutilFichier;
+
 
 /**
  * Classe gérant le lancement des différentes fenêtres
@@ -38,7 +42,8 @@ public class Main extends Application {
     /**
      * Lancement de l'application
      */
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Othello");
