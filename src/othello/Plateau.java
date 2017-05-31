@@ -29,8 +29,8 @@ public class Plateau implements Serializable {
 	/** La hauteur du plateau */ 
 	public static final int HAUTEUR = 8;
 
-	/** True si le pion a été poser, false sinon */
-	private boolean actionEffectuer = false;
+	/** True si le pion a été posé, false sinon */
+	private boolean actionEffectuee = false;
 
 	/** L'ensemble des cases constituant le plateau */
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
@@ -80,7 +80,7 @@ public class Plateau implements Serializable {
 	 *  					   archive les coups joués
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
-		actionEffectuer = false ;
+		actionEffectuee = false ;
 		Case[] aRetourner = determinerPionsARetourner(caseConcernee, couleur);
 
 		if(presentCoupPossibles(caseConcernee)){
@@ -98,7 +98,7 @@ public class Plateau implements Serializable {
 					i++) {
 				tableauRetour[i] = aRetourner[i-1];
 			}
-			actionEffectuer = true ;
+			actionEffectuee = true ;
 			coupsPossibles.clear();
 		}else{
 			System.out.println("Vous n'avez pas entré des coordonnées"
@@ -113,16 +113,16 @@ public class Plateau implements Serializable {
 	 * retourne la valeur du boolean actionEffectuer
 	 * @return actionEffectuer
 	 */
-	public boolean isActionEffectuer() {
-		return actionEffectuer;
+	public boolean isActionEffectuee() {
+		return actionEffectuee;
 	}
 
 	/**
 	 * Change l'état du boolean à celui passé en paramètre
 	 * @param actionEffectuer
 	 */
-	public void setActionEffectuer(boolean actionEffectuer) {
-		this.actionEffectuer = actionEffectuer;
+	public void setActionEffectuee(boolean actionEffectuer) {
+		this.actionEffectuee = actionEffectuer;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class Plateau implements Serializable {
 	 * @param couleur
 	 * @return
 	 */
-	private Case[] determinerPionsARetourner(Case caseCentrale, int couleur) {
+	public Case[] determinerPionsARetourner(Case caseCentrale, int couleur) {
 
 		Case[] listePionsARetourner = new Case[21]; //TODO Valeur calculée
 		//21 étant le nombre maximal de pions qu'il est possible de retourner
@@ -205,7 +205,7 @@ public class Plateau implements Serializable {
 
 			}
 		}
-
+		
 		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
 			for (int j = 0; j < tableauVueDirectionnel[i].length
 					&& tableauVueDirectionnel[i][j] != null; j++) {
@@ -275,6 +275,14 @@ public class Plateau implements Serializable {
 		}
 		//return coupsPossibles;
 	}
+
+	/**
+	 * @return the coupsPossibles
+	 */
+	public ArrayList<Case> getCoupsPossibles() {
+		return coupsPossibles;
+	}
+
 
 	/**
 	 * Détermine si la case spécifiée en paramètre a au moins une paire

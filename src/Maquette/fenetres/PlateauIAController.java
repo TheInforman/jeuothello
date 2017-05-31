@@ -4,6 +4,9 @@
 package Maquette.fenetres;
 
 
+import java.util.ArrayList;
+
+import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.fxml.FXML;
@@ -16,7 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-
+import othello.Case;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
@@ -60,9 +63,17 @@ public class PlateauIAController {
 	@FXML
 	public Label lbl_noir;
 	
-	/** Bouton pour sauvegarder la partie actuelle au format.bin */
+	/** Bouton pour sauvegarder la partie actuelle au format .othl */
 	@FXML
 	public Button btn_sauvegarder;
+	
+	/** bouton pour retourner au menu principal */
+	@FXML 
+	public Button btn_menuPrincipal;
+	
+	/** Bouton pour faire jouer l'IA */
+	@FXML
+	public Button btn_jouerIA;
 	
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -116,50 +127,105 @@ public class PlateauIAController {
 	/**
 	 * TODO : JDOC
 	 */
+	public static void initPartieIA(String pseudo_J1){
+			partieCourante = new Partie(
+					new Joueur(pseudo_J1, 0),
+					new Joueur("Ordinateur",1));			
+	}
+
+
+	/**
+	 * TODO : JDOC
+	 */
 	public void addPane(int colIndex, int rowIndex) {
+
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
-		pane.setOnMouseClicked(e -> {
+		pane.setOnMouseClicked(e -> {	
 			
-			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	//TODO suprimmer l'affichage console
+			appliquerCoups(rowIndex,colIndex);
 			
-			// Fais jouer un tour au joueur courant
-			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
-					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
-			
-			//Le joueur courant reste le même tant que son coup n'est pas valide
-			if (partieCourante.getPlateau().isActionEffectuer() == true){	
-				partieCourante.tourSuivant(); //TODO méthode pour faire jouer son tour à l'ia avec une latence
-				//mise à jour du tableau
-				updateTableau(grid);	
+			//On passe au tour suivant si le coups a pu être effectué
+			if (partieCourante.getPlateau().isActionEffectuee()){	
+				tourSuivant();
 			}
-
-			System.out.println(partieCourante.getPlateau());
-			partieCourante.getPlateau().setActionEffectuer(false);
 			
-			//calcul du score
-			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
-			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
+			partieCourante.getPlateau().setActionEffectuee(false);
 			
+			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-			
-			changerScore(nbBlanc, nbNoir); //mise à jour du score après le coup du joueur
-			
-			if(Plateau.coupsPossibles.isEmpty() ) {
-				partieCourante.tourSuivant();
-				System.out.println("TOUR PASSE");
-				if(Plateau.coupsPossibles.isEmpty() ) {
-					afficherRecapitulatif(nbBlanc, nbNoir);
-					
-				}
-				
-			}
-
+	
+			controleSiTourJouable();
 		});
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
+	
+	/**
+	 * 
+	 */
+	private void controleSiTourJouable() {
+		if(Plateau.coupsPossibles.isEmpty() ) {
+			tourSuivant();
+			BoitesMessage.afficher_msgBoxInfo(
+					"Notification de Partie",
+					"Le tour a été passé",
+					"Le joueur ne pouvait pas agir.");
+			
+			if(Plateau.coupsPossibles.isEmpty() ) {
+				finPartie();
+			}
+		}
+	}
+	
+	/**
+	 * TODO : JAVADOC
+	 */
+	private void tourSuivant() {
+		partieCourante.tourSuivant();
+		updateTableau(grid);	//mise à jour du tableau
+		
+		actualiserScore();
+	}
+
+
+	/**
+	 * TODO : JAVADOC
+	 * @param rowIndex
+	 * @param colIndex
+	 */
+	private void appliquerCoups(int rowIndex, int colIndex) {
+		partieCourante.getPlateau().appliquerCoups(
+				partieCourante.getPlateau().othellier[rowIndex][colIndex],
+				partieCourante.getDoitJouer()
+				);
+	}
+
+
+	/**
+	 * TODO : Javadoc
+	 */
+	private void finPartie() {
+		afficherRecapitulatif(
+				partieCourante.getPlateau().calculerNbPions(0),
+				partieCourante.getPlateau().calculerNbPions(1)
+				);
+		
+	}
+
+
+	/**
+	 * TODO : JAVAOC
+	 */
+	private void actualiserScore() {
+		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
+		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
+		System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
+		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
+		lbl_scoreNoir.setText(String.valueOf(nbNoir));
+	}
+
 	
 	/**
 	 * Ajout des images des pions sur le plateau.
@@ -170,11 +236,14 @@ public class PlateauIAController {
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
 			for (int j=0; j<8; j++) {
-				/* Si la case actuelle est blanche, on ajoute l'image d'un jeton blanc
-				 * Si la case est noire, on ajoute l'image d'un jeton noir. 
+				/* Si la case actuelle est blanche,
+				 * on ajoute l'image d'un jeton blanc
+				 * Si la case est noire, 
+				 * on ajoute l'image d'un jeton noir. 
 				 * Sinon la case reste vide.
 				 */
-				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
+				switch (partieCourante.getPlateau().othellier[i][j]
+						.getCouleur()) {
 					
 					case 1 : ImageView Noir = new ImageView(caseNoire);
 									   grid.add(Noir, j, i);
@@ -211,16 +280,95 @@ public class PlateauIAController {
 		}
 	}
 	
+	public void jouerTourIASDQSDSQd() {
+		Plateau plateau = partieCourante.getPlateau();
+		
+		
+		/* Case ayant le plus de pions retournés */
+		Case meilleurChoix;
+		/* Liste des pions retournés par meilleurChoix*/
+		Case[] listePionsRetournesMax = new Case[21];
+		
+		/* test de la première case comme initialisation */
+		meilleurChoix = plateau.coupsPossibles.get(0);
+		listePionsRetournesMax = plateau.determinerPionsARetourner(meilleurChoix,1);
+		
+		/*for (int i = 0 ;
+				i < plateau.coupsPossibles.size() &&
+				plateau.coupsPossibles.get(i) != null &&
+				    // teste si la prochaine case dans la liste des coups
+				    // possibles rapporte plus de pions que la case déjà
+				    // stockée
+				listePionsRetournesMax.length < plateau.determinerPionsARetourner.length(
+						plateau.coupsPossibles.get(i), 1) ;
+			i++) {
+			// stocke la case si elle est plus efficace
+			meilleurChoix = plateau.coupsPossibles.get(i);
+			listePionsRetournesMax = plateau.determinerPionsARetourner(
+					plateau.coupsPossibles.get(i), 1);
+		}*/
+		
+		/* L'IA joue meilleurChoix */
+		plateau.appliquerCoups(meilleurChoix, 1);
+		
+		/* Passe au tour suivant */
+		//tourSuivant();
+	}
 	
 	/**
 	 * TODO : JDOC
 	 */
-	public static void initPartieIA(String pseudo_J1){
-			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 0),
-					new Joueur(1));			
+	@FXML
+	public void JouerTourIA() {
+		
+		if(partieCourante.getDoitJouer() != 1) {
+			return;
+		}
+		
+		Plateau plateau = partieCourante.getPlateau();
+		
+		ArrayList<Case> coupsPossibles = plateau.getCoupsPossibles();
+		
+		//Case ayant le plus de pions retournés
+		Case meilleurChoix;
+		
+		
+		/* test de la première case comme initialisation */
+		meilleurChoix = coupsPossibles.get(0);
+		
+		int nombrePionsRetournesMax = plateau.determinerPionsARetourner(meilleurChoix,1).length;
+		
+		for (int i = 1; i < coupsPossibles.size()
+				&& coupsPossibles.get(i) != null; i++) {
+			
+			if (coupsPossibles.size() > nombrePionsRetournesMax) {
+				nombrePionsRetournesMax = plateau.determinerPionsARetourner(coupsPossibles.get(i), 1).length;
+				meilleurChoix = coupsPossibles.get(i);
+			}
+		}
+		
+		
+		
+		System.out.println(meilleurChoix);
+		System.out.println(partieCourante);
+		
+		
+		
+		
+		appliquerCoups(meilleurChoix.getLigne(),meilleurChoix.getColonne());
+		
+		//On passe au tour suivant si le coups a pu être effectué
+		if (partieCourante.getPlateau().isActionEffectuee()){	
+			tourSuivant();
+		}
+		
+		partieCourante.getPlateau().setActionEffectuee(false);
+		
+		// souligne le joueur qui doit jouer 
+		setQuiDoitJouer(partieCourante.getDoitJouer());
+
+		controleSiTourJouable();
 	}
-	
 	
 	/**
 	 * TODO : JDOC
