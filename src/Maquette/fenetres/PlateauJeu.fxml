@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="anchor" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="35.0" layoutY="28.0" minHeight="512.0" minWidth="256.0" prefHeight="512.0" prefWidth="512.0">
         <columnConstraints>
@@ -370,7 +370,11 @@
          </image>
       </ImageView>
       <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" onAction="#enregistrerPartie" text="Sauvegarder" />
+<<<<<<< HEAD
       <Button fx:id="MenuPrincipal" layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="Menu principal" />
+=======
+      <Button layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#quitterPartie" text="Menu principal" />
+>>>>>>> branch 'master' of https://github.com/TheInforman/jeuothello
    </children>
    <rotationAxis>
       <Point3D />
