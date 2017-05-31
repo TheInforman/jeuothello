@@ -36,7 +36,7 @@ public class Plateau implements Serializable {
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
 	
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
-	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
+	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};

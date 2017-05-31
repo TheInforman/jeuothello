@@ -23,6 +23,14 @@ public class ChoixDifficulteController {
 	@FXML
 	public Button MenuPrincipal;
 	
+	/** Choix d'une difficulté de l'IA Facile */
+	@FXML
+	public Button Facile;
+	
+	/** Choix d'une difficulté de l'IA Normale */
+	@FXML 
+	public Button Normal;
+	
 	/**
 	 * Constructeur
 	 */
@@ -37,6 +45,12 @@ public class ChoixDifficulteController {
 		Stage stage = (Stage) MenuPrincipal.getScene().getWindow();
 		stage.close();
 		Main.showMenuPrincipal();
+	}
+	
+	public void handleChoixDifficulte() {
+		Stage stage = (Stage) Facile.getScene().getWindow();
+		stage.close();
+		Main.showSaisiePseudoIA();
 	}
 	
 	/**

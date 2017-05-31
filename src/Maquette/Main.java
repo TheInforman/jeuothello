@@ -124,6 +124,32 @@ public class Main extends Application {
     	}
     }
     
+    /**
+     * Affichage de la fenêtre saisiePseudoIA
+     */
+    public static void showSaisiePseudoIA() {
+    	try {
+    		//Chargement du fichier FXML
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(Main.class.getResource("fenetres/SaisiePseudoIA.fxml"));
+    		AnchorPane page = (AnchorPane) loader.load();
+    		//Creation de la Scene
+    		Stage SaisiePseudoIA = new Stage();
+    		SaisiePseudoIA.setTitle("Othello: Saisie des Pseudos");
+    		SaisiePseudoIA.initOwner(primaryStage);
+    		Scene scene = new Scene(page);
+    		SaisiePseudoIA.setScene(scene);
+    		
+    		//Affiche la fenêtre et ferme la fenêtre précédente
+    		primaryStage.close();
+    		SaisiePseudoIA.show();
+    		
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+		
+		
+    }
 
     
     /**
@@ -203,6 +229,33 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+    
+    /**
+     * Affichage de la fenêtre PlateauIA
+     */
+    public static void showPlateauIA() {
+    	try {
+    		//Chargement du fichier FXML
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(Main.class.getResource("fenetres/PlateauIA.fxml"));
+    		AnchorPane page = (AnchorPane) loader.load();
+    		//Creation de la Scene
+    		Stage PlateauIA = new Stage();
+    		PlateauIA.setTitle("Othello: Saisie des Pseudos");
+    		PlateauIA.initOwner(primaryStage);
+    		Scene scene = new Scene(page);
+    		PlateauIA.setScene(scene);
+    		
+    		//Affiche la fenêtre et ferme la fenêtre précédente
+    		primaryStage.close();
+    		PlateauIA.show();
+    		
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+		
+		
+    }
     
     /**
      * Affichage d'un récapitulatif de la partie lorsqu'elle est terminée
