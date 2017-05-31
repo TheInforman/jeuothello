@@ -1,4 +1,4 @@
-/**
+/*
  * MenuPrincipalController.java			08/05/2017
  */
 package Maquette.fenetres;
@@ -15,18 +15,21 @@ import javafx.stage.Stage;
  */
 public class MenuPrincipalController {
 	
+	/** Bouton ouvrant la fenêtre de saisie des pseudos des joueusr */
 	@FXML
 	public Button SaisiePseudoButton;
 	
+	/** Bouton ouvrant la fenêtre du choix de la difficulté de l'IA */
 	@FXML 
 	public Button ChoixDifficulte;
 	
+	/** Bouton qui ferme l'application */
 	@FXML 
 	public Button Quitter;
 	
+	/** Bouton pour choisir la partie à charger */
 	@FXML 
 	public Button Charger;
-	
 
 	/**
 	 * Constructeur de la classe
@@ -75,13 +78,16 @@ public class MenuPrincipalController {
     	Main.selectionFichier();
     }
     
+    /**
+     * Affiche la fenêtre modale contenant les scores des joueurs
+     */
     @FXML
     private void handleScores() {
     	Main.showScores();
     }
     
     /**
-     * Affiche une fenetre d'aide 
+     * Affiche une fenetre modale d'aide 
      */
     @FXML
     private void handleAide() {

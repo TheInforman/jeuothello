@@ -36,10 +36,12 @@ public class Plateau implements Serializable {
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
 
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
-	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
+	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};
+	
+	
 
 	/** (constructeur d'état d'instance)
 	 *  Plateau définit par son contenu.
@@ -99,8 +101,8 @@ public class Plateau implements Serializable {
 			actionEffectuer = true ;
 			coupsPossibles.clear();
 		}else{
-			System.out.println("Vous n'avez pas entré les coordonées"
-					+ "du case possible, veuillez réessayer.");
+			System.out.println("Vous n'avez pas entré des coordonnées"
+					+ "de case possible, veuillez réessayer.");
 			//TODO : à enlever, pas de syso ici
 		}
 		return null;

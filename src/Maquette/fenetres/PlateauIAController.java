@@ -1,10 +1,9 @@
-/* PlateauController		08/05/2017
+/* PlateauController		31/05/2017
  * info1 groupe Othello
  */
 package Maquette.fenetres;
 
 
-import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.fxml.FXML;
@@ -24,10 +23,11 @@ import othello.Plateau;
 import outils.OutilFichier;
 
 /**
- * Controller du plateau de jeu
+ * Controller du plateau de jeu avec l'IA. A la différence de PlateauController, 
+ * un seul joueur humain est présent. 
  * @author Arthur Pradier, Mickaël Queudet
  */
-public class PlateauController {
+public class PlateauIAController {
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
@@ -87,8 +87,7 @@ public class PlateauController {
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
 		
-		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
-
+		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
 		
 		System.out.println(plateauCourant);
 		updateTableau(grid);
@@ -122,47 +121,29 @@ public class PlateauController {
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {
-
-			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	
-
-			
-			// Fais jouer un tour au joueur un
-
 			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	//TODO suprimmer l'affichage console
 			setQuiDoitJouer(partieCourante.getDoitJouer());
 			// Fais jouer un tour au joueur courant
-
 			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
 					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
 			
 			//Le joueur courant reste le même tant que son coup n'est pas valide
 			if (partieCourante.getPlateau().isActionEffectuer() == true){	
-				
-				partieCourante.tourSuivant();
+				partieCourante.tourSuivant(); //TODO méthode pour faire jouer son tour à l'ia avec une latence
 				//mise à jour du tableau
 				updateTableau(grid);	
-				
 			}
 
 			System.out.println(partieCourante.getPlateau());
-			
 			partieCourante.getPlateau().setActionEffectuer(false);
-			
 			//calcul du score
 			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-			
 			System.out.println(partieCourante.getDoitJouer());
-			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-
-			
-			// actualise le score actuel de la partie
-			changerScore(nbBlanc, nbNoir);
-
 			System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
 			changerScore(nbBlanc, nbNoir); //mise à jour du score après le coup du joueur
-
+			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				partieCourante.tourSuivant();
 				System.out.println("TOUR PASSE");
@@ -193,7 +174,6 @@ public class PlateauController {
 				 */
 				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
 					
-				//TODO :supprimer commentaires :
 					case 1 : ImageView Noir = new ImageView(caseNoire);
 									   grid.add(Noir, j, i);
 									   break;
@@ -249,6 +229,22 @@ public class PlateauController {
 		}
 	}
 	
+	public void determinerBlanc(){
+		// boolean J1commence = (Math.random() > 0.5) ? true : false;
+		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
+		
+		/*
+		if (Math.random() > 0.5){
+			lbl_blanc.setText(pseudoJ1);
+			lbl_noir.setText(pseudoJ2);
+			
+		} else {
+			lbl_blanc.setText(pseudoJ2);
+			lbl_noir.setText(pseudoJ1);
+		}
+		*/
+	}
+	
 	/**
 	 * TODO : JDOC
 	 */
@@ -281,31 +277,21 @@ public class PlateauController {
 	private void enregistrerPartie() {
 		System.out.println("Enregistrement de la partie");
 		
-		if (!Main.accederRepertoireOthello()) {
-    		return;
+		if (!OutilFichier.isRepertoireOthelloExistant()) {
+    		System.out.println("Le répertoire Othello n'existe pas");
+    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+    		if (repertoireCree) {
+    			System.out.println("Répertoire créé avec succès");
+    		} else {
+    			System.out.println("Le répertoire n'a pas pu être créé"
+    					+ " à l'emplacement "
+    					+ OutilFichier.getRepertoireParDefaut());
+    			return;
+    		}
     	}
-		OutilFichier.enregistrerPartie(partieCourante);
-		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
-				"Partie sauvegardée avec succès !",
-				"Vous pourrez reprendre votre partie plus tard.");
-		//TODO : FERMER FENETRE + revenir au menu principal
 		
-	}
-	
-	/**
-	 * TODO : JDOC
-	 */
-	@FXML
-	private void quitterPartie() {
-		if (
-		BoitesMessage.afficher_msgBoxConfirmation(
-				"Revenir au Menu Principal",
-				"Vous êtes sur le point de revenir au Menu Prncipal",
-				"Souhaitez vous quittez la partie ?" +
-				"\n L'avancement ne sera pas sauvegardé !"
-				)) {
-			//TODO : FERMER FENETRE + revenir au menu principal
-		}
+		OutilFichier.enregistrerPartie(partieCourante);
+		//TODO : Quitter
 	}
 	
 	/**
