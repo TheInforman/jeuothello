@@ -22,7 +22,7 @@ import java.io.Serializable;
  */
 public class Plateau implements Serializable {
 
-	//TO DO: Expliquer à quoi ça sert
+	//TODO: Expliquer à quoi ça sert
 	private static final long serialVersionUID = 1L;
 
 
@@ -88,24 +88,43 @@ public class Plateau implements Serializable {
 	 *  					   archive les coups joués
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
-		// TO DO : commentaire détaillé
 		actionEffectuer = false ;
-		ArrayList<Case> aRetourner = determinerPionsARetourner(caseConcernee, couleur);
+		
+		/**
+		 * ArrayList des pions à retourner, c'est à dire à changer 
+		 * de leur couleur actuel à la couleur du joueur actuel
+		 */
+		ArrayList<Case> aRetourner = determinerPionsARetourner(caseConcernee,
+															   couleur);
 
+		/* Test si la case souhaité est présente
+		   dans la liste des coups possibles */
 		if(presentCoupPossibles(caseConcernee)){
+			
 			/* On pose un pion sur la caseConcernee */
 			caseConcernee.setCouleur(couleur); 
 
-			for (int i = 0; i < aRetourner.size() && aRetourner.get(i) != null ;
+			/* On change de couleur la liste des pions à retourner */
+			for (int i = 0; i < aRetourner.size() && aRetourner.get(i) != null;
 					i++) {
 				aRetourner.get(i).setCouleur(couleur);
 			}
-
+			
+			
+			/* TODO : utiliser ce morceau de code et déterminer si on limite
+			 *  le nombre de coup en arrière
+			 */
+			
+			/* On stocke les pions retourner dans un tableau qui servira
+			   à pouvoir revenir en arrière de un coup ou plusieurs */ 
 			Case[] tableauRetour = new Case[aRetourner.size() + 1];
 			tableauRetour[0] = caseConcernee;
-			for (int i = 1; i < tableauRetour.length && aRetourner.get(i-1) != null;
-					i++) {
+			for (int i = 1; 
+				 i < tableauRetour.length && aRetourner.get(i-1) != null;
+				 i++) {
+				
 				tableauRetour[i] = aRetourner.get(i-1);
+				
 			}
 			actionEffectuer = true ;
 			coupsPossibles.clear();
@@ -158,9 +177,11 @@ public class Plateau implements Serializable {
 	 * @param caseCentrale à partir de laquelle on va faire les recherches
 	 * 		  en lignes et diagonales pour déterminer les pions à retourner
 	 * @param couleur du pion posé sur la caseCentrale par le joueur
-	 * @return
+	 * @return la liste des pions à retourner
 	 */
-	private ArrayList<Case> determinerPionsARetourner(Case caseCentrale, int couleur) {
+	private ArrayList<Case> determinerPionsARetourner(Case caseCentrale,
+													   int couleur) {
+		
 		ArrayList<Case> PionsARetourner = new ArrayList<Case>();
 		
 		/** int de déplacement le long des lignes */ 
@@ -205,14 +226,15 @@ public class Plateau implements Serializable {
 				/* Si la case est vide ou de la même couleur que le 
 				   pion placé on arrête la recherche dans cette direction
 				   sinon on ajoute la case aux tableau vue directionnel */
-				if (othellier[ligne][colonne].getCouleur() == Case.COULEUR_NEUTRE
-					|| othellier[ligne][colonne].getCouleur() == couleur) {
+				if(othellier[ligne][colonne].getCouleur()==Case.COULEUR_NEUTRE
+				   || othellier[ligne][colonne].getCouleur() == couleur) {
 					
 					arretRechercheDirection = true;
 					
 				}
 
-				tableauVueDirectionnel[direction][indice] = othellier[ligne][colonne];
+				tableauVueDirectionnel[direction][indice]
+								= othellier[ligne][colonne];
 				indice ++;
 
 			}
@@ -220,13 +242,19 @@ public class Plateau implements Serializable {
 		
 		indice = 0;
 		
+		/* Si la case à l'extrémité d'une des direction du tableau de vue
+		   directionnel est de la même couleur que la case centrale, alors
+		   tous les pions entre ces deux pions sont ajouter à la liste des
+		   pions à retourné */
 		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
-			if(derniereCase(tableauVueDirectionnel[i]) != null && derniereCase(tableauVueDirectionnel[i]).getCouleur()
-					== couleur) {
+			if(derniereCase(tableauVueDirectionnel[i]) != null &&
+			   derniereCase(tableauVueDirectionnel[i]).getCouleur()==couleur){
+				
 				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
 					PionsARetourner.add(tableauVueDirectionnel[i][j]) ;
 					indice ++;
+					
 				}
 			}
 		}
@@ -262,44 +290,49 @@ public class Plateau implements Serializable {
 	public void determinerCoupsPossibles(int couleur) {
 
 		/* On détermine l'ensemble des cases vides */
-		Case[] casesVides = casesVides();
+		ArrayList<Case> casesVides = casesVides();
 
-		//TODO : voir s'il n'y a pas un autre moyen de faire l'init ?
-		/* Tableau des coups possibles */
-		//Case[] coupsPossibles = new Case[casesVides.length];
-
-
-		/* Pour chaque cases on détermine si elle peut être couplé avec au moins
-		 * une case sur laquelle un joueur a posé son pion.
+		/* Pour chaque cases on détermine si elle peut être couplée avec au 
+		 * moins une case sur laquelle un joueur a posé son pion.
 		 */
-		for (int i = 0; i < casesVides.length && casesVides[i] !=null ; i++) {
+		for (int i =0; i < casesVides.size() && casesVides.get(i) !=null ;i++){
 
-			if (aUnePaire(casesVides[i], couleur)) {
-				coupsPossibles.add(casesVides[i]);
+			if (aUnePaire(casesVides.get(i), couleur)) {
+				coupsPossibles.add(casesVides.get(i));
 			}
 		}
-		//return coupsPossibles;
 	}
 
 	/**
 	 * Détermine si la case spécifiée en paramètre a au moins une paire
-	 * @param aCoupler
-	 * @return
+	 * @param Case que l'on va chercher à couplée avec d'autre case
+	 * @param couleur de la case à couplée
+	 * @return true si il existe au moins une case couplée à la 
+	 * 			case passée en paramètre, false sinon
 	 */
 	private boolean aUnePaire(Case aCoupler, int couleur) {
 
 		int couleurInverse = couleur == Case.COULEUR_BLANC ?
 				Case.COULEUR_NOIR : Case.COULEUR_BLANC;
-
+		
 		boolean aUnePaire = false;
-		boolean arretRechercheDirection;  /* booléen passant à vrai lorsqu'on
-		 * sait si la case n'a pas de paire
+		
+		
+		/**
+		 * booléen passant à vrai lorsqu'on sait si la case n'a pas de paire
 		 * dans une direction donnée
 		 */
+		boolean arretRechercheDirection;  
 
-		int deplacementLigne,
-		deplacementColonne;
-
+		/** int de déplacement le long des lignes */ 
+		int deplacementLigne;
+		
+		/** int de déplacement le long des colonnes */ 
+		int deplacementColonne;
+		
+		
+		// TO DO : transformer en une méthode de recherche directionnel (pour réutiliser dans les différentes méthodes) que si on a le temps 
+		
 		/* Pour chaque direction du tableau */
 		for (int direction = 0; direction < TABL_DEPLACEMENT.length
 				&& !aUnePaire; direction++ ) {
@@ -307,8 +340,9 @@ public class Plateau implements Serializable {
 
 			deplacementLigne = TABL_DEPLACEMENT[direction][0];
 			deplacementColonne = TABL_DEPLACEMENT[direction][1];
-
-			/* On "avance" d'un pas dans la direction donnée (largeur) */
+			
+			/* On se déplace d'une case dans la 
+			   direction donnée en ne sortant pas du plateau */
 			for (int ligne = aCoupler.getLigne() + deplacementLigne,
 					colonne = aCoupler.getColonne() + deplacementColonne;
 
@@ -344,41 +378,27 @@ public class Plateau implements Serializable {
 	}
 
 	/**
-	 * Renvoit un tableau contenant l'ensemble des cases vides du plateau
-	 * Le joueur pose un pion sur le plateau.
-	 * 
-	 * @param colonne	la colonne ou l'on poser le pion
-	 * @param ligne		la ligne où l'on pose le pion
-	 */
-	/*public void poserPion(int colonne, int ligne, int couleur) {
-		//othellier[colonne][ligne].setCouleur(couleur);
-		appliquerCoups(othellier[colonne][ligne], couleur);
-	}*/
-
-
-	/**
 	 * Renvoi un tableau contenant l'ensemble des cases sur lesquelles
 	 * sont posés des pions d'une couleur donnée.
 	 *
 	 * @param couleur	la couleur des pions que l'on recherche
-	 * @return		l'ensemble des cases de la couleur passée en argument
+	 * @return	l'ensemble des cases vides présent dans le plateau
 	 */
-	private Case[] casesVides(){
+	private ArrayList<Case> casesVides(){
 
-		//TODO : voir s'il n'y a pas un autre moyen de faire l'init ?
-		Case[] casesVides = new Case[64];
-
-		int indice = 0;
+		/**
+		 * Arraylist contenant l'ensemble des cases vides 
+		 * présentes sur le plateau
+		 */
+		ArrayList<Case> casesVides = new ArrayList<Case>();
 
 		for (int colonne = 0; colonne < LARGEUR; colonne++) {
 			for (int ligne = 0; ligne < HAUTEUR; ligne ++) {
 				if (othellier[ligne][colonne].getCouleur() == -1) {
-					casesVides[indice] = othellier[ligne][colonne];
-					indice ++;
+					casesVides.add(othellier[ligne][colonne]);
 				}
 			}
 		}
-
 		return casesVides;
 	}
 
