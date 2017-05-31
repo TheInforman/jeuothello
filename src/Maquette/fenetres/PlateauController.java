@@ -333,9 +333,7 @@ public class PlateauController {
 			Stage stage = (Stage) MenuPrincipal.getScene().getWindow();
 			stage.close();
 			Main.showMenuPrincipal();
-		}/* else {
-			confirmation.close();
-		}*/
+		}
 		
 	}
 }
