@@ -126,19 +126,22 @@ public class PlateauController {
 	/**
 	 * TODO : JDOC
 	 */
-	public static void initPartie(String pseudo_J1, String pseudo_J2){
+	public static void initPartie(String pseudo_J1, String pseudo_J2,
+			int typeDePartie){
 		
 		if (Math.random() > 0.5){
 			
 			partieCourante = new Partie(
 					new Joueur(pseudo_J1, 0),
-					new Joueur(pseudo_J2, 1)
+					new Joueur(pseudo_J2, 1),
+					typeDePartie
 					);			
 		} else {
 			
 			partieCourante = new Partie(
 					new Joueur(pseudo_J2, 0),
-					new Joueur(pseudo_J1, 1)
+					new Joueur(pseudo_J1, 1),
+					typeDePartie
 					);
 		}
 	}
@@ -172,7 +175,7 @@ public class PlateauController {
 	}
 	
 	/**
-	 * 
+	 * TODO : JDOC
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {

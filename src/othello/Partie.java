@@ -45,6 +45,14 @@ public class Partie implements Serializable {
 
 	/** Liste des joueurs disputant la partie */
 	private Joueur[] listeJoueur = new Joueur[2];
+	
+	/**
+	 * Entier décrivant le type de partie joué.
+	 * 0 Correspond à une partie joueur contre joueur
+	 * 1 Correspond à une partie contre Ordinateur en mode Facile
+	 * 2 Correspond à une partie contre Ordinateur en mode Normal
+	 */
+	private static int typeDePartie;
 
 
 
@@ -54,10 +62,12 @@ public class Partie implements Serializable {
 	 * @param premierJoueur
 	 * @param secondJoueur
 	 */
-	public Partie(Joueur premierJoueur, Joueur secondJoueur) {
+	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
 		listeJoueur[0] = premierJoueur;
 		listeJoueur[1] = secondJoueur;
 
+		this.typeDePartie = typeDePartie;	
+		
 		partieBloquee = false;
 
 		plateauDeJeu = new Plateau();
@@ -138,6 +148,14 @@ public class Partie implements Serializable {
 		//TODO : Programmer la méthode
 		// on utilisera le tableau retourner par appliquer coup
 	}
+
+	/**
+	 * @return typeDePartie
+	 */
+	public static int getTypeDePartie() {
+		return typeDePartie;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
