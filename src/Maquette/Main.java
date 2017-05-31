@@ -7,7 +7,6 @@ package Maquette;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.filechooser.FileSystemView;
 
 import Maquette.fenetres.PlateauController;
 import javafx.application.Application;
@@ -16,12 +15,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import othello.Joueur;
 import othello.Partie;
 import outils.OutilFichier;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+
 
 /**
  * Classe gérant le lancement des différentes fenêtres
@@ -30,13 +28,13 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 	
 	private static Stage primaryStage;
-    private BorderPane rootLayout;
     
 	
     /**
      * Lancement de l'application
      */
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Othello");

@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @author Vincent G. , Kerian G.
  */
 public class Plateau implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 
@@ -34,7 +34,7 @@ public class Plateau implements Serializable {
 
 	/** L'ensemble des cases constituant le plateau */
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
-	
+
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
 	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
@@ -60,7 +60,6 @@ public class Plateau implements Serializable {
 		othellier[3][4].setCouleur(Case.COULEUR_NOIR);
 	}
 
-	//TODO : créer un constructeur dans le cas où l'on charge une sauvegarde
 
 	/**
 	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
@@ -70,7 +69,7 @@ public class Plateau implements Serializable {
 	 * 							est applicable sur cette case
 	 * @param couleur	la couleur du joueur portant le coups
 	 * 
-	 * @return			Un tableau de cases, la remière case étant celle où le
+	 * @return			Un tableau de cases, la première case étant celle où le
 	 * 					joueur a placé son pion, les suivantes sont les cases
 	 *					correspondant aux pions qui ont changées de couleur
 	 *					suite à l'action du joueur
@@ -287,10 +286,10 @@ public class Plateau implements Serializable {
 
 		boolean aUnePaire = false;
 		boolean arretRechercheDirection;  /* booléen passant à vrai lorsqu'on
-		 								   * sait si la case n'a pas de paire
-		 								   * dans une direction donnée
-		 								   */
-		
+		 * sait si la case n'a pas de paire
+		 * dans une direction donnée
+		 */
+
 		int deplacementLigne,
 		deplacementColonne;
 

@@ -146,15 +146,19 @@ public class testPlateau {
 		
 		
 		/* Plateau 5*/
+		@SuppressWarnings("unused")
 		Plateau plateau_5 = new Plateau();
 		
 		/* Plateau 6*/
+		@SuppressWarnings("unused")
 		Plateau plateau_6 = new Plateau();
 		
 		/* Plateau 7*/
+		@SuppressWarnings("unused")
 		Plateau plateau_7 = new Plateau();
 		
 		/* Plateau 8*/
+		@SuppressWarnings("unused")
 		Plateau plateau_8 = new Plateau();
 		
 	}

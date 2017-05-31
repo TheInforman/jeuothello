@@ -24,11 +24,6 @@ public class SaisiePseudoController {
 	@FXML
 	public Button Valider;
 
-
-
-
-	private Main main;
-
 	/**
 	 * Constructeur de la classe
 	 */

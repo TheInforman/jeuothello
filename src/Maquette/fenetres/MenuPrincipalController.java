@@ -7,7 +7,6 @@ package Maquette.fenetres;
 import Maquette.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -28,8 +27,6 @@ public class MenuPrincipalController {
 	@FXML 
 	public Button Charger;
 	
-	
-	private Main main;
 
 	/**
 	 * Constructeur de la classe

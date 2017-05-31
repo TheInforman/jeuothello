@@ -8,35 +8,34 @@ package othello;
 
 import java.io.Serializable;
 
-import java.util.Arrays;
 
 /**
  * Joueur du jeu de l'othello
  * @author Vincent G.
  */
 public class Joueur implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	/** Nom du joueur */
 	private String nom;
-	
+
 	/** Score du joueur */
 	private int score;
-	
+
 	/** Couleur du joueur */
 	private int couleur;
-	
+
 	/** Booléen égal à vrai si le joueur a pu agir au tour précédent,
 	    faux sinon */
 	private boolean peutAgir;
-	
+
 	/** Récupère la couleur de this */
 	public int getCouleur() {
 		return couleur;
 	}
-	
+
 	/** (constructeur d'état d'instance)
 	 * Joueur définit par son nom et sa couleur
 	 */
@@ -46,7 +45,7 @@ public class Joueur implements Serializable {
 		score = 0;
 		peutAgir = true;
 	}
-	
+
 	/** (constructeur d'état d'instance)
 	 * Joueur définit par son nom et sa couleur
 	 * @param nom
@@ -58,9 +57,9 @@ public class Joueur implements Serializable {
 		score = 0;
 		peutAgir = true;
 	}
-	
+
 	//TODO : constructeur dans le cas ou on charge une sauvegarde
-	
+
 	/**
 	 * Permet de passer son tour à un joueur par choix
 	 */
@@ -82,6 +81,6 @@ public class Joueur implements Serializable {
 	public String getNom() {
 		return nom;
 	}
-	
-	
+
+
 }

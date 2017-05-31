@@ -3,21 +3,17 @@ package Maquette.fenetres;
 
 import Maquette.Main;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-import othello.Case;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
@@ -25,10 +21,6 @@ import outils.OutilFichier;
 
 
 public class PlateauController {
-
-	/** Image associée à une case vide */
-	private static Image caseVide =
-			new Image("file:src/Maquette/Ressource/Jeton-1.png");
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
@@ -80,7 +72,8 @@ public class PlateauController {
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0)));
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
 		
-		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
+		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
+
 		
 		System.out.println(plateauCourant);
 		updateTableau(grid);
@@ -114,26 +107,34 @@ public class PlateauController {
 
 		pane.setOnMouseClicked(e -> {
 			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	
-			setQuiDoitJouer(partieCourante.getDoitJouer());
+
+			
 			// Fais jouer un tour au joueur un
 			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
 					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
 			
 			//Le joueur courant reste le même tant que son coup n'est pas valide
 			if (partieCourante.getPlateau().isActionEffectuer() == true){	
+				
 				partieCourante.tourSuivant();
 				//mise à jour du tableau
 				updateTableau(grid);	
+				
 			}
 
 			System.out.println(partieCourante.getPlateau());
+			
 			partieCourante.getPlateau().setActionEffectuer(false);
+			
 			//calcul du score
 			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
+			
 			System.out.println(partieCourante.getDoitJouer());
+			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-			System.out.println("Score : " + nbBlanc + " à " + nbNoir );
+			
+			// actualise le score actuel de la partie
 			changerScore(nbBlanc, nbNoir);
 			
 			if(partieCourante.getTour() == 60) {
@@ -176,13 +177,6 @@ public class PlateauController {
 		}
 	}
 	
-	/**
-	 * TODO : JDOC
-	 */
-	public static void debutPartie() {
-		partieCourante.getPlateau().determinerCoupsPossibles(partieCourante.getDoitJouer());//initialisation
-		System.out.println(partieCourante.getPlateau());
-	}
 	
 	/**
 	 * TODO : JDOC
@@ -223,22 +217,6 @@ public class PlateauController {
 					new Joueur(pseudo_J1, 1)
 					);
 		}
-	}
-	
-	public void determinerBlanc(){
-		// boolean J1commence = (Math.random() > 0.5) ? true : false;
-		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
-		
-		/*
-		if (Math.random() > 0.5){
-			lbl_blanc.setText(pseudoJ1);
-			lbl_noir.setText(pseudoJ2);
-			
-		} else {
-			lbl_blanc.setText(pseudoJ2);
-			lbl_noir.setText(pseudoJ1);
-		}
-		*/
 	}
 	
 	/**
