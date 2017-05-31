@@ -58,7 +58,9 @@ public class SaisiePseudoIAController {
 	public void handleValider(ActionEvent event) {
 		Stage stage = (Stage) Valider.getScene().getWindow();
 		stage.close();
-		PlateauIAController.initPartieIA(tf_pseudoJ1.getText()); //attribution d'un nom par défaut à l'IA
+		PlateauIAController.initPartieIA(
+				tf_pseudoJ1.getText(),
+				ChoixDifficulteController.choixDifficulte);
 		Main.showPlateauIA();
 	}
 

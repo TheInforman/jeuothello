@@ -32,7 +32,7 @@ public class testPartie {
 		// Test primaire
 		Joueur joueur1 = new Joueur("Joueur1", 0);
 		Joueur joueur2 = new Joueur("Joueur2", 1);
-		Partie partie = new Partie(joueur1, joueur2);
+		Partie partie = new Partie(joueur1, joueur2, 0);
 
 		System.out.println(partie);
 		partie.tourSuivant();
@@ -43,7 +43,7 @@ public class testPartie {
 		// Test déroulement de 2 tour 
 		Joueur player1 = new Joueur("Test",0);
 		Joueur player2 = new Joueur(1);
-		Partie partieTest = new Partie(player1, player2);
+		Partie partieTest = new Partie(player1, player2, 0);
 		Plateau courant = partieTest.getPlateau();
 
 		// Fais jouer un tour au joueur un
