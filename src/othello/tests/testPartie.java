@@ -39,7 +39,7 @@ public class testPartie {
 
 		// Test déroulement de 2 tour 
 		Joueur player1 = new Joueur("Test",0);
-		Joueur player2 = new Joueur();
+		Joueur player2 = new Joueur(1);
 		Partie partieTest = new Partie(player1, player2);
 		Plateau courant = partieTest.getPlateau();
 

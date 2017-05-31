@@ -121,8 +121,9 @@ public class PlateauIAController {
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {
+			
 			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	//TODO suprimmer l'affichage console
-			setQuiDoitJouer(partieCourante.getDoitJouer());
+			
 			// Fais jouer un tour au joueur courant
 			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
 					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
@@ -136,12 +137,13 @@ public class PlateauIAController {
 
 			System.out.println(partieCourante.getPlateau());
 			partieCourante.getPlateau().setActionEffectuer(false);
+			
 			//calcul du score
 			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-			System.out.println(partieCourante.getDoitJouer());
+			
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-			System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
+			
 			changerScore(nbBlanc, nbNoir); //mise à jour du score après le coup du joueur
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
@@ -209,41 +211,16 @@ public class PlateauIAController {
 		}
 	}
 	
+	
 	/**
 	 * TODO : JDOC
 	 */
-	public static void initPartie(String pseudo_J1, String pseudo_J2){
-		
-		if (Math.random() > 0.5){
-			
+	public static void initPartieIA(String pseudo_J1){
 			partieCourante = new Partie(
 					new Joueur(pseudo_J1, 0),
-					new Joueur(pseudo_J2, 1)
-					);			
-		} else {
-			
-			partieCourante = new Partie(
-					new Joueur(pseudo_J2, 0),
-					new Joueur(pseudo_J1, 1)
-					);
-		}
+					new Joueur(1));			
 	}
 	
-	public void determinerBlanc(){
-		// boolean J1commence = (Math.random() > 0.5) ? true : false;
-		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
-		
-		/*
-		if (Math.random() > 0.5){
-			lbl_blanc.setText(pseudoJ1);
-			lbl_noir.setText(pseudoJ2);
-			
-		} else {
-			lbl_blanc.setText(pseudoJ2);
-			lbl_noir.setText(pseudoJ1);
-		}
-		*/
-	}
 	
 	/**
 	 * TODO : JDOC

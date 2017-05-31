@@ -58,7 +58,7 @@ public class SaisiePseudoIAController {
 	public void handleValider(ActionEvent event) {
 		Stage stage = (Stage) Valider.getScene().getWindow();
 		stage.close();
-		PlateauController.initPartie(tf_pseudoJ1.getText(), "Bot"); //attribution d'un nom par défaut à l'IA
+		PlateauIAController.initPartieIA(tf_pseudoJ1.getText()); //attribution d'un nom par défaut à l'IA
 		Main.showPlateauIA();
 	}
 

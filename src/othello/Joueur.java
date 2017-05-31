@@ -38,10 +38,11 @@ public class Joueur implements Serializable {
 
 	/** (constructeur d'état d'instance)
 	 * Joueur définit par son nom et sa couleur
+	 * @param couleur 
 	 */
-	public Joueur() {
+	public Joueur(int couleur) {
 		this.nom = "Ordinateur";
-		this.couleur = Case.COULEUR_NOIR;
+		this.couleur = couleur;
 		score = 0;
 		peutAgir = true;
 	}
