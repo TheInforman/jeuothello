@@ -1,7 +1,6 @@
 /*
  * testJoueur.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Tous droits réservés à l'IUT de Rodez
  */
 package othello.tests;
 
@@ -10,7 +9,11 @@ import othello.Joueur;
 /**
  * Classe permettant de tester les différentes méthodes de la classe Joueur
  * 
- * @author Vincent
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class testJoueur {
 
