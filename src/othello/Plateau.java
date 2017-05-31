@@ -22,7 +22,10 @@ import java.io.Serializable;
  */
 public class Plateau implements Serializable {
 
+
 	//TODO: Expliquer à quoi ça sert
+
+
 	private static final long serialVersionUID = 1L;
 
 
@@ -41,16 +44,20 @@ public class Plateau implements Serializable {
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
 	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
+	/** 
+	 * Tableau à deux dimensions représentant les déplacement 
+	 * dans toutes les directions possibles sur un plateau de jeu,
+	 * c'est à dire les lignes, colonnes,  diagonales
+	 */
 	private static int[][] TABL_DEPLACEMENT = {{-1,0},{-1,1},{0,1},{1,1},
 			{1,0},{1,-1},{0,-1},{-1,-1}};
 	
 	
-
 	/** (constructeur d'état d'instance)
-	 *  Plateau définit par son contenu.
-	 * 	Crée un nouvel objet plateau et l'initialise
-	 *  avec deux pions de chaque couleur au centre.
-	 *  TODO : plus d'explications ?
+	 * 	Crée un nouvel objet plateau de 8x8 et l'initialise
+	 *  avec deux pions de chaque couleur en damier sur le
+	 *  carré central du plateau.
+	 *  Ceci est la configuration de départ de toutes parties d'othello
 	 */
 	public Plateau() {
 		for (int colonne = 0; colonne < LARGEUR; colonne++) {
@@ -83,6 +90,7 @@ public class Plateau implements Serializable {
 	 *  					   archive les coups joués
 	 */
 	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
+
 		actionEffectuee = false ;
 		
 		/**
@@ -92,11 +100,13 @@ public class Plateau implements Serializable {
 		ArrayList<Case> aRetourner = determinerPionsARetourner(caseConcernee,
 															   couleur);
 
+
 		/* Test si la case souhaité est présente
 		   dans la liste des coups possibles */
 		if(presentCoupPossibles(caseConcernee)){
 			
 			/* On pose un pion sur la caseConcernee */
+
 			caseConcernee.setCouleur(couleur); 
 
 			/* On change de couleur la liste des pions à retourner */
@@ -122,7 +132,6 @@ public class Plateau implements Serializable {
 				 i++) {
 				
 				tableauRetour[i] = aRetourner.get(i-1);
-				
 			}
 			actionEffectuee = true ;
 			coupsPossibles.clear();
@@ -152,26 +161,22 @@ public class Plateau implements Serializable {
 	}
 
 	/**
-	 * Vérifie si la case désigée par le joueur est une case jouable.
+	 * Vérifie si la case désignée par le joueur est une case jouable.
 	 * 
 	 * @param 	caseConcernee 	case désigner par le joueur
-	 * @return 		true si elle appartient aux coups possibles, false sinon
+	 * @return 	true si elle appartient aux coups possibles, false sinon
 	 */
 	private boolean presentCoupPossibles(Case caseConcernee) {
 		boolean present = false;
-		int colonneEntrer = caseConcernee.getColonne();
-		int ligneEntrer  = caseConcernee.getLigne();
 
-		int i=0;
-		while( i < coupsPossibles.size() ){
-			if(colonneEntrer == coupsPossibles.get(i).getColonne() 
-					&& ligneEntrer == coupsPossibles.get(i).getLigne() )	{
+		for(int i = 0; i < coupsPossibles.size() ; i++ ){
+			if( caseConcernee.equals(coupsPossibles.get(i))){
 				present = true;
 			}
-			i++;
 		}
 		return present;
 	}
+
 
 	/***
 	 *  Méthode qui détermine les cases qui seront
@@ -197,29 +202,31 @@ public class Plateau implements Serializable {
 		/** boolean d'arret de recherche dans une direction */
 
 		boolean arretRechercheDirection;
-
+		
+		/** initialisation de l'indice du tableau directionnel */
 		int indice;
 
-		/**
-		 * Tableau dans lequel on stocke l'ensemble des cases se trouvant 
-		 * sur la ligne, la colonne et les diagonales de la case centrale.
+
+		/** 
+		 * Tableau à deux dimensions de Cases dans lequel on stocke
+		 * l'ensemble des pions présents dans les directions
+		 * autour de la case centrale
 		 */
 		Case[][] tableauVueDirectionnel = new Case[8][8];
 
-		/* Pour chaque direction du tableau */
-		for (int direction = 0; direction < TABL_DEPLACEMENT.length;
-				direction++ ) {
-
+		/* Pour chaque direction du tableau de déplacement */
+		for (int direction =0; direction<TABL_DEPLACEMENT.length; direction++){
+			
+			/* initialisation de chaque boucle de recherche */
 			arretRechercheDirection = false;
 			indice = 0;
-
 			deplacementLigne = TABL_DEPLACEMENT[direction][0];
 			deplacementColonne = TABL_DEPLACEMENT[direction][1];
 
 			/* On se déplace d'une case dans la 
 			   direction donnée en ne sortant pas du plateau */
 			for (int ligne = caseCentrale.getLigne() + deplacementLigne,
-					colonne = caseCentrale.getColonne() + deplacementColonne;
+				 colonne = caseCentrale.getColonne() + deplacementColonne;
 
 					(0 <= colonne && colonne < LARGEUR)
 					&& (0 <= ligne && ligne < HAUTEUR)
@@ -233,6 +240,7 @@ public class Plateau implements Serializable {
 				if(othellier[ligne][colonne].getCouleur()==Case.COULEUR_NEUTRE
 				   || othellier[ligne][colonne].getCouleur() == couleur) {	
 					arretRechercheDirection = true;
+					
 				}
 
 				tableauVueDirectionnel[direction][indice]
@@ -242,13 +250,6 @@ public class Plateau implements Serializable {
 			}
 		}
 		
-		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
-			for (int j = 0; j < tableauVueDirectionnel[i].length
-					&& tableauVueDirectionnel[i][j] != null; j++) {
-			}
-
-		}
-
 		indice = 0;
 		
 		/* Si la case à l'extrémité d'une des direction du tableau de vue
@@ -261,6 +262,7 @@ public class Plateau implements Serializable {
 				
 				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
+
 					PionsARetourner.add(tableauVueDirectionnel[i][j]);
 					indice ++;
 					

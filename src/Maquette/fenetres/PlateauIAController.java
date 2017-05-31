@@ -24,6 +24,7 @@ import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
 import outils.OutilFichier;
+import outils.OutilsIA;
 
 /**
  * Controller du plateau de jeu avec l'IA. A la différence de PlateauController, 
@@ -127,10 +128,11 @@ public class PlateauIAController {
 	/**
 	 * TODO : JDOC
 	 */
-	public static void initPartieIA(String pseudo_J1){
+	public static void initPartieIA(String pseudo_J1, int typeDePartie){
 			partieCourante = new Partie(
 					new Joueur(pseudo_J1, 0),
-					new Joueur("Ordinateur",1));			
+					new Joueur("Ordinateur",1),
+					typeDePartie);			
 	}
 
 
@@ -138,11 +140,15 @@ public class PlateauIAController {
 	 * TODO : JDOC
 	 */
 	public void addPane(int colIndex, int rowIndex) {
-
+		
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
+			
+			if(partieCourante.getDoitJouer() != 0) {
+				return;
+			}
 			
 			appliquerCoups(rowIndex,colIndex);
 			
@@ -280,41 +286,7 @@ public class PlateauIAController {
 		}
 	}
 	
-	public void jouerTourIASDQSDSQd() {
-		Plateau plateau = partieCourante.getPlateau();
-		
-		
-		/* Case ayant le plus de pions retournés */
-		Case meilleurChoix;
-		/* Liste des pions retournés par meilleurChoix*/
-		ArrayList<Case> listePionsRetournesMax = new ArrayList<Case>();
-		
-		/* test de la première case comme initialisation */
-		meilleurChoix = plateau.coupsPossibles.get(0);
-		listePionsRetournesMax = plateau.determinerPionsARetourner(meilleurChoix,1);
-		
-		/*for (int i = 0 ;
-				i < plateau.coupsPossibles.size() &&
-				plateau.coupsPossibles.get(i) != null &&
-				    // teste si la prochaine case dans la liste des coups
-				    // possibles rapporte plus de pions que la case déjà
-				    // stockée
-				listePionsRetournesMax.length < plateau.determinerPionsARetourner.length(
-						plateau.coupsPossibles.get(i), 1) ;
-			i++) {
-			// stocke la case si elle est plus efficace
-			meilleurChoix = plateau.coupsPossibles.get(i);
-			listePionsRetournesMax = plateau.determinerPionsARetourner(
-					plateau.coupsPossibles.get(i), 1);
-		}*/
-		
-		/* L'IA joue meilleurChoix */
-		plateau.appliquerCoups(meilleurChoix, 1);
-		
-		/* Passe au tour suivant */
-		//tourSuivant();
-	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -325,34 +297,19 @@ public class PlateauIAController {
 			return;
 		}
 		
-		Plateau plateau = partieCourante.getPlateau();
-		
-		ArrayList<Case> coupsPossibles = plateau.getCoupsPossibles();
-		
-		//Case ayant le plus de pions retournés
 		Case meilleurChoix;
 		
-		
-		/* test de la première case comme initialisation */
-		meilleurChoix = coupsPossibles.get(0);
-		
-		int nombrePionsRetournesMax = plateau.determinerPionsARetourner(meilleurChoix,1).size();
-		
-		for (int i = 1; i < coupsPossibles.size()
-				&& coupsPossibles.get(i) != null; i++) {
-			
-			if (coupsPossibles.size() > nombrePionsRetournesMax) {
-				nombrePionsRetournesMax = plateau.determinerPionsARetourner(coupsPossibles.get(i), 1).size();
-				meilleurChoix = coupsPossibles.get(i);
-			}
+
+		if(partieCourante.getTypeDePartie() == 1) {
+			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
+		} else {
+			//meilleurChoix =  OutilsIA.strategieNormale(partieCourante);
+			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
 		}
-		
 		
 		
 		System.out.println(meilleurChoix);
 		System.out.println(partieCourante);
-		
-		
 		
 		
 		appliquerCoups(meilleurChoix.getLigne(),meilleurChoix.getColonne());
@@ -369,7 +326,8 @@ public class PlateauIAController {
 
 		controleSiTourJouable();
 	}
-	
+
+
 	/**
 	 * TODO : JDOC
 	 */
