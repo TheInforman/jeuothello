@@ -65,6 +65,7 @@ public class SaisiePseudoIAController {
 	/**
 	 * Affiche l'aide
 	 */
+	@FXML
 	public void handleAide() {
 		Main.showAide();
 	}

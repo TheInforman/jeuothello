@@ -4,12 +4,17 @@
 package Maquette.fenetres;
 
 
+import java.util.Optional;
+
 import Maquette.Main;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-
+import javafx.stage.Stage;
 import othello.Case;
 import othello.Joueur;
 import othello.Partie;
@@ -70,6 +75,10 @@ public class PlateauController {
 	/** Bouton pour sauvegarder la partie actuelle au format.bin */
 	@FXML
 	public Button btn_sauvegarder;
+	
+	/** bouton pour retourner au menu principal */
+	@FXML 
+	public Button MenuPrincipal;
 	
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -307,5 +316,26 @@ public class PlateauController {
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
+	}
+	
+	/** 
+	 * Ferme la fenêtre courante et renvoie au menu principal 
+	 */
+	@FXML 
+	public void handleMenuPrincipal () {
+		Alert confirmation = new Alert(AlertType.CONFIRMATION);
+		confirmation.setTitle("Confirmation");
+		confirmation.setHeaderText("Retour au menu principal");
+		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
+									 "Votre partie ne sera pas sauvegardée");
+		Optional<ButtonType> result = confirmation.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Stage stage = (Stage) MenuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
+		}/* else {
+			confirmation.close();
+		}*/
+		
 	}
 }
