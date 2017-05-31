@@ -1,3 +1,6 @@
+/* PlateauController		08/05/2017
+ * info1 groupe Othello
+ */
 package Maquette.fenetres;
 
 
@@ -24,7 +27,10 @@ import othello.Partie;
 import othello.Plateau;
 import outils.OutilFichier;
 
-
+/**
+ * Controller du plateau de jeu
+ * @author Arthur Pradier, Mickaël Queudet
+ */
 public class PlateauController {
 
 	/** Image associée à une case vide */
@@ -39,33 +45,41 @@ public class PlateauController {
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
 	
+	/** La partie actuelle */
 	public static Partie partieCourante;
 	
+	/** la grille, partie visible du plateau, de taille 8*8 */
 	@FXML
 	public GridPane grid;
 	
+	/** Le score du joueur blanc */
 	@FXML 
 	public Label lbl_scoreBlanc;
 	
+	/** Le score du joueur noir */
 	@FXML
 	public Label lbl_scoreNoir;
 	
+	/** Le pseudo du joueur blanc */
 	@FXML
 	public Label lbl_blanc;
 	
+	/** Le pseudo du joueur noir */
 	@FXML
 	public Label lbl_noir;
 	
+	/** Bouton pour sauvegarder la partie actuelle au format.bin */
 	@FXML
 	public Button btn_sauvegarder;
 	
 	/**
-	 * TODO : JDOC
+	 * Méthode appelée après le chargement de la page 
 	 */
 	public void initialize() {
 
 		Plateau plateauCourant = partieCourante.getPlateau();
 		
+		/* On détermine qui est le joueur blanc et qui est le joueur noir*/
 		if (partieCourante.getListeJoueur()[0].getCouleur() == 0) {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[0].getNom());
 			lbl_noir.setText(partieCourante.getListeJoueur()[1].getNom());
@@ -74,11 +88,11 @@ public class PlateauController {
 			lbl_noir.setText(partieCourante.getListeJoueur()[0].getNom());
 		}
 		
-		int numCols = Plateau.LARGEUR;
-		int numRows = Plateau.HAUTEUR;
+		int numCols = Plateau.LARGEUR; //La largeur du plateau
+		int numRows = Plateau.HAUTEUR; //La hauteur du plateau
 		
-		
-		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0)));
+		/* Calcule le score de chaque joueur, blanc puis noir */
+		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
 		
 		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
