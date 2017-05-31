@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.SaisiePseudoController">
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.SaisiePseudoController">
    <children>
       <Label layoutX="177.0" layoutY="93.0" text="SAISIE DES PSEUDOS" AnchorPane.topAnchor="96.0">
          <font>
@@ -14,8 +14,8 @@
          </font>
       </Label>
       <Button fx:id="Aide" layoutX="374.0" layoutY="208.0" mnemonicParsing="false" onAction="#handleAide" text="AIDE" AnchorPane.topAnchor="200.0" />
-      <TextField layoutX="298.0" layoutY="288.0" prefHeight="25.0" prefWidth="337.0" />
-      <TextField layoutX="298.0" layoutY="374.0" prefHeight="25.0" prefWidth="337.0" />
+      <TextField fx:id="tf_pseudoJ1" layoutX="298.0" layoutY="288.0" prefHeight="25.0" prefWidth="337.0" />
+      <TextField fx:id="tf_pseudoJ2" layoutX="298.0" layoutY="374.0" prefHeight="25.0" prefWidth="337.0" />
       <Label layoutX="182.0" layoutY="292.0" text="Pseudo du joueur 1 :" />
       <Label layoutX="181.0" layoutY="378.0" text="Pseudo du joueur 2 : " />
       <Button fx:id="MainMenuButton" layoutX="340.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="MENU PRINCIPAL" />

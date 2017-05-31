@@ -8,17 +8,20 @@ package othello;
 
 import java.util.Arrays;
 
+import java.io.Serializable;
+
 /**
  * Partie conçernant un plateau de cases et des joueurs
  * @author Vincent G. , Kerian G.
  */
-public class Partie {
+public class Partie implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	/** Historique des cases dont l'état a changé au cours de la partie.
 	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action a été jouée.
 	 *  La première colonne de chaque ligne correspond à la case sur
 	 * 		laquelle le joueur a décidé de placer son pion.
-	 * 		TODO : comment savoir la couleur du premier pion
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
 	 *  passant du noir au blanc ou du blanc au noir.
 	 */
@@ -93,7 +96,7 @@ public class Partie {
 	/**
 	 * @return le plateau de jeu de la partie
 	 */
-	public Plateau getPlateauDeJeu() {
+	public Plateau getPlateau() {
 		return plateauDeJeu;
 	}
 	

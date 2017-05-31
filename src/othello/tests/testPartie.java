@@ -41,11 +41,11 @@ public class testPartie {
 		Joueur player1 = new Joueur("Test",0);
 		Joueur player2 = new Joueur();
 		Partie partieTest = new Partie(player1, player2);
-		Plateau courant = partieTest.getPlateauDeJeu();
+		Plateau courant = partieTest.getPlateau();
 
 		// Fais jouer un tour au joueur un
 		courant.determinerCoupsPossibles(0);
-		System.out.println(partieTest.getPlateauDeJeu());
+		System.out.println(partieTest.getPlateau());
 
 		while(partieTest.getTour() < 60 ) {
 			while( courant.isActionEffectuer() == false ){
@@ -53,7 +53,7 @@ public class testPartie {
 						partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
 			}
 			partieTest.tourSuivant();
-			System.out.println(partieTest.getPlateauDeJeu());
+			System.out.println(partieTest.getPlateau());
 			courant.setActionEffectuer(false);
 		}
 
