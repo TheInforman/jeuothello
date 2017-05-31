@@ -71,7 +71,7 @@ public class PlateauController {
 	
 	/** bouton pour retourner au menu principal */
 	@FXML 
-	public Button MenuPrincipal;
+	public Button btn_menuPrincipal;
 	
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -126,67 +126,119 @@ public class PlateauController {
 	/**
 	 * TODO : JDOC
 	 */
+	public static void initPartie(String pseudo_J1, String pseudo_J2,
+			int typeDePartie){
+		
+		if (Math.random() > 0.5){
+			
+			partieCourante = new Partie(
+					new Joueur(pseudo_J1, 0),
+					new Joueur(pseudo_J2, 1),
+					typeDePartie
+					);			
+		} else {
+			
+			partieCourante = new Partie(
+					new Joueur(pseudo_J2, 0),
+					new Joueur(pseudo_J1, 1),
+					typeDePartie
+					);
+		}
+	}
+
+
+	/**
+	 * TODO : JDOC
+	 */
 	public void addPane(int colIndex, int rowIndex) {
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
-		pane.setOnMouseClicked(e -> {
-
-			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	
-
+		pane.setOnMouseClicked(e -> {	
 			
-			// Fais jouer un tour au joueur un
-
-			System.out.printf("Case cliquée : [%d, %d]%n", colIndex, rowIndex);	//TODO suprimmer l'affichage console
-			setQuiDoitJouer(partieCourante.getDoitJouer());
-			// Fais jouer un tour au joueur courant
-
-			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
-					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
+			appliquerCoups(rowIndex,colIndex);
 			
-			//Le joueur courant reste le même tant que son coup n'est pas valide
-			if (partieCourante.getPlateau().isActionEffectuer() == true){	
-				
-				partieCourante.tourSuivant();
-				//mise à jour du tableau
-				updateTableau(grid);	
-				
+			//On passe au tour suivant si le coups a pu être effectué
+			if (partieCourante.getPlateau().isActionEffectuee()){	
+				tourSuivant();
 			}
-
-			System.out.println(partieCourante.getPlateau());
 			
-			partieCourante.getPlateau().setActionEffectuer(false);
+			partieCourante.getPlateau().setActionEffectuee(false);
 			
-			//calcul du score
-			int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
-			int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-			
-			System.out.println(partieCourante.getDoitJouer());
 			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-
-			
-			// actualise le score actuel de la partie
-			changerScore(nbBlanc, nbNoir);
-
-			System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
-			changerScore(nbBlanc, nbNoir); //mise à jour du score après le coup du joueur
-
-			if(Plateau.coupsPossibles.isEmpty() ) {
-				partieCourante.tourSuivant();
-				System.out.println("TOUR PASSE");
-				if(Plateau.coupsPossibles.isEmpty() ) {
-					afficherRecapitulatif(nbBlanc, nbNoir);
-					
-				}
-				
-			}
-
+	
+			controleSiTourJouable();
 		});
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
 	
+	/**
+	 * TODO : JDOC
+	 */
+	private void controleSiTourJouable() {
+		if(Plateau.coupsPossibles.isEmpty() ) {
+			tourSuivant();
+			BoitesMessage.afficher_msgBoxInfo(
+					"Notification de Partie",
+					"Le tour a été passé",
+					"Le joueur ne pouvait pas agir.");
+			
+			if(Plateau.coupsPossibles.isEmpty() ) {
+				finPartie();
+			}
+		}
+	}
+	
+	/**
+	 * TODO : JAVADOC
+	 */
+	private void tourSuivant() {
+		partieCourante.tourSuivant();
+		updateTableau(grid);	//mise à jour du tableau
+		
+		actualiserScore();
+	}
+
+
+	/**
+	 * TODO : JAVADOC
+	 * @param rowIndex
+	 * @param colIndex
+	 */
+	private void appliquerCoups(int rowIndex, int colIndex) {
+		partieCourante.getPlateau().appliquerCoups(
+				partieCourante.getPlateau().othellier[rowIndex][colIndex],
+				partieCourante.getDoitJouer()
+				);
+	}
+
+
+	/**
+	 * TODO : Javadoc
+	 */
+	private void finPartie() {
+		afficherRecapitulatif(
+				partieCourante.getPlateau().calculerNbPions(0),
+				partieCourante.getPlateau().calculerNbPions(1)
+				);
+		
+	}
+
+
+	/**
+	 * TODO : JAVAOC
+	 */
+	private void actualiserScore() {
+		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
+		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
+		System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
+		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
+		lbl_scoreNoir.setText(String.valueOf(nbNoir));
+	}
+
+
 	/**
 	 * Ajout des images des pions sur le plateau.
 	 * 
@@ -216,15 +268,6 @@ public class PlateauController {
 		}
 	}
 	
-	
-	/**
-	 * Met à jour le score de chaque joueur
-	 */
-	public void changerScore(int nbBlanc, int nbNoir){
-		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
-		lbl_scoreNoir.setText(String.valueOf(nbNoir));
-	}
-	
 	/**
 	 * Souligne le nom du joueur qui doit jouer
 	 */
@@ -235,26 +278,6 @@ public class PlateauController {
 		} else{
 			lbl_blanc.setUnderline(false);
 			lbl_noir.setUnderline(true);
-		}
-	}
-	
-	/**
-	 * TODO : JDOC
-	 */
-	public static void initPartie(String pseudo_J1, String pseudo_J2){
-		
-		if (Math.random() > 0.5){
-			
-			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 0),
-					new Joueur(pseudo_J2, 1)
-					);			
-		} else {
-			
-			partieCourante = new Partie(
-					new Joueur(pseudo_J2, 0),
-					new Joueur(pseudo_J1, 1)
-					);
 		}
 	}
 	
@@ -337,7 +360,7 @@ public class PlateauController {
 									 "Votre partie ne sera pas sauvegardée");
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			Stage stage = (Stage) MenuPrincipal.getScene().getWindow();
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 			stage.close();
 			Main.showMenuPrincipal();
 		}

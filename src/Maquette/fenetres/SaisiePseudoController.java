@@ -55,14 +55,17 @@ public class SaisiePseudoController {
 	}
 
 	/**
-	 * ferme la fenêtre courante, initialise une partie avec 
+	 * Ferme la fenêtre courante, initialise une partie avec 
 	 * les pseudos entrés dans les champs texte et affiche le plateau
 	 */
 	@FXML
 	public void handleValider(ActionEvent event) {
 		Stage stage = (Stage) Valider.getScene().getWindow();
 		stage.close();
-		PlateauController.initPartie(tf_pseudoJ1.getText(), tf_pseudoJ2.getText());
+		PlateauController.initPartie(
+				tf_pseudoJ1.getText(),
+				tf_pseudoJ2.getText(),
+				0);
 		Main.showPlateau();
 	}
 
