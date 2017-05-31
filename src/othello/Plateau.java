@@ -203,7 +203,8 @@ public class Plateau implements Serializable {
 				 colonne += deplacementColonne, ligne += deplacementLigne) {
 				
 				/* Si la case est vide ou de la même couleur que le 
-				   pion placé on arrête la recherche dans cette direction */
+				   pion placé on arrête la recherche dans cette direction
+				   sinon on ajoute la case aux tableau vue directionnel */
 				if (othellier[ligne][colonne].getCouleur() == Case.COULEUR_NEUTRE
 					|| othellier[ligne][colonne].getCouleur() == couleur) {
 					
@@ -218,7 +219,7 @@ public class Plateau implements Serializable {
 		}
 		
 		indice = 0;
-
+		
 		for (int i = 0; i < tableauVueDirectionnel.length; i++) {
 			if(derniereCase(tableauVueDirectionnel[i]) != null && derniereCase(tableauVueDirectionnel[i]).getCouleur()
 					== couleur) {
