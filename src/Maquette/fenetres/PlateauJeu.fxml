@@ -370,7 +370,7 @@
          </image>
       </ImageView>
       <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" onAction="#enregistrerPartie" text="Sauvegarder" />
-      <Button layoutX="135.0" layoutY="555.0" mnemonicParsing="false" text="Menu principal" />
+      <Button layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#quitterPartie" text="Menu principal" />
    </children>
    <rotationAxis>
       <Point3D />

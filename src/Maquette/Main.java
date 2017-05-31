@@ -3,29 +3,34 @@
  * Groupe Othello PRADIER,QUEUDET, BOUYSSOU, GEORGES, GALINIER
  */
 package Maquette;
-	
+
+
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.filechooser.FileSystemView;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import Maquette.fenetres.PlateauController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import othello.Joueur;
-import othello.Partie;
-import outils.OutilFichier;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
+import othello.Partie;
+import outils.OutilFichier;
 
 /**
  * Classe gérant le lancement des différentes fenêtres
  * @author Arthur
+ * @author Vincent
  */
 public class Main extends Application {
 	
@@ -224,23 +229,42 @@ public class Main extends Application {
     }
     
     /**
+     * S'assure qu'il est possible d'accéder au répertoire Othello devant être
+     * situé dans le répertoire par défaut de l'utilisateur.
+     * Crée le répertoire Othello ci celui-ci n'existe pas.
+     * 
+     * @return true si le répertoire Othello existe sur la machine,
+     * 		   si le repertoire n'a pas pu être créé, return false
+     */
+    public static boolean accederRepertoireOthello() {
+    	if (!OutilFichier.isRepertoireOthelloExistant()) {
+
+    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+
+    		if (!repertoireCree) {
+    			BoitesMessage.afficher_msgBoxErreur(
+    					"Création de répertoire impossible",
+    					"Erreur dans la création du répertoire Othello",
+    					"Le répertoire n'a pas pu être créé"
+    							+ " à l'emplacement "
+    							+ OutilFichier.getRepertoireParDefaut());
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    /**
      * Lorsqu'un utilisateur clique sur le bouton "charger une partie", ouvre
      * un explorateur de fichier grâce auquel il ira choisir sa sauvegarde
      */
     public static void selectionFichier() {
     	
-    	if (!OutilFichier.isRepertoireOthelloExistant()) {
-    		System.out.println("Le répertoire Othello n'existe pas");
-    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
-    		if (repertoireCree) {
-    			System.out.println("Répertoire créé avec succès");
-    		} else {
-    			System.out.println("Le répertoire n'a pas pu être créé"
-    					+ " à l'emplacement "
-    					+ OutilFichier.getRepertoireParDefaut());
-    			return;
-    		}
+    	if (!accederRepertoireOthello()) {
+    		return;
     	}
+    	
+    	
     	
     	FileChooser fileChooser = new FileChooser();
     	
@@ -257,15 +281,15 @@ public class Main extends Application {
     	
     	File selectedFile = fileChooser.showOpenDialog(primaryStage);
     	 if (selectedFile != null) {
-    		 System.out.println("fichier selectionné");
     		 
     		 Partie partieRestauree =
     			OutilFichier.restaurerPartie(
     					selectedFile.getAbsolutePath()
     					);
-    		 System.out.println(selectedFile.getName());
-    		 System.out.println(selectedFile.getAbsolutePath());
-    		 System.out.println(partieRestauree);
+    		 
+    		 Path cheminSauvegarde = Paths.get(selectedFile.getAbsolutePath());
+    		 
+    		 OutilFichier.supprimerSauvegarde(cheminSauvegarde);
     		 
     		 primaryStage.close();
     		 PlateauController.restaurerPartie(partieRestauree);
@@ -281,4 +305,5 @@ public class Main extends Application {
 		launch(args);
 		
 	}
+	
 }

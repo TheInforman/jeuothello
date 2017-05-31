@@ -1,6 +1,7 @@
 package Maquette.fenetres;
 
 
+import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.collections.ObservableList;
@@ -155,6 +156,7 @@ public class PlateauController {
 				
 				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
 					
+				//TODO :supprimer commentaires :
 					case 1 : ImageView Noir = new ImageView(caseNoire);
 									  /* Noir.setFitHeight(28);
 									   Noir.setFitWidth(28);
@@ -273,21 +275,31 @@ public class PlateauController {
 	private void enregistrerPartie() {
 		System.out.println("Enregistrement de la partie");
 		
-		if (!OutilFichier.isRepertoireOthelloExistant()) {
-    		System.out.println("Le répertoire Othello n'existe pas");
-    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
-    		if (repertoireCree) {
-    			System.out.println("Répertoire créé avec succès");
-    		} else {
-    			System.out.println("Le répertoire n'a pas pu être créé"
-    					+ " à l'emplacement "
-    					+ OutilFichier.getRepertoireParDefaut());
-    			return;
-    		}
+		if (!Main.accederRepertoireOthello()) {
+    		return;
     	}
-		
 		OutilFichier.enregistrerPartie(partieCourante);
-		//TODO : Quitter
+		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
+				"Partie sauvegardée avec succès !",
+				"Vous pourrez reprendre votre partie plus tard.");
+		//TODO : FERMER FENETRE + revenir au menu principal
+		
+	}
+	
+	/**
+	 * TODO : JDOC
+	 */
+	@FXML
+	private void quitterPartie() {
+		if (
+		BoitesMessage.afficher_msgBoxConfirmation(
+				"Revenir au Menu Principal",
+				"Vous êtes sur le point de revenir au Menu Prncipal",
+				"Souhaitez vous quittez la partie ?" +
+				"\n L'avancement ne sera pas sauvegardé !"
+				)) {
+			//TODO : FERMER FENETRE + revenir au menu principal
+		}
 	}
 	
 	/**
