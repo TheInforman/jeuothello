@@ -33,6 +33,10 @@ import outils.OutilsIA;
  */
 public class PlateauIAController {
 	
+	public static String pseudoGagnant;
+	
+	public static int scoreGagnant;
+	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
 			new Image("file:src/Maquette/Ressource/Jeton1.png");
@@ -343,8 +347,7 @@ public class PlateauIAController {
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
 		// 1 = noirs
-		String pseudoGagnant;
-		int scoreGagnant;
+		
 		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
 		System.out.println(gagnant);
 		if (gagnant == 0){

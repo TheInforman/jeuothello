@@ -5,7 +5,6 @@ package Maquette.fenetres;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import Maquette.BoitesMessage;
 import Maquette.Main;
@@ -134,7 +133,8 @@ public class PlateauController {
 
 
 	/**
-	 * TODO : JDOC
+	 * Initialisation de la partie en fonction des pseudos des joueurs et de si la
+	 * partie oppose deux joueurs ou un joueur et l'IA
 	 */
 	public static void initPartie(String pseudo_J1, String pseudo_J2,
 			int typeDePartie){
@@ -158,7 +158,8 @@ public class PlateauController {
 
 
 	/**
-	 * TODO : JDOC
+	 * Boucle active après le chargement du programme qui 
+	 * permet le clic sur le plateau
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 
@@ -186,7 +187,9 @@ public class PlateauController {
 	}
 
 	/**
-	 * TODO : JDOC
+	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
+	 * affiche une msgBox pour lui notifier que son tour a été passé. 
+	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
@@ -204,7 +207,7 @@ public class PlateauController {
 	}
 
 	/**
-	 * TODO : JAVADOC
+	 * Passe au joueur suivant et actualise l'état du tableau
 	 */
 	private void tourSuivant() {
 		partieCourante.tourSuivant();
@@ -215,9 +218,10 @@ public class PlateauController {
 
 
 	/**
-	 * TODO : JAVADOC
-	 * @param rowIndex
-	 * @param colIndex
+	 * applique le coup sur la case cliquée, qui est passée en paramètre.
+	 * n'a aucun effet sur l'objet graphique.
+	 * @param rowIndex numéro de ligne de la case où le coup est à apliquer
+	 * @param colIndex numéro de colonne de la case où le coup est à appliquer
 	 */
 	private void appliquerCoups(int rowIndex, int colIndex) {
 		partieCourante.getPlateau().appliquerCoups(
@@ -228,7 +232,7 @@ public class PlateauController {
 
 
 	/**
-	 * TODO : Javadoc
+	 * Mets fin à la partie en affichant le récapitulatif de fin
 	 */
 	private void finPartie() {
 		afficherRecapitulatif(
@@ -239,7 +243,8 @@ public class PlateauController {
 
 
 	/**
-	 * TODO : JAVAOC
+	 * Actualise le label contenant le score de chaque joueur pour le faire
+	 * correspondre au score actuel
 	 */
 	private void actualiserScore() {
 		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
@@ -251,8 +256,8 @@ public class PlateauController {
 
 
 	/**
-	 * Ajout des images des pions sur le plateau.
-	 * 
+	 * Ajout des images des pions sur le plateau. afin de conrrespondre 
+	 * à l'état actuel
 	 */
 	public static void updateTableau(GridPane grid) {
 
@@ -279,15 +284,7 @@ public class PlateauController {
 	}
 
 	/**
-	 * TODO : JDOC
-	 */
-	public static void debutPartie() {
-		partieCourante.getPlateau().determinerCoupsPossibles(partieCourante.getDoitJouer());//initialisation
-		System.out.println(partieCourante.getPlateau());
-	}
-
-	/**
-	 * TODO : JDOC
+	 * Actualise le score des deux joueurs
 	 */
 	public void changerScore(int nbBlanc, int nbNoir){
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
@@ -295,7 +292,6 @@ public class PlateauController {
 	}
 
 	/**
-	 * TODO : JDOC
 	 * Souligne le nom du joueur qui doit jouer
 	 */
 	public void setQuiDoitJouer(int joueur){
@@ -308,27 +304,10 @@ public class PlateauController {
 		}
 	}
 
-
-	public void determinerBlanc(){
-		// boolean J1commence = (Math.random() > 0.5) ? true : false;
-		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
-
-		/*
-		if (Math.random() > 0.5){
-			lbl_blanc.setText(pseudoJ1);
-			lbl_noir.setText(pseudoJ2);
-
-		} else {
-			lbl_blanc.setText(pseudoJ2);
-			lbl_noir.setText(pseudoJ1);
-		}
-		 */
-	}
-
 	/**
-	 * TODO : JDOC
+	 * Détermine quel joueur est le gagnant, puis appelle un récapitulatif 
+	 * affichant son pseudo et son score
 	 */
-
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
 		// 1 = noirs
@@ -342,16 +321,15 @@ public class PlateauController {
 			pseudoGagnant = lbl_noir.getText();
 			scoreGagnant = scoreNoir;
 		}
-		/*
-		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
-		TODO: Linker les récapitulatifs
-		 */
+
 		System.out.println("Recapitulatif");
 		Main.showRecapitulatif();
 	}
 
 	/**
-	 * TODO : JDOC
+	 * Enregistre la partie actuelle dans un répertoire par défaut, notifie le joueur
+	 * de la sauvegarde via une msgBox. Si le répertoire de sauvegarde désiré n'est pas accessible,
+	 * on annule la sauvegarde.
 	 */
 	@FXML
 	private void enregistrerPartie() {
@@ -378,12 +356,16 @@ public class PlateauController {
 		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
-		//TODO : FERMER FENETRE + revenir au menu principal
+		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+		stage.close();
+		Main.showMenuPrincipal();
 
 	}
 
 	/**
-	 * TODO : JDOC
+	 * Quitte la partie actuelle sans sauvegarder et retourne au menu principal. 
+	 * L'utilisateur devra confirmer son choix et sera averti des conséquences
+	 * possibles. 
 	 */
 	@FXML
 	private void quitterPartie() {
@@ -394,13 +376,16 @@ public class PlateauController {
 						"Souhaitez vous quittez la partie ?" +
 								"\n L'avancement ne sera pas sauvegardé !"
 						)) {
-			//TODO : FERMER FENETRE + revenir au menu principal
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
 		}
 	}
 
 	/**
-	 * TODO : JDOC
-	 * TODO : Faire tout tourner autour de la partie
+	 * Appelé lors du chargement d'une partie. 
+	 * Remplace le plateau vide généré au chargement par le plateau 
+	 * récupéré dans e fichier de sauvegarde
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
@@ -424,22 +409,5 @@ public class PlateauController {
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}
-	/** 
-	 * Ferme la fenêtre courante et renvoie au menu principal 
-	 */
-	@FXML 
-	public void handleMenuPrincipal () {
-		Alert confirmation = new Alert(AlertType.CONFIRMATION);
-		confirmation.setTitle("Confirmation");
-		confirmation.setHeaderText("Retour au menu principal");
-		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
-				"Votre partie ne sera pas sauvegardée");
-		Optional<ButtonType> result = confirmation.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
-			stage.close();
-			Main.showMenuPrincipal();
-		}
 
-	}
 }
