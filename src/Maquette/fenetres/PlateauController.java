@@ -196,15 +196,19 @@ public class PlateauController {
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			BoitesMessage.afficher_msgBoxInfo(
-					"Notification de Partie",
-					"Le tour a été passé",
-					"le joueur ne pouvait pas agir.");
-
+			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
-				System.out.println("coucou");
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
 			}
 		}
 	}
