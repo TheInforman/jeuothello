@@ -153,7 +153,9 @@ public class Partie implements Serializable {
 	 * au tableau de l'historique des tours
 	 */
 	public void archiverTour( ArrayList<Case> aArchiver ){
-		historiqueCoups.add(aArchiver);
+		if(aArchiver != null){
+			historiqueCoups.add(new ArrayList<Case>(aArchiver));
+		}
 	}
 
 	/**
@@ -179,17 +181,15 @@ public class Partie implements Serializable {
 	public String toString() {
 		String textePartie = "" ;
 		textePartie += "Partie [listeCoups=" ;
-		/*for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
-			textePartie += "\nCase modifié au Tour n° " + tour + "\n";
-			for (int j = 0 ; j < historiqueCoups.get(i).size(); j++) {
-				textePartie +=  historiqueCoups.get(i).get(j);
-				textePartie += "\n";
-			}
-		}*/
-		textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
-				+ Arrays.toString(listeJoueur) + "]";
+		for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
+			textePartie += "\nCase modifié au Tour n° " + (i+1) + "\n";
+			textePartie +=  historiqueCoups.get(i);
+			textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
+					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+					+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
+		}
 		return textePartie ;
 	}
-
 }
+
+
