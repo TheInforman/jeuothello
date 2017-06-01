@@ -42,6 +42,7 @@ public class ScoresController {
 	 */
 	public void initialize(){
 		// Restauration du fichier de sauvegarde 
+		
 		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
@@ -75,7 +76,8 @@ public class ScoresController {
 	}
 	
 	/**
-	 * Permet de supprimer le fichier de sauvegarde
+	 * Supprime le fichier de sauvegarde (après une BoîteMessage)
+	 * 
 	 */
 	@FXML
 	private void handleSupprimer(){
@@ -85,11 +87,15 @@ public class ScoresController {
 						"Vous êtes sur le point de supprimer votre fichier de sauvegarde",
 						"Souhaitez vous réellement supprimer ?"
 						)) {
+			// Définition de l'emplacement de la sauvegarde
 			Path emplacementSauvegarde;
 			emplacementSauvegarde =
 					Paths.get(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
 			OutilFichier.supprimerSauvegarde(emplacementSauvegarde);
-			remplirVide();
+			
+			// Fermeture de la fenêtre
+			Stage stage = (Stage) btn_supprimer.getScene().getWindow();
+			stage.close();
 			}
 	}
 	
