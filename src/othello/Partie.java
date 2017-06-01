@@ -144,7 +144,7 @@ public class Partie implements Serializable {
 		tour--;
 		this.annulationCoupPrecedent();
 		this.actualiserHistoriqueCoups();
-		Plateau.coupsPossibles.clear();
+		plateauDeJeu.viderCoupsPossibles();
 		doitJouer = (doitJouer + 1) % 2 ;
 		plateauDeJeu.determinerCoupsPossibles(
 										listeJoueur[doitJouer].getCouleur());	

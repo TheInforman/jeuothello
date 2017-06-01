@@ -53,14 +53,14 @@ public class testPlateau {
 //         6 |                |
 //         7 |                |
 		
-		plateau_1.othellier[4][3].setCouleur(Case.COULEUR_NOIR);
-		plateau_1.othellier[4][4].setCouleur(Case.COULEUR_NOIR);
-		plateau_1.othellier[4][5].setCouleur(Case.COULEUR_BLANC);
-		
+		plateau_1.setCase(4, 3, Case.COULEUR_NOIR);
+		plateau_1.setCase(4, 4, Case.COULEUR_NOIR);
+		plateau_1.setCase(4, 5, Case.COULEUR_BLANC);
+
 		plateau_1.determinerCoupsPossibles(Case.COULEUR_BLANC);
 		
 		System.out.println(plateau_1);
-		//System.out.println("Doit renvoyer 4,2");
+		System.out.println("Doit renvoyer 4,2");
 		
 
 		
@@ -79,40 +79,15 @@ public class testPlateau {
 //		   6 |                |
 //		   7 |                |
 		
-		plateau_2.othellier[3][3].setCouleur(Case.COULEUR_NOIR);
-		plateau_2.othellier[4][4].setCouleur(Case.COULEUR_NOIR);
-		plateau_2.othellier[3][4].setCouleur(Case.COULEUR_BLANC);
-		plateau_2.othellier[4][3].setCouleur(Case.COULEUR_BLANC);
-		
+		plateau_2.setCase(3, 3, Case.COULEUR_NOIR);
+		plateau_2.setCase(4, 4, Case.COULEUR_NOIR);
+		plateau_2.setCase(3, 4, Case.COULEUR_BLANC);
+		plateau_2.setCase(4, 3, Case.COULEUR_BLANC);
 		plateau_2.determinerCoupsPossibles(Case.COULEUR_BLANC);
 		
 		System.out.println(plateau_2);
-		//System.out.println("Doit renvoyer 3,2\t 2,3\t 5,4\t 4,5");
-		
-//		/* Plateau 3*/
-		System.out.println(SEPARATION);
-		Plateau plateau_3 = new Plateau();
-		enleverPionsDepart(plateau_3);
-		
-//		      0 1 2 3 4 5 6 7 
-//		   0 |                |
-//		   1 |                |
-//		   2 |                |
-//		   3 |                |
-//		   4 |      B B N     |
-//		   5 |                |
-//		   6 |                |
-//		   7 |                |
-		
-		plateau_3.othellier[4][5].setCouleur(Case.COULEUR_NOIR);
-		plateau_3.othellier[4][3].setCouleur(Case.COULEUR_BLANC);
-		plateau_3.othellier[4][4].setCouleur(Case.COULEUR_BLANC);
-		
-		plateau_3.determinerCoupsPossibles(Case.COULEUR_BLANC);
-		
-		System.out.println(plateau_3);
-		//System.out.println("Doit renvoyer 4,6");
-		
+		System.out.println("Doit renvoyer 3,2\t 2,3\t 5,4\t 4,5");
+			
 //		/* Plateau 4*/
 		
 		System.out.println(SEPARATION);
@@ -129,47 +104,32 @@ public class testPlateau {
 //		   6 |                |
 //		   7 |                |
 		
-
-		plateau_4.othellier[2][1].setCouleur(Case.COULEUR_BLANC);
-		plateau_4.othellier[2][2].setCouleur(Case.COULEUR_BLANC);
-		plateau_4.othellier[3][2].setCouleur(Case.COULEUR_BLANC);
-		plateau_4.othellier[3][3].setCouleur(Case.COULEUR_BLANC);
-		plateau_4.othellier[4][2].setCouleur(Case.COULEUR_BLANC);
+		plateau_4.setCase(2, 1, Case.COULEUR_BLANC);
+		plateau_4.setCase(2, 2, Case.COULEUR_BLANC);
+		plateau_4.setCase(3, 2, Case.COULEUR_BLANC);
+		plateau_4.setCase(3, 3, Case.COULEUR_BLANC);
+		plateau_4.setCase(4, 2, Case.COULEUR_BLANC);
 		
-		plateau_4.othellier[2][3].setCouleur(Case.COULEUR_NOIR);
-		plateau_4.othellier[2][4].setCouleur(Case.COULEUR_NOIR);
-		plateau_4.othellier[2][5].setCouleur(Case.COULEUR_NOIR);
-		plateau_4.othellier[3][4].setCouleur(Case.COULEUR_NOIR);
-		plateau_4.othellier[4][3].setCouleur(Case.COULEUR_NOIR);
+		plateau_4.setCase(2, 3, Case.COULEUR_NOIR);
+		plateau_4.setCase(2, 4, Case.COULEUR_NOIR);
+		plateau_4.setCase(2, 5, Case.COULEUR_NOIR);
+		plateau_4.setCase(3, 4, Case.COULEUR_NOIR);
+		plateau_4.setCase(4, 3, Case.COULEUR_NOIR);
 		
 		plateau_4.determinerCoupsPossibles(Case.COULEUR_BLANC);
 		
 		System.out.println(plateau_4);
-		System.out.println("Doit renvoyer");
+		System.out.println("Doit renvoyer 1,3  5,3  1,4  4,4 "
+				+" 5,4  1,5  3,5  2,6");
 		
-		
-		/* Plateau 5*/
-		@SuppressWarnings("unused")
-		Plateau plateau_5 = new Plateau();
-		
-		/* Plateau 6*/
-		@SuppressWarnings("unused")
-		Plateau plateau_6 = new Plateau();
-		
-		/* Plateau 7*/
-		@SuppressWarnings("unused")
-		Plateau plateau_7 = new Plateau();
-		
-		/* Plateau 8*/
-		@SuppressWarnings("unused")
-		Plateau plateau_8 = new Plateau();
 		
 	}
 	
 	private static void enleverPionsDepart(Plateau plateau){
-		plateau.othellier[3][3].setCouleur(Case.COULEUR_NEUTRE);
-		plateau.othellier[4][4].setCouleur(Case.COULEUR_NEUTRE);
-		plateau.othellier[4][3].setCouleur(Case.COULEUR_NEUTRE);
-		plateau.othellier[3][4].setCouleur(Case.COULEUR_NEUTRE);
+		plateau.setCase(3, 3, Case.COULEUR_NEUTRE);
+		plateau.setCase(4, 4, Case.COULEUR_NEUTRE);
+		plateau.setCase(4, 3, Case.COULEUR_NEUTRE);
+		plateau.setCase(3, 4, Case.COULEUR_NEUTRE);
+
 	}
 }

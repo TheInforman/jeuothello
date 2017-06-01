@@ -85,6 +85,6 @@ public class OutilsConsole {
 			clavier.nextLine();
 		}
 		
-		return plateauCourant.othellier[ligne][colonne];
+		return plateauCourant.getOthellier()[ligne][colonne];
 	}
 }
