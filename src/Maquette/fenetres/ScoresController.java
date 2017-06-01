@@ -39,25 +39,38 @@ public class ScoresController {
 
 	/**
 	 * Initialise la fenêtre de consultation des scores:	 
-	 * restaure le fichier des scores
+	 * Crée le dossier et le fichier si nécessaire
 	 */
 	public void initialize(){
 		// Restauration du fichier de sauvegarde 
 
 		File file = new File(OutilFichier.getEmplacementSaveScores());
-
-		// Vérification si le fichier de scores existe
-		if(!file.exists()){
+		/*
+		 * On vérifie si le répertoire Othello existe : 
+		 *     -  Il n'existe pas alors on le crée et on enregistre
+		 *        le fichier
+		 *     -  Il existe mais le fichier .sothl non alors 
+		 *         on crée le fichier et on enregistre
+		 *     -  Les deux existent, on restaure le fichier et on enregistre        
+		 */
+		if(!OutilFichier.isRepertoireOthelloExistant()){
+			OutilFichier.creerRepertoireOthello();
 			Scores courant = new Scores();
 			OutilFichier.enregistrerScores(courant);
 		} else {
-			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getEmplacementSaveScores());
-			// Remplissage du tableau de score
-			remplirScores(courant); 
+			// Vérification si le fichier de scores existe
+			if(!file.exists()){
+				Scores courant = new Scores();
+				OutilFichier.enregistrerScores(courant);
+			} else {
+				Scores courant = OutilFichier.restaurerScores(
+						OutilFichier.getEmplacementSaveScores());
+				// Remplissage du tableau de score
+				remplirScores(courant); 
+			}
 		}
 	}
-	
+
 	/**
 	 * Insère les éléments du tableau des scores dans les labels de l'interface 
 	 * graphique
@@ -103,7 +116,7 @@ public class ScoresController {
 			stage.close();
 		}
 	}
-	
+
 	/**
 	 * Ferme la fenêtre des scores 
 	 */

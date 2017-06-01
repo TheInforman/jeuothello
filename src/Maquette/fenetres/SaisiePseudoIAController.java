@@ -3,6 +3,7 @@
  */
 package Maquette.fenetres;
 
+import Maquette.BoitesMessage;
 import Maquette.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +13,16 @@ import javafx.stage.Stage;
 
 /**
  * Gère la saisie du pseudo de l'utilisateur lorsqu'il veut jouer contre l'IA
- * @author Arthur Pradier Mickaël Queudet
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class SaisiePseudoIAController {
+
+	/** Limite de caractères pour le pseudo */
+	private static final int LIMITE_CARACTERES = 12;
 
 	/** le champ texte ou le joueur 1 entrera son pseudo */
 	@FXML
@@ -56,13 +64,16 @@ public class SaisiePseudoIAController {
 	 */
 	@FXML
 	private void handleValider(ActionEvent event) {
-		Stage stage = (Stage) Valider.getScene().getWindow();
-		stage.close();
-		//Initialisation d'une partie avec le nom entré par le joueur et 
-		PlateauIAController.initPartieIA(
-				tf_pseudoJ1.getText(),
-				ChoixDifficulteController.choixDifficulte);
-		Main.showPlateauIA();
+		// Si les pseudos sont valides (voir verifierValiditePseudo) alors on crée la partie
+		if(verifierValiditePseudo()) {
+			Stage stage = (Stage) Valider.getScene().getWindow();
+			stage.close();
+			//Initialisation d'une partie avec le nom entré par le joueur et la difficulté
+			PlateauIAController.initPartieIA(
+					tf_pseudoJ1.getText(),
+					ChoixDifficulteController.choixDifficulte);
+			Main.showPlateauIA();
+		}
 	}
 
 	/**
@@ -72,5 +83,30 @@ public class SaisiePseudoIAController {
 	private void handleAide() {
 		Main.showAide();
 	}
-
+	
+	/**
+	 * Vérifie la validité du pseudo:
+	 * <ul>
+	 *     <li>Le pseudo ne doit pas être vide </li>
+	 *     <li>Le pseudo doit faire moins de {@code LIMITE_CARACTERES}</li>
+	 * </ul>
+	 * @return {@code true} si le pseudo est valide, {@code false} sinon
+	 */
+    public boolean verifierValiditePseudo(){
+		if (tf_pseudoJ1.getText().trim().equals("")){
+			BoitesMessage.afficher_msgBoxErreur("Pseudo vide !",
+					"Le pseudo est vide",
+					"Veuillez retaper votre pseudo");
+			tf_pseudoJ1.clear();
+			return false;
+		} else if(tf_pseudoJ1.getText().length() > LIMITE_CARACTERES){
+			BoitesMessage.afficher_msgBoxErreur("Pseudo trop grand !",
+					"Le ou les pseudos fait plus de " + LIMITE_CARACTERES +  " caractères",
+					"Veuillez retaper vos pseudos");
+			tf_pseudoJ1.clear();
+			return false;
+		}
+		
+		return true;
+    }
 }
