@@ -141,7 +141,6 @@ public class Partie implements Serializable {
 	 * dans une partie joueur contre joueur et détermine les coups possibles
 	 */
 	public void tourPrecedent() {
-
 		tour--;
 		this.annulationCoupPrecedent();
 		this.actualiserHistoriqueCoups();
