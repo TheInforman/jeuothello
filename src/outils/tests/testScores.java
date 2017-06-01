@@ -5,7 +5,7 @@ import othello.Scores;
 public class testScores {
 
 	/**
-	 * Tests unitaires de la classe
+	 * Tests unitaires de la classe score
 	 * @param args
 	 */
 	public static void main(String[] args) {

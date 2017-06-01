@@ -374,10 +374,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btn_menuPrincipal" layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="Menu principal">
+      <Button fx:id="btn_menuPrincipal" layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#quitterPartie" text="Menu principal">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button fx:id="tourPrecedent" layoutX="255.0" layoutY="555.0" mnemonicParsing="false" onAction="#tourPrecedent" text="Tour Précédent" />
    </children>
    <rotationAxis>
       <Point3D />
