@@ -183,13 +183,14 @@ public class Partie implements Serializable {
 		textePartie += "Partie [listeCoups=" ;
 		for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
 			textePartie += "\nCase modifié au Tour n° " + (i+1) + "\n";
-				textePartie +=  historiqueCoups.get(i);
-				textePartie += "\n";
-			}
-		textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
-				+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
+			textePartie +=  historiqueCoups.get(i);
+			textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
+					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+					+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
+
+		}
 		return textePartie ;
 	}
-
 }
+
+
