@@ -77,6 +77,8 @@ public class Partie implements Serializable {
 
 		tour = 0;
 		doitJouer = 0;
+		
+		historiqueCoups = new ArrayList<ArrayList<Case>>();
 	}
 
 
@@ -151,7 +153,7 @@ public class Partie implements Serializable {
 	 * au tableau de l'historique des tours
 	 */
 	public void archiverTour( ArrayList<Case> aArchiver ){
-	historiqueCoups.add(aArchiver);
+		historiqueCoups.add(aArchiver);
 	}
 
 	/**

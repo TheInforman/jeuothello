@@ -91,7 +91,7 @@ public class Plateau implements Serializable {
 	 *  				Note : Ce paramètre de retour sert dans le cas où l'on
 	 *  					   archive les coups joués
 	 */
-	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
+	public ArrayList<Case> appliquerCoups(Case caseConcernee, int couleur) {
 
 		actionEffectuee = false ;
 		
@@ -138,7 +138,7 @@ public class Plateau implements Serializable {
 					+ "de case possible, veuillez réessayer.");
 			//TODO : à enlever, pas de syso ici
 		}
-		return null;
+		return tableauRetour;
 	}
 
 

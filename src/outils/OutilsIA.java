@@ -266,7 +266,7 @@ public class OutilsIA {
     	if (importance == 0) {
     		importance = 5;
     	}
-    	
+    	System.out.println("Importance : " + importance );
 		return importance;
 	}
 	

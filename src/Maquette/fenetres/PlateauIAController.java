@@ -206,10 +206,12 @@ public class PlateauIAController {
 	 * @param colIndex
 	 */
 	private void appliquerCoups(int rowIndex, int colIndex) {
-		partieCourante.getPlateau().appliquerCoups(
-				partieCourante.getPlateau().othellier[rowIndex][colIndex],
-				partieCourante.getDoitJouer()
-				);
+		partieCourante.archiverTour(
+			partieCourante.getPlateau().appliquerCoups(
+					partieCourante.getPlateau().othellier[rowIndex][colIndex],
+					partieCourante.getDoitJouer()
+					)
+		);
 	}
 
 
