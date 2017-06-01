@@ -1,4 +1,4 @@
-/**
+/*
  * Main.java	08/05/2017
  * Groupe Othello PRADIER,QUEUDET, BOUYSSOU, GEORGES, GALINIER
  */
@@ -9,11 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import Maquette.fenetres.MenuPrincipalController;
+
 import Maquette.fenetres.PlateauController;
 import Maquette.fenetres.PlateauIAController;
 import javafx.application.Application;
