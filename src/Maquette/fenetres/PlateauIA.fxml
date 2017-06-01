@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="35.0" layoutY="28.0" minHeight="512.0" minWidth="256.0" prefHeight="512.0" prefWidth="512.0">
         <columnConstraints>
@@ -371,7 +371,7 @@
       </ImageView>
       <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" text="Sauvegarder" />
       <Button layoutX="135.0" layoutY="555.0" mnemonicParsing="false" text="Menu principal" />
-      <Button fx:id="btn_jouerIA" layoutX="249.0" layoutY="555.0" mnemonicParsing="false" onAction="#JouerTourIA" text="IA" />
+      <Button fx:id="btn_jouerIA" defaultButton="true" layoutX="249.0" layoutY="555.0" mnemonicParsing="false" onAction="#JouerTourIA" text="IA" />
    </children>
    <rotationAxis>
       <Point3D />

@@ -25,6 +25,7 @@ public class AideController {
 						 "possible à la fin de la partie. Pour poser un jeton, il vous suffit de cliquer sur la case où vous voulez le positionner. Le pion doit être placé de sorte" +
 						 " à encercler un ou plusieurs pions adverses, et ce horizontalement, verticalement ou diagonalement. Lorsque vous placez un pion, tous les pions adverses " +
 						 "ainsi encerclés seront changés en votre couleur. La partie se termine lorsque le plateau est plein ou si aucun des deux joueurs ne peut jouer son tour.\n\n" +
+						 "Quand vous jouez contre l'IA, vous devez lui indiquer manuellement qu'elle doit jouer en cliquant sur le bouton \"IA\"\n\n" + 
 						 "Pour en savoir plus, vous pouvez vous rendre sur www.ffothello.org";
 	
 	/** Bouton de fermeture de l'aide */

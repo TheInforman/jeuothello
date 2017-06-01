@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.RecapitulatifController">
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.RecapitulatifController">
    <children>
       <Label layoutX="169.0" layoutY="44.0" text="Récapitulatif" AnchorPane.topAnchor="47.0">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="retour" layoutX="270.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleRetourMenu" text="RETOUR" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="342.0" />
+      <Button fx:id="retour" layoutX="270.0" layoutY="342.0" mnemonicParsing="false" onAction="#fermetureRecapitulatif" text="RETOUR" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="342.0" />
       <Label fx:id="lbl_pseudoGagnant" layoutX="127.0" layoutY="183.0" />
       <Label fx:id="lbl_scoreGagnant" layoutX="232.0" layoutY="192.0" />
    </children>

@@ -34,6 +34,10 @@ import outils.OutilFichier;
  */
 public class PlateauController {
 	
+	public static String pseudoGagnant;
+	
+	public static int scoreGagnant;
+	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
 			new Image("file:src/Maquette/Ressource/Jeton1.png");
@@ -72,6 +76,8 @@ public class PlateauController {
 	/** bouton pour retourner au menu principal */
 	@FXML 
 	public Button btn_menuPrincipal;
+	
+	public static String gagnant;
 	
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -174,6 +180,7 @@ public class PlateauController {
 		grid.add(pane, colIndex, rowIndex);		
 	}
 	
+	
 	/**
 	 * TODO : JDOC
 	 */
@@ -187,6 +194,7 @@ public class PlateauController {
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
+				System.out.println("coucou");
 			}
 		}
 	}
@@ -223,6 +231,7 @@ public class PlateauController {
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
 				);
+		System.out.println("coucou");
 		
 	}
 
@@ -287,8 +296,6 @@ public class PlateauController {
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
 		// 1 = noirs
-		String pseudoGagnant;
-		int scoreGagnant;
 		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
 		System.out.println(gagnant);
 		if (gagnant == 0){
@@ -303,6 +310,7 @@ public class PlateauController {
 		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
 		TODO: Linker les récapitulatifs
 		*/
+		System.out.println("Recapitulatif");
 		Main.showRecapitulatif();
 	}
 	
