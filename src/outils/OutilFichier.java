@@ -45,15 +45,14 @@ public class OutilFichier {
 	/** Préfixe d'une sauvegarde de partie */
 	private static final String PREFIXE_SAUVEGARDE_PARTIE =
 			                                              "sauvegardeOthello_";
-	
-	/** Préfixe d'une sauvegarde de Scores */
-	private static final String PREFIXE_SAUVEGARDE_SCORES = "scoresOthello";
+
+	/** Nom du fichier de sauvegarde des scores avec son extension */
+	private static final String NOM_FICHIER_SCORES = "scoresOthello.sothl";
 	
 	/** Extension d'une sauvegarde de partie */
 	private static final String EXTENSION_SAUVEGARDE_PARTIE = ".othl";
 	
-	/** Extension d'une sauvegarde de scores */
-	private static final String EXTENSION_SAUVEGARDE_SCORES = ".sothl";
+
 
 	/**
 	 * @return 		le prefixe de sauvegarde
@@ -174,8 +173,6 @@ public class OutilFichier {
 	 */
 	public static boolean enregistrerScores(Scores aEnregistrer) {
 
-		String nomFichier = PREFIXE_SAUVEGARDE_SCORES + ".sothl";
-
 		boolean reussi = true;      // vrai ssi l'enregistrement a réussi
 
 		// création et ouverture du fichier NOM_FICHIER_HORAIRE
@@ -183,7 +180,7 @@ public class OutilFichier {
 				new FileOutputStream(
 						getPathRepertoireOthello().getAbsolutePath()
 						+ "\\"
-						+ nomFichier))) {
+						+ NOM_FICHIER_SCORES))) {
 
 			// on écrit l'objet argument dans le fichier
 			fichier.writeObject(aEnregistrer);  
