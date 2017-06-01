@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
+<AnchorPane prefHeight="600.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="35.0" layoutY="28.0" minHeight="512.0" minWidth="256.0" prefHeight="512.0" prefWidth="512.0">
         <columnConstraints>
@@ -356,16 +356,16 @@
             </ImageView>
          </children>
       </GridPane>
-      <Label fx:id="lbl_blanc" layoutX="646.0" layoutY="73.0" text="Blanc" />
-      <Label fx:id="lbl_scoreBlanc" layoutX="567.0" layoutY="73.0" text="0" />
-      <Label fx:id="lbl_noir" layoutX="649.0" layoutY="131.0" text="Noir" />
-      <Label fx:id="lbl_scoreNoir" layoutX="567.0" layoutY="131.0" text="0" />
-      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="606.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="lbl_blanc" layoutX="650.0" layoutY="131.0" text="Blanc" />
+      <Label fx:id="lbl_scoreBlanc" layoutX="572.0" layoutY="131.0" text="0" />
+      <Label fx:id="lbl_noir" layoutX="652.0" layoutY="82.0" text="Noir" />
+      <Label fx:id="lbl_scoreNoir" layoutX="572.0" layoutY="82.0" text="0" />
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="605.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Ressource/Jeton0.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="606.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="605.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Ressource/Jeton1.png" />
          </image>
@@ -382,6 +382,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button layoutX="291.0" layoutY="555.0" mnemonicParsing="false" onAction="#tourPrecedent" text="Tour Précédent" />
    </children>
    <rotationAxis>
       <Point3D />

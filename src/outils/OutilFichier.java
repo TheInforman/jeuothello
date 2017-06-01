@@ -23,7 +23,8 @@ import othello.Scores;
 public class OutilFichier {
 
 	private static final String NOM_REPERTOIRE = "Othello";
-	private static final String PREFIXE_SAUVEGARDE_PARTIE = "sauvegardeOthello_";
+	private static final String PREFIXE_SAUVEGARDE_PARTIE =
+			                                              "sauvegardeOthello_";
 	private static final String PREFIXE_SAUVEGARDE_SCORES = "scoresOthello";
 	private static final String EXTENSION_SAUVEGARDE_PARTIE = ".othl";
 	private static final String EXTENSION_SAUVEGARDE_SCORES = ".sothl";
@@ -125,8 +126,8 @@ public class OutilFichier {
 		int mois = calendrierMaintenant.get(Calendar.MONTH) + 1;
 		int annee = calendrierMaintenant.get(Calendar.YEAR);
 
-		return PREFIXE_SAUVEGARDE_PARTIE + jour + "_" + mois + "_" + annee + "_"
-		+ heure + "h" + minute + EXTENSION_SAUVEGARDE_PARTIE;
+		return PREFIXE_SAUVEGARDE_PARTIE + jour + "_" + mois + "_" + annee +
+			   "_" + heure + "h" + minute + EXTENSION_SAUVEGARDE_PARTIE;
 	}
 
 	/**
@@ -143,8 +144,8 @@ public class OutilFichier {
 		int mois = calendrierMaintenant.get(Calendar.MONTH) + 1;
 		int annee = calendrierMaintenant.get(Calendar.YEAR);
 
-		return PREFIXE_SAUVEGARDE_SCORES + jour + "_" + mois + "_" + annee + "_"
-		+ heure + "h" + minute + EXTENSION_SAUVEGARDE_SCORES;
+		return PREFIXE_SAUVEGARDE_SCORES + jour + "_" + mois + "_" + annee +
+			   "_" + heure + "h" + minute + EXTENSION_SAUVEGARDE_SCORES;
 	}
 
 	/**
@@ -169,7 +170,8 @@ public class OutilFichier {
 		try {
 			Files.delete(nomSauvegarde);
 		} catch (NoSuchFileException x) {
-			System.err.format("%s: no such" + " file or directory%n", nomSauvegarde);
+			System.err.format("%s: no such" + " file or directory%n",
+					          nomSauvegarde);
 		} catch (DirectoryNotEmptyException x) {
 			System.err.format("%s not empty%n", nomSauvegarde);
 		} catch (IOException x) {
