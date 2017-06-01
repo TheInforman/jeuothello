@@ -480,12 +480,7 @@ public class PlateauIAController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
-<<<<<<< HEAD
-			updateTableau(grid);
-=======
-			updateTableau(grid);	//mise à jour du tableau
-			
->>>>>>> branch 'master' of https://github.com/TheInforman/jeuothello
+			updateTableau(grid);	//mise à jour du tableau	
 			actualiserScore();
 			setQuiDoitJouer(partieCourante.getDoitJouer());
 		}
