@@ -44,7 +44,12 @@ public class Plateau implements Serializable {
 	 * Ensembles des pions retourner dans un tour avec 
 	 * en première position le pions choisis par le joueur
 	 */
-	public ArrayList<Case> tableauRetour = new ArrayList<Case>();
+	public ArrayList<Case> tableauRetour; 
+	
+	/**  
+	 * Ensemble des pions à retourner suite à l'action du joueur
+	 */
+	public ArrayList<Case> aRetourner; 
 	
 	/** 
 	 * Tableau à deux dimensions représentant les déplacement 
@@ -72,6 +77,8 @@ public class Plateau implements Serializable {
 		othellier[4][4].setCouleur(Case.COULEUR_BLANC);
 		othellier[4][3].setCouleur(Case.COULEUR_NOIR);
 		othellier[3][4].setCouleur(Case.COULEUR_NOIR);
+		tableauRetour = new ArrayList<Case>() ;
+		aRetourner = new ArrayList<Case>() ;
 	}
 
 
@@ -99,8 +106,8 @@ public class Plateau implements Serializable {
 		 * ArrayList des pions à retourner, c'est à dire à changer 
 		 * de leur couleur actuel à la couleur du joueur actuel
 		 */
-		ArrayList<Case> aRetourner = determinerPionsARetourner(caseConcernee,
-															   couleur);
+		aRetourner.clear();
+		aRetourner = determinerPionsARetourner(caseConcernee,couleur);
 
 
 		/* Test si la case souhaité est présente
@@ -108,7 +115,6 @@ public class Plateau implements Serializable {
 		if(presentCoupPossibles(caseConcernee)){
 			
 			/* On pose un pion sur la caseConcernee */
-
 			caseConcernee.setCouleur(couleur); 
 
 			/* On change de couleur la liste des pions à retourner */
@@ -215,7 +221,8 @@ public class Plateau implements Serializable {
 		/* Pour chaque direction du tableau de déplacement */
 		for (int direction =0; direction<TABL_DEPLACEMENT.length; direction++){
 			
-			/* initialisation de chaque boucle de recherche */
+			/* initialisation de chaque boucle de 
+			   recherche des pions dans la direction */
 			arretRechercheDirection = false;
 			indice = 0;
 			deplacementLigne = TABL_DEPLACEMENT[direction][0];
@@ -238,13 +245,12 @@ public class Plateau implements Serializable {
 				if(othellier[ligne][colonne].getCouleur()==Case.COULEUR_NEUTRE
 				   || othellier[ligne][colonne].getCouleur() == couleur) {	
 					arretRechercheDirection = true;
-					
 				}
 
 				tableauVueDirectionnel[direction][indice]
 								= othellier[ligne][colonne];
+				
 				indice ++;
-
 			}
 		}
 		
@@ -258,7 +264,7 @@ public class Plateau implements Serializable {
 			if(derniereCase(tableauVueDirectionnel[i]) != null &&
 			   derniereCase(tableauVueDirectionnel[i]).getCouleur()==couleur){
 				
-				for (int j = 0; j < tableauVueDirectionnel[i].length
+				for (int j = 0; j < (tableauVueDirectionnel[i].length)-1 
 						&& tableauVueDirectionnel[i][j] != null; j++) {
 
 					PionsARetourner.add(tableauVueDirectionnel[i][j]);

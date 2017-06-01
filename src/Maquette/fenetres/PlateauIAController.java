@@ -155,6 +155,7 @@ public class PlateauIAController {
 			//On passe au tour suivant si le coups a pu être effectué
 			if (partieCourante.getPlateau().isActionEffectuee()){	
 				tourSuivant();
+				System.out.println(partieCourante);
 			}
 			
 			partieCourante.getPlateau().setActionEffectuee(false);
@@ -314,8 +315,7 @@ public class PlateauIAController {
 		}
 		
 		
-		System.out.println(meilleurChoix);
-		System.out.println(partieCourante);
+
 		
 		
 		appliquerCoups(meilleurChoix.getLigne(),meilleurChoix.getColonne());
@@ -331,6 +331,9 @@ public class PlateauIAController {
 		setQuiDoitJouer(partieCourante.getDoitJouer());
 
 		controleSiTourJouable();
+		
+		System.out.println(meilleurChoix);
+		System.out.println(partieCourante);
 	}
 
 
