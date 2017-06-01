@@ -39,15 +39,37 @@ import outils.OutilsIA;
  */
 public class PlateauIAController {
 	
-	/** Score du joueur */
-	public static int scoreJoueur;
+	/** la grille, partie visible du plateau, de taille 8*8 */
+	@FXML
+	private GridPane grid;
 	
-	/** Pseudo du joueur */
-	public static String pseudoJoueur;
+	/** Le score du joueur blanc */
+	@FXML 
+	private Label lbl_scoreBlanc;
 	
-	public static String pseudoGagnant;
+	/** Le score du joueur noir */
+	@FXML
+	private Label lbl_scoreNoir;
 	
-	public static int scoreGagnant;
+	/** Le pseudo du joueur blanc */
+	@FXML
+	private Label lbl_blanc;
+	
+	/** Le pseudo du joueur noir */
+	@FXML
+	private Label lbl_noir;
+	
+	/** Bouton pour sauvegarder la partie actuelle au format .othl */
+	@FXML
+	private Button btn_sauvegarder;
+	
+	/** bouton pour retourner au menu principal */
+	@FXML 
+	private Button btn_menuPrincipal;
+	
+	/** Bouton pour faire jouer l'IA */
+	@FXML
+	private Button btn_jouerIA;
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
@@ -61,40 +83,22 @@ public class PlateauIAController {
 	private static Image caseVide =
 			new Image("file:src/Maquette/Ressource/Jeton-1.png");
 	
+	/** Score du joueur */
+	public static int scoreJoueur;
+	
+	/** Pseudo du joueur */
+	public static String pseudoJoueur;
+	
+	/** L'identificateur du joueur gagnant */
+	public static String pseudoGagnant;
+	
+	/** Le score du joueur gagnant */
+	public static int scoreGagnant;
+	
+
+	
 	/** La partie actuelle */
 	public static Partie partieCourante;
-	
-	/** la grille, partie visible du plateau, de taille 8*8 */
-	@FXML
-	public GridPane grid;
-	
-	/** Le score du joueur blanc */
-	@FXML 
-	public Label lbl_scoreBlanc;
-	
-	/** Le score du joueur noir */
-	@FXML
-	public Label lbl_scoreNoir;
-	
-	/** Le pseudo du joueur blanc */
-	@FXML
-	public Label lbl_blanc;
-	
-	/** Le pseudo du joueur noir */
-	@FXML
-	public Label lbl_noir;
-	
-	/** Bouton pour sauvegarder la partie actuelle au format .othl */
-	@FXML
-	public Button btn_sauvegarder;
-	
-	/** bouton pour retourner au menu principal */
-	@FXML 
-	public Button btn_menuPrincipal;
-	
-	/** Bouton pour faire jouer l'IA */
-	@FXML
-	public Button btn_jouerIA;
 	
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -143,25 +147,14 @@ public class PlateauIAController {
 		
 		for (int i = 0 ; i < numCols ; i++) {
 			for (int j = 0; j < numRows; j++) {
-				addPane(i,j);				
+				addPane(i,j);	//ajout d'un panneau cliquable sur chaque case			
 			}
 		}
 	}
-
 	
 	/**
-	 * Initialisation de la partie avec un joueur et un ordinateur.
-	 */
-	public static void initPartieIA(String pseudo_J1, int typeDePartie){
-			partieCourante = new Partie(
-					new Joueur(pseudo_J1, OutilsIA.COULEUR_HUMAIN),
-					new Joueur("Ordinateur", OutilsIA.COULEUR_IA),
-					typeDePartie);			
-	}
-
-
-	/**
-	 * TODO : JDOC
+	 * Boucle active après le chargement du programme qui 
+	 * permet le clic sur le plateau. Ajoute un panneau cliquable à chaque appel
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 		
@@ -193,45 +186,18 @@ public class PlateauIAController {
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
+
 	
 	/**
-	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
-	 * affiche une msgBox pour lui notifier que son tour a été passé. 
-	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
+	 * Initialisation de la partie avec un joueur et un ordinateur.
 	 */
-	private void controleSiTourJouable() {
-		if(Plateau.coupsPossibles.isEmpty() ) {
-			/* Récupère le pseudo du joueur jouant le tour actuel */
-			String pseudoJoueur =
-					partieCourante.getListeJoueur()
-					[partieCourante.getDoitJouer()].getNom();
-			tourSuivant();
-			
-			if(Plateau.coupsPossibles.isEmpty() ) {
-				finPartie();
-			} else {
-				BoitesMessage.afficher_msgBoxInfo(
-						"Notification de Partie",
-						"Le tour a été passé",
-						pseudoJoueur + " ne pouvait pas agir.");
-			}
-		}
+	public static void initPartieIA(String pseudo_J1, int typeDePartie){
+			partieCourante = new Partie(
+					new Joueur(pseudo_J1, OutilsIA.COULEUR_HUMAIN),
+					new Joueur("Ordinateur", OutilsIA.COULEUR_IA),
+					typeDePartie);			
 	}
 	
-	/**
-	 * Passe un tour en incrémentant le nombre de tour de la partieCourante,
-	 * en mettant à jour le tableau de pions (graphiquement), en actualisant 
-	 * les scores et en déterminant qui doit jouer le tour suivant.
-	 */
-	private void tourSuivant() {
-		partieCourante.tourSuivant();
-		updateTableau(grid);	//mise à jour du tableau
-		
-		actualiserScore();
-		setQuiDoitJouer(partieCourante.getDoitJouer());
-	}
-
-
 	/**
 	 * Joue un coups sur une case dont les coordonnées
 	 * sont passées en paramètre.
@@ -248,38 +214,22 @@ public class PlateauIAController {
 		);
 	}
 
-
 	/**
-	 * Déclenche les actions de fin de partie en sauvegardant les
-	 * scores et en affichant un récapitulatif
+	 * Passe un tour en incrémentant le nombre de tour de la partieCourante,
+	 * en mettant à jour le tableau de pions (graphiquement), en actualisant 
+	 * les scores et en déterminant qui doit jouer le tour suivant.
 	 */
-	private void finPartie() {
-        scoreJoueur = Integer.valueOf(lbl_scoreBlanc.getText());
-        pseudoJoueur = lbl_blanc.getText();
-		enregistrerScores(pseudoJoueur, scoreJoueur);
-		afficherRecapitulatif(
-				partieCourante.getPlateau().calculerNbPions(0),
-				partieCourante.getPlateau().calculerNbPions(1)
-				);
+	private void tourSuivant() {
+		partieCourante.tourSuivant();
+		updateTableau(grid);	//mise à jour du tableau
 		
+		actualiserScore();
+		setQuiDoitJouer(partieCourante.getDoitJouer());
 	}
-
-
-	/**
-	 * Actualise les labels de score des deux joueurs.
-	 */
-	private void actualiserScore() {
-		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
-		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
-		lbl_scoreNoir.setText(String.valueOf(nbNoir));
-	}
-
 	
 	/**
 	 * Ajout des images des pions sur le plateau.
-	 * 
-	 * Todo : @param
+	 * @param grid le gridpane à mettre à jour
 	 */
 	public void updateTableau(GridPane grid) {
 		
@@ -309,19 +259,18 @@ public class PlateauIAController {
 							  break;
 				
 				}
-				addPane(j,i);
+				addPane(j,i); /* ajout d'un panneau cliquable pour toutes les cases après 
+								chaque mise à jour */
 			}
 		}
 	}
 	
-	
 	/**
-	 * Met à jour le score de chaque joueur dans les labels.
-	 * 
-	 * @param nbBlanc	le score du joueur blanc
-	 * @param nbNoir	le score du joueur blanc
+	 * Actualise les labels de score des deux joueurs.
 	 */
-	public void changerScore(int nbBlanc, int nbNoir){
+	private void actualiserScore() {
+		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
+		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
 		lbl_scoreNoir.setText(String.valueOf(nbNoir));
 	}
@@ -341,7 +290,125 @@ public class PlateauIAController {
 		}
 	}
 	
+	/**
+	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
+	 * affiche une msgBox pour lui notifier que son tour a été passé. 
+	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
+	 */
+	private void controleSiTourJouable() {
+		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
+			tourSuivant();
+			
+			if(Plateau.coupsPossibles.isEmpty() ) {
+				finPartie();
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
+			}
+		}
+	}
+	
 
+	/**
+	 * Déclenche les actions de fin de partie en sauvegardant les
+	 * scores et en affichant un récapitulatif
+	 */
+	private void finPartie() {
+        scoreJoueur = Integer.valueOf(lbl_scoreBlanc.getText());
+        pseudoJoueur = lbl_blanc.getText();
+		enregistrerScores(pseudoJoueur, scoreJoueur);
+		afficherRecapitulatif(
+				partieCourante.getPlateau().calculerNbPions(0),
+				partieCourante.getPlateau().calculerNbPions(1)
+				);
+		
+	}
+
+
+	/**
+	 * Afficher une fenêtre récapitulative de fin de partie,
+	 * comprenant le pseudo du gagnant ainsi que son score.
+	 * 
+	 * @param scoreBlanc	le score du joueur blanc à la fin de la partie
+	 * @param scoreNoir		le score du joueur noir à la fin de la partie
+	 */
+	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
+		// 0 = blancs
+		// 1 = noirs
+		
+		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
+		System.out.println(gagnant);
+		if (gagnant == 0){
+			pseudoGagnant = lbl_blanc.getText();
+			scoreGagnant = scoreBlanc;
+		}
+		else{
+			pseudoGagnant = lbl_noir.getText();
+			scoreGagnant = scoreNoir;
+		}
+
+		Main.showRecapitulatif();
+	}
+	
+	/**
+	 * Permet de reprendre une partie grâce à un objet
+	 * partie passé en paramètre.
+	 * Utilisé lors de la restauration d'une sauvegarde.
+	 * 
+	 * @param aRestaurer	 la partie que l'on restaurer
+	 */
+	public static void restaurerPartie(Partie aRestaurer){
+		partieCourante = aRestaurer;
+	}
+	
+	/**
+	 * Permet, à la fin de la partie, d'enregistrer les scores.
+	 * 
+	 * @param pseudoGagnant		le pseudo du gagnant
+	 * @param scoreGagnant		le score du gagnant
+	 */
+	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
+		// Fichier de sauvegarde
+		File file = new File(OutilFichier.getEmplacementSaveScores());
+
+		// Vérification si le fichier de scores existe
+		if(!file.exists()){
+			// On crée l'objet Scores et on ajoute le score
+			Scores courant = new Scores();
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		} else{
+			// On restaure les scores
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getEmplacementSaveScores());
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		}
+	}
+
+	/** 
+	 * Ferme la fenêtre courante et renvoie au menu principal 
+	 */
+	@FXML 
+	private void handleMenuPrincipal () {
+		Alert confirmation = new Alert(AlertType.CONFIRMATION);
+		confirmation.setTitle("Confirmation");
+		confirmation.setHeaderText("Retour au menu principal");
+		confirmation.setContentText(
+				"Êtes vous sur de vouloir retourner au menu principal? \n" + 
+				"Votre partie ne sera pas sauvegardée");
+		Optional<ButtonType> result = confirmation.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
+		}
+	}
+	
 	/**
 	 * Fait jouer le tour courant par l'IA si c'est le tour de celle-ci.
 	 */
@@ -379,35 +446,6 @@ public class PlateauIAController {
 		System.out.println(meilleurChoix);
 		System.out.println(partieCourante);
 	}
-
-
-	/**
-	 * Afficher une fenêtre récapitulative de fin de partie,
-	 * comprenant le pseudo du gagnant ainsi que son score.
-	 * 
-	 * @param scoreBlanc	le score du joueur blanc à la fin de la partie
-	 * @param scoreNoir		le score du joueur noir à la fin de la partie
-	 */
-	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
-		// 0 = blancs
-		// 1 = noirs
-		
-		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
-		System.out.println(gagnant);
-		if (gagnant == 0){
-			pseudoGagnant = lbl_blanc.getText();
-			scoreGagnant = scoreBlanc;
-		}
-		else{
-			pseudoGagnant = lbl_noir.getText();
-			scoreGagnant = scoreNoir;
-		}
-		/*
-		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
-		TODO: Linker les récapitulatifs
-		*/
-		Main.showRecapitulatif();
-	}
 	
 	/**
 	 * Enregistre la partie 
@@ -441,60 +479,6 @@ public class PlateauIAController {
 		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 		stage.close();
 		Main.showMenuPrincipal();
-	}
-	
-	/**
-	 * Permet de reprendre une partie grâce à un objet
-	 * partie passé en paramètre.
-	 * Utilisé lors de la restauration d'une sauvegarde.
-	 * 
-	 * @param aRestaurer	 la partie que l'on restaurer
-	 */
-	public static void restaurerPartie(Partie aRestaurer){
-		partieCourante = aRestaurer;
-	}
-	
-
-	/** 
-	 * Ferme la fenêtre courante et renvoie au menu principal 
-	 */
-	@FXML 
-	private void handleMenuPrincipal () {
-		Alert confirmation = new Alert(AlertType.CONFIRMATION);
-		confirmation.setTitle("Confirmation");
-		confirmation.setHeaderText("Retour au menu principal");
-		confirmation.setContentText(
-				"Êtes vous sur de vouloir retourner au menu principal? \n" + 
-				"Votre partie ne sera pas sauvegardée");
-		Optional<ButtonType> result = confirmation.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
-			stage.close();
-			Main.showMenuPrincipal();
-		}
-	}
-	
-	/**
-	 * Permet, à la fin de la partie, d'enregistrer les scores.
-	 * 
-	 * @param pseudoGagnant		le pseudo du gagnant
-	 * @param scoreGagnant		le score du gagnant
-	 */
-	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
-		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getEmplacementSaveScores());
-
-		// Vérification si le fichier de scores existe
-		if(!file.exists()){
-			// On crée l'objet Scores et on ajoute le score
-			Scores courant = new Scores();
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
-		} else{
-			// On restaure les scores
-			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getEmplacementSaveScores());
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
-		}
 	}
 	
 	/** Retour un tour en arrière */

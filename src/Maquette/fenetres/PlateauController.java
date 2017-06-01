@@ -37,14 +37,37 @@ import outils.OutilFichier;
 public class PlateauController {
 
 	/** Revient un tour en arrière au clic */
-	public Button tourPrecedent;
+	@FXML
+	private Button tourPrecedent;
+	
+	/** la grille, partie visible du plateau, de taille 8*8 */
+	@FXML
+	private GridPane grid;
 
-	/** Le gagnant à la fin de la partie */
-	public static String pseudoGagnant;
+	/** Le score du joueur blanc */
+	@FXML 
+	private Label lbl_scoreBlanc;
 
-	/** Le score du gagnant à la fin de la partie */
-	public static int scoreGagnant;
+	/** Le score du joueur noir */
+	@FXML
+	private Label lbl_scoreNoir;
 
+	/** Le pseudo du joueur blanc */
+	@FXML
+	private Label lbl_blanc;
+
+	/** Le pseudo du joueur noir */
+	@FXML
+	private Label lbl_noir;
+
+	/** Bouton pour sauvegarder la partie actuelle au format.bin */
+	@FXML
+	private Button btn_sauvegarder;
+
+	/** bouton pour retourner au menu principal */
+	@FXML 
+	private Button btn_menuPrincipal;
+	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
 			new Image("file:src/Maquette/Ressource/Jeton1.png");
@@ -57,40 +80,18 @@ public class PlateauController {
 	private static Image caseVide =
 			new Image("file:src/Maquette/Ressource/Jeton-1.png");
 
-	/** Image associée à une case neutre */
-	private static Image caseNeutre =
-			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+	/** Le gagnant à la fin de la partie */
+	public static String pseudoGagnant;
+
+	/** Le score du gagnant à la fin de la partie */
+	public static int scoreGagnant;
+
 	
+
 	/** La partie actuelle */
 	public static Partie partieCourante;
 
-	/** la grille, partie visible du plateau, de taille 8*8 */
-	@FXML
-	public GridPane grid;
-
-	/** Le score du joueur blanc */
-	@FXML 
-	public Label lbl_scoreBlanc;
-
-	/** Le score du joueur noir */
-	@FXML
-	public Label lbl_scoreNoir;
-
-	/** Le pseudo du joueur blanc */
-	@FXML
-	public Label lbl_blanc;
-
-	/** Le pseudo du joueur noir */
-	@FXML
-	public Label lbl_noir;
-
-	/** Bouton pour sauvegarder la partie actuelle au format.bin */
-	@FXML
-	public Button btn_sauvegarder;
-
-	/** bouton pour retourner au menu principal */
-	@FXML 
-	public Button btn_menuPrincipal;
+	
 
 	/**
 	 * Méthode appelée après le chargement de la page 
@@ -99,7 +100,7 @@ public class PlateauController {
 
 		Plateau plateauCourant = partieCourante.getPlateau();
 
-		/* On détermine qui est le joueur blanc et qui est le joueur noir*/
+		/* On affiche le pseudo du joueur à côté de sa couleur */
 		if (partieCourante.getListeJoueur()[0].getCouleur() == 0) {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[0].getNom());
 			lbl_noir.setText(partieCourante.getListeJoueur()[1].getNom());
@@ -111,17 +112,14 @@ public class PlateauController {
 		int numCols = Plateau.LARGEUR; //La largeur du plateau
 		int numRows = Plateau.HAUTEUR; //La hauteur du plateau
 
-		/* Calcule le score de chaque joueur, blanc puis noir */
+		/* Affiche le score de chaque joueur en fonction de sa couleur */
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
-
-
+		
 		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
 
-
-		System.out.println(plateauCourant);
-		updateTableau(grid);
-		setQuiDoitJouer(partieCourante.getDoitJouer());
+		updateTableau(grid); //mise à jour graphique du plateau 
+		setQuiDoitJouer(partieCourante.getDoitJouer()); //définit le joueur courant
 
 		for (int i = 0 ; i < numCols ; i++) {
 			ColumnConstraints colConstraints = new ColumnConstraints();
@@ -137,39 +135,15 @@ public class PlateauController {
 
 		for (int i = 0 ; i < numCols ; i++) {
 			for (int j = 0; j < numRows; j++) {
-				addPane(i,j);				
+				addPane(i,j); //ajout d'un panneau cliquabe à chaque case du tableau				
 			}
 		}
 	}
-
-
-	/**
-	 * Initialisation de la partie en fonction des pseudos des joueurs.
-	 */
-	public static void initPartie(String pseudo_J1, String pseudo_J2,
-			int typeDePartie){
-
-		if (Math.random() > 0.5){
-
-			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 1),
-					new Joueur(pseudo_J2, 0),
-					typeDePartie
-					);			
-		} else {
-
-			partieCourante = new Partie(
-					new Joueur(pseudo_J2, 1),
-					new Joueur(pseudo_J1, 0),
-					typeDePartie
-					);
-		}
-	}
-
-
+	
 	/**
 	 * Boucle active après le chargement du programme qui 
-	 * permet le clic sur le plateau
+	 * permet le clic sur le plateau. Ajoute un panneau cliquable 
+	 * pour chaque case paramètre
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 
@@ -195,7 +169,37 @@ public class PlateauController {
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
-
+	
+	
+	
+	/**
+	 * applique le coup sur la case cliquée, qui est passée en paramètre.
+	 * n'a aucun effet sur l'objet graphique.
+	 * @param rowIndex numéro de ligne de la case où le coup est à apliquer
+	 * @param colIndex numéro de colonne de la case où le coup est à appliquer
+	 */
+	private void appliquerCoups(int rowIndex, int colIndex) {
+		partieCourante.archiverTour(
+				partieCourante.getPlateau().appliquerCoups(
+						partieCourante.getPlateau().othellier[rowIndex][colIndex],
+						partieCourante.getDoitJouer()
+						)
+				);
+	}
+	
+	/**
+	 * Souligne le nom du joueur qui doit jouer
+	 */
+	public void setQuiDoitJouer(int joueur){
+		if (joueur == 0){ 
+			lbl_blanc.setUnderline(true);
+			lbl_noir.setUnderline(false);
+		} else{
+			lbl_blanc.setUnderline(false);
+			lbl_noir.setUnderline(true);
+		}
+	}
+	
 	/**
 	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
 	 * affiche une msgBox pour lui notifier que son tour a été passé. 
@@ -219,7 +223,7 @@ public class PlateauController {
 			}
 		}
 	}
-
+	
 	/**
 	 * Passe au joueur suivant et actualise l'état du tableau
 	 */
@@ -230,36 +234,7 @@ public class PlateauController {
 		actualiserScore();
 		System.out.println(partieCourante);
 	}
-
-
-	/**
-	 * applique le coup sur la case cliquée, qui est passée en paramètre.
-	 * n'a aucun effet sur l'objet graphique.
-	 * @param rowIndex numéro de ligne de la case où le coup est à apliquer
-	 * @param colIndex numéro de colonne de la case où le coup est à appliquer
-	 */
-	private void appliquerCoups(int rowIndex, int colIndex) {
-		partieCourante.archiverTour(
-				partieCourante.getPlateau().appliquerCoups(
-						partieCourante.getPlateau().othellier[rowIndex][colIndex],
-						partieCourante.getDoitJouer()
-						)
-				);
-	}
-
-
-	/**
-	 * Mets fin à la partie en affichant le récapitulatif de fin
-	 */
-	private void finPartie() {
-		enregistrerScores();
-		afficherRecapitulatif(
-				partieCourante.getPlateau().calculerNbPions(0),
-				partieCourante.getPlateau().calculerNbPions(1)
-				);
-	}
-
-
+	
 	/**
 	 * Actualise le label contenant le score de chaque joueur pour le faire
 	 * correspondre au score actuel
@@ -271,8 +246,7 @@ public class PlateauController {
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
 		lbl_scoreNoir.setText(String.valueOf(nbNoir));
 	}
-
-
+	
 	/**
 	 * Ajout des images des pions sur le plateau. afin de conrrespondre 
 	 * à l'état actuel
@@ -308,27 +282,21 @@ public class PlateauController {
 			}
 		}
 	}
-
+	
+	
+	
 	/**
-	 * Actualise le score des deux joueurs
+	 * Mets fin à la partie en affichant le récapitulatif de fin
 	 */
-	public void changerScore(int nbBlanc, int nbNoir){
-		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
-		lbl_scoreNoir.setText(String.valueOf(nbNoir));
+	private void finPartie() {
+		enregistrerScores();
+		afficherRecapitulatif(
+				partieCourante.getPlateau().calculerNbPions(0),
+				partieCourante.getPlateau().calculerNbPions(1)
+				);
 	}
 
-	/**
-	 * Souligne le nom du joueur qui doit jouer
-	 */
-	public void setQuiDoitJouer(int joueur){
-		if (joueur == 0){ 
-			lbl_blanc.setUnderline(true);
-			lbl_noir.setUnderline(false);
-		} else{
-			lbl_blanc.setUnderline(false);
-			lbl_noir.setUnderline(true);
-		}
-	}
+	
 
 	/**
 	 * Détermine quel joueur est le gagnant, puis appelle un récapitulatif 
@@ -351,7 +319,59 @@ public class PlateauController {
 		System.out.println("Recapitulatif");
 		Main.showRecapitulatif();
 	}
+	
+	
+	/**
+	 * Initialisation de la partie en fonction des pseudos des joueurs.
+	 */
+	public static void initPartie(String pseudo_J1, String pseudo_J2,
+			int typeDePartie){
 
+		if (Math.random() > 0.5){
+
+			partieCourante = new Partie(
+					new Joueur(pseudo_J1, 1),
+					new Joueur(pseudo_J2, 0),
+					typeDePartie
+					);			
+		} else {
+
+			partieCourante = new Partie(
+					new Joueur(pseudo_J2, 1),
+					new Joueur(pseudo_J1, 0),
+					typeDePartie
+					);
+		}
+	}
+	
+	/**
+	 * Appelé lors du chargement d'une partie. 
+	 * Remplace le plateau vide généré au chargement par le plateau 
+	 * récupéré dans e fichier de sauvegarde
+	 */
+	public static void restaurerPartie(Partie aRestaurer){
+		partieCourante = aRestaurer;
+	}
+	/**
+	 * Permet, à la fin de la partie, d'enregistrer les scores
+	 */
+	private void enregistrerScores(){
+		// Fichier de sauvegarde
+		File file = new File(OutilFichier.getEmplacementSaveScores());
+
+		// Vérification si le fichier de scores existe
+		if(!file.exists()){
+			// On crée l'objet Scores et on ajoute le score
+			Scores courant = new Scores();
+			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		} else{
+			// On restaure les scores
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getEmplacementSaveScores());
+			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		}
+	}
+	
 	/**
 	 * Enregistre la partie actuelle dans un répertoire par défaut, notifie 
 	 * le joueur de la sauvegarde via une msgBox. Si le répertoire de 
@@ -384,60 +404,12 @@ public class PlateauController {
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
 
-		/* Renvoit au menu principal */
+		/* Renvoie au menu principal */
 
 		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 		stage.close();
 		Main.showMenuPrincipal();
 
-	}
-
-	/**
-	 * Quitte la partie actuelle sans sauvegarder et retourne au menu principal 
-	 * L'utilisateur devra confirmer son choix et sera averti des conséquences
-	 * possibles. 
-	 */
-	@FXML
-	private void quitterPartie() {
-		if (
-				BoitesMessage.afficher_msgBoxConfirmation(
-						"Revenir au Menu Principal",
-						"Vous êtes sur le point de revenir au Menu Prncipal",
-						"Souhaitez vous quittez la partie ?" +
-								"\n L'avancement ne sera pas sauvegardé !"
-						)) {
-			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
-			stage.close();
-			Main.showMenuPrincipal();
-		}
-	}
-
-	/**
-	 * Appelé lors du chargement d'une partie. 
-	 * Remplace le plateau vide généré au chargement par le plateau 
-	 * récupéré dans e fichier de sauvegarde
-	 */
-	public static void restaurerPartie(Partie aRestaurer){
-		partieCourante = aRestaurer;
-	}
-	/**
-	 * Permet, à la fin de la partie, d'enregistrer les scores
-	 */
-	private void enregistrerScores(){
-		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getEmplacementSaveScores());
-
-		// Vérification si le fichier de scores existe
-		if(!file.exists()){
-			// On crée l'objet Scores et on ajoute le score
-			Scores courant = new Scores();
-			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
-		} else{
-			// On restaure les scores
-			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getEmplacementSaveScores());
-			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
-		}
 	}
 
 	/** 
@@ -452,6 +424,26 @@ public class PlateauController {
 				"Votre partie ne sera pas sauvegardée");
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
+		}
+	}
+	
+	/**
+	 * Quitte la partie actuelle sans sauvegarder et retourne au menu principal 
+	 * L'utilisateur devra confirmer son choix et sera averti des conséquences
+	 * possibles. 
+	 */
+	@FXML
+	private void quitterPartie() {
+		if (
+				BoitesMessage.afficher_msgBoxConfirmation(
+						"Revenir au Menu Principal",
+						"Vous êtes sur le point de revenir au Menu Prncipal",
+						"Souhaitez vous quittez la partie ?" +
+								"\n L'avancement ne sera pas sauvegardé !"
+						)) {
 			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 			stage.close();
 			Main.showMenuPrincipal();

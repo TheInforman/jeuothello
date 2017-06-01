@@ -241,7 +241,7 @@ public class Main extends Application {
     		AnchorPane page = (AnchorPane) loader.load();
     		//Creation de la Scene
     		Stage PlateauIA = new Stage();
-    		PlateauIA.setTitle("Othello: Saisie des Pseudos");
+    		PlateauIA.setTitle("Othello: Jouez!");
     		PlateauIA.initOwner(primaryStage);
     		Scene scene = new Scene(page);
     		PlateauIA.setScene(scene);
