@@ -171,14 +171,14 @@ public class PlateauController {
 	 * Boucle active après le chargement du programme qui 
 	 * permet le clic sur le plateau
 	 */
-	public void addPane(int colIndex, int rowIndex) {
+	public void addPane(int colonne, int ligne) {
 
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
 
-			appliquerCoups(rowIndex,colIndex);
+			appliquerCoups(ligne,colonne);
 
 			//On passe au tour suivant si le coups a pu être effectué
 			if (partieCourante.getPlateau().isActionEffectuee()){	
@@ -193,7 +193,7 @@ public class PlateauController {
 			controleSiTourJouable();
 		});
 
-		grid.add(pane, colIndex, rowIndex);		
+		grid.add(pane, colonne, ligne);		
 	}
 
 	/**

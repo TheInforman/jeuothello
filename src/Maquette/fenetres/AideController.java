@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class AideController {
 
 	@FXML
-	public Text Aide; 
+	private Text Aide; 
 	
 	String aideOthello = "Bienvenue dans l'aide de ce jeu d'Othello. Pour commencer à jouer, choisissez simplement ce que vous voulez faire. \n\nSi vous voulez jouer contre l'ordinateur,"
 						+" cliquez sur \"jouer contre l'IA\", choisissez votre niveau de difficulté puis saisissez votre pseudo. \n\nSi vous préférez jouer avec un ami, cliquez sur " +
@@ -30,13 +30,13 @@ public class AideController {
 	
 	/** Bouton de fermeture de l'aide */
 	@FXML
-	public Button CloseHelp;
+	private Button CloseHelp;
 	
 	/**
 	 * Constructeur de l'objet
 	 */
 	public AideController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public void initialize () {
@@ -46,7 +46,8 @@ public class AideController {
 	/**
 	 * Retourne au menu principal et ferme la fenêtre courante
 	 */
-	public void handleCloseHelp() {
+	@FXML
+	private void handleCloseAide() {
 		Stage stage = (Stage) CloseHelp.getScene().getWindow(); //fermeture de la fenêtre ou le bouton est située
 		stage.close();
 	}
