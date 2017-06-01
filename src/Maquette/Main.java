@@ -20,6 +20,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 import othello.Partie;
@@ -44,6 +45,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Othello");
+        this.primaryStage.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
 
         showMenuPrincipal();
     }
@@ -64,6 +66,7 @@ public class Main extends Application {
             MenuPrincipal.initOwner(primaryStage);
             Scene scene = new Scene(page);
             MenuPrincipal.setScene(scene);
+            MenuPrincipal.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
 
             MenuPrincipal.show();
         } catch (IOException e) {
@@ -87,6 +90,7 @@ public class Main extends Application {
             ChoixDifficulte.initOwner(primaryStage);
             Scene scene = new Scene(page);
             ChoixDifficulte.setScene(scene);
+            ChoixDifficulte.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
             
             // Affiche la fenêtre et ferme la fenêtre précédente
             primaryStage.close();
@@ -112,6 +116,7 @@ public class Main extends Application {
     		SaisiePseudo.initOwner(primaryStage);
     		Scene scene = new Scene(page);
     		SaisiePseudo.setScene(scene);
+    		SaisiePseudo.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
     		
     		
     		//Affiche la fenêtre et ferme la fenêtre précédente
@@ -138,6 +143,7 @@ public class Main extends Application {
     		SaisiePseudoIA.initOwner(primaryStage);
     		Scene scene = new Scene(page);
     		SaisiePseudoIA.setScene(scene);
+    		SaisiePseudoIA.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
     		
     		//Affiche la fenêtre et ferme la fenêtre précédente
     		primaryStage.close();
@@ -168,6 +174,7 @@ public class Main extends Application {
             Aide.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(page);
             Aide.setScene(scene);
+            Aide.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
             
             Aide.showAndWait();
             
@@ -193,6 +200,7 @@ public class Main extends Application {
             Scores.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(page);
             Scores.setScene(scene);
+            Scores.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
             
             Scores.showAndWait();
             
@@ -217,6 +225,7 @@ public class Main extends Application {
     		Plateau.initOwner(primaryStage);
     		Scene scene = new Scene(page);
     		Plateau.setScene(scene);
+    		Plateau.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
     		
     		//Affiche la fenêtre et ferme la fenêtre précédente
     		primaryStage.close();
@@ -242,6 +251,7 @@ public class Main extends Application {
     		PlateauIA.initOwner(primaryStage);
     		Scene scene = new Scene(page);
     		PlateauIA.setScene(scene);
+    		PlateauIA.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
     		
     		//Affiche la fenêtre et ferme la fenêtre précédente
     		primaryStage.close();
@@ -270,6 +280,7 @@ public class Main extends Application {
     		Recapitulatif.initModality(Modality.APPLICATION_MODAL);
     		Scene scene = new Scene(page);
     		Recapitulatif.setScene(scene);
+    		Recapitulatif.getIcons().add(new Image("file:src/Maquette/Ressource/OthelloLogo.png"));
     		
     		Recapitulatif.showAndWait();
     		

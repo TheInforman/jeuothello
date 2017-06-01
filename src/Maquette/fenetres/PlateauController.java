@@ -94,6 +94,8 @@ public class PlateauController {
 
 	/** La partie actuelle */
 	public static Partie partieCourante;
+	
+	
 
 	
 

@@ -7,6 +7,8 @@ package Maquette.fenetres;
 import Maquette.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +32,11 @@ public class MenuPrincipalController {
 	/** Bouton pour choisir la partie à charger */
 	@FXML 
 	private Button Charger;
+	
+	@FXML
+	private ImageView Titre ;
+	
+	private static Image ImageTitre = new Image ("file:src/Maquette/Ressource/OthelloTitre.png");
 
 	/**
 	 * Constructeur de la classe
@@ -38,6 +45,9 @@ public class MenuPrincipalController {
 		
 	}
 	
+	public void initialize() {
+		Titre.setImage(ImageTitre);
+	}
 	 /**
      * Lorsque l'utilisateur clique sur le bouton Jouer contre l'IA, affiche la fenêtre
      * de choix de la difficulté

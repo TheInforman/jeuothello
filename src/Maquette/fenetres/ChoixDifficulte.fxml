@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.ChoixDifficulteController">
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.ChoixDifficulteController">
    <children>
       <Button fx:id="Facile" layoutX="196.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleChoixDifficulteFacile" prefHeight="40.0" prefWidth="400.0" text="FACILE" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="204.0">
          <cursor>
@@ -16,7 +16,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="MenuPrincipal" layoutX="341.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="MENU PRINCIPAL" AnchorPane.bottomAnchor="66.0" AnchorPane.topAnchor="509.0">
+      <Button fx:id="MenuPrincipal" layoutX="341.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" prefHeight="30.0" prefWidth="111.0" text="MENU PRINCIPAL" AnchorPane.bottomAnchor="61.0" AnchorPane.topAnchor="509.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
