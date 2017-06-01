@@ -95,8 +95,6 @@ public class PlateauController {
 	/** La partie actuelle */
 	public static Partie partieCourante;
 
-	
-
 	/**
 	 * Méthode appelée après le chargement de la page 
 	 */
@@ -173,7 +171,6 @@ public class PlateauController {
 
 		grid.add(pane, colonne, ligne);		
 	}
-	
 	
 	
 	/**
