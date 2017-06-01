@@ -1,73 +1,87 @@
 /*
  * Partie.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Tous droits réservés à l'IUT de Rodez
  */
 
 package othello;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.io.Serializable;
 
 /**
  * Partie conçernant un plateau de cases et des joueurs
- * @author Vincent G. , Kerian G.
+ * 
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Partie implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	/** Historique des cases dont l'état a changé au cours de la partie.
+	/** 
+	 *  Historique des cases dont l'état a changé au cours de la partie.
 	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action a été jouée.
 	 *  La première colonne de chaque ligne correspond à la case sur
-	 * 		laquelle le joueur a décidé de placer son pion.
+	 * 	laquelle le joueur a décidé de placer son pion.
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
 	 *  passant du noir au blanc ou du blanc au noir.
 	 */
-	private Case[][] historiqueCoups;
-	
+	private ArrayList<ArrayList<Case>> historiqueCoups;
+
 	/** Partie courante */
 	private Plateau plateauDeJeu;
-	
+
 	/** Joueur devant jouer le tour courant */
 	private int doitJouer;
-	
+
 	/** Numéro du tour courant */
 	private int tour;
-	
+
 	/** Booléen valant false si la partie est bloquée de manière irrémédiable */
 	private boolean partieBloquee;
-	
+
 	/** Liste des joueurs disputant la partie */
 	private Joueur[] listeJoueur = new Joueur[2];
 	
-
-
-	//TODO : Javadoc
-	/** (constructeur d'état d'instance)
-	 * 
-	 * @param premierJoueur
-	 * @param secondJoueur
+	/**
+	 * Entier décrivant le type de partie joué.
+	 * 0 Correspond à une partie joueur contre joueur
+	 * 1 Correspond à une partie contre Ordinateur en mode Facile
+	 * 2 Correspond à une partie contre Ordinateur en mode Normal
 	 */
-	public Partie(Joueur premierJoueur, Joueur secondJoueur) {
+	private int typeDePartie;
+
+
+	/** (constructeur d'état d'instance)
+	 * Place les joueurs dans la liste de joueur de la partie, stocke le type
+	 * de partie et initialise les paramètres par défaut d'une partie
+	 * @param premierJoueur joueur ayant la couleur blanche
+	 * @param secondJoueur	joueur ayant la couleur noire
+	 * @param typeDePartie détermine si la partie est joueur
+	 * 	 	  contre ordinateur (et la difficulté) ou joueur contre joueur	
+	 */
+	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
 		listeJoueur[0] = premierJoueur;
 		listeJoueur[1] = secondJoueur;
+
+		this.typeDePartie = typeDePartie;	
 		
 		partieBloquee = false;
-		
+
 		plateauDeJeu = new Plateau();
-		
+
 		tour = 0;
 		doitJouer = 0;
+		
+		historiqueCoups = new ArrayList<ArrayList<Case>>();
 	}
-	
-	
-	
-	
-	//TODO : constructeur dans le cas où on charge une sauvegarde
-	
-	
+
+
 	/**
 	 * @return le numéro du joueur qui doit jouer
 	 */
@@ -82,7 +96,7 @@ public class Partie implements Serializable {
 		return tour;
 	}
 
-	
+
 	/**
 	 * @return la liste des joueurs de la partie
 	 */
@@ -91,52 +105,91 @@ public class Partie implements Serializable {
 	}
 
 
-	
-	
 	/**
 	 * @return le plateau de jeu de la partie
 	 */
 	public Plateau getPlateau() {
 		return plateauDeJeu;
 	}
-	
-	
+
+
 	/** 
 	 * Passe au tour suivant 
 	 */
 	public void tourSuivant() {
-		//TODO : Programmer la méthode
 		doitJouer = (doitJouer + 1) % 2 ;
 		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
 		tour++;
 	}
-	
-	/** TODO : Javadoc */
+
+	/** 
+	 * Revient au tour précédent en changeant le joueur qui joue
+	 * dans une partie joueur contre joueur et détermine les coups possibles
+	 */
 	public void tourPrecedent() {
-		//TODO : Programmer la méthode
+		doitJouer = (doitJouer + 1) % 2 ;
+		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
 		tour--;
 	}
-	
+
+
+	/** 
+	 * Revient au tour précédent du joueur (2 tour en arrière) dans un partie 
+	 * contre un ordinateur et détermine les coups possibles 
+	 */
+	public void tourPrecedentVSOrdi() {
+		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
+		tour -= 2 ;
+	}
+
 	/** TODO : Javadoc */
 	@SuppressWarnings("unused")
 	private void actualiserHisto() {
 		//TODO : Programmer la méthode
 	}
-	
-	/** TODO : Javadoc */
-	public void archiverTour( Case[] plateauPrecedent ){
-		//TODO : Programmer la méthode
-		// on utilisera le tableau retourner par appliquer coup
+
+	/** 
+	 * Ajoute la liste des pions retourner au tour précédent
+	 * au tableau de l'historique des tours
+	 */
+	public void archiverTour( ArrayList<Case> aArchiver ){
+		if(aArchiver != null){
+			historiqueCoups.add(new ArrayList<Case>(aArchiver));
+		}
 	}
-	
+
+	/**
+	 * @return l'historique des coups et leurs conséquences de la partie
+	 */
+	public ArrayList<ArrayList<Case>> getHistoriqueCoups() {
+		return historiqueCoups;
+	}
+
+
+	/**
+	 * @return  typeDePartie
+	 */
+	public int getTypeDePartie() {
+		return typeDePartie;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Partie [listeCoups=" + Arrays.toString(historiqueCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" + Arrays.toString(listeJoueur) + "]";
-		
+		String textePartie = "" ;
+		textePartie += "Partie [listeCoups=" ;
+		for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
+			textePartie += "\nCase modifié au Tour n° " + (i+1) + "\n";
+			textePartie +=  historiqueCoups.get(i);
+			textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
+					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+					+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
+		}
+		return textePartie ;
 	}
-	
 }
+
+

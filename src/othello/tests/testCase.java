@@ -1,8 +1,6 @@
 /*
  * testCase.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
- * 	Juste pour tester
+ * Tous droits réservés à l'IUT de Rodez
  */
 package othello.tests;
 
@@ -11,7 +9,11 @@ import othello.Case;
 /**
  * Classe permettant de tester les différentes méthodes de la classe Case
  * 
- * @author Vincent
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class testCase {
 
@@ -21,7 +23,6 @@ public class testCase {
 	 * @param args inutilisé
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Case caseNeutre = new Case(1,1,-1);
 		Case caseBlanche = new Case(1,2,0);
 		Case caseNoire = new Case(1,3,1);

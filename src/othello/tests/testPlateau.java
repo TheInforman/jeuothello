@@ -1,7 +1,6 @@
 /*
  * testPlateau.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Tous droits réservés à l'IUT de Rodez
  */
 package othello.tests;
 
@@ -11,7 +10,11 @@ import othello.Plateau;
 /**
  * Classe permettant de tester les différentes méthodes de la classe Plateau
  * 
- * @author Vincent
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class testPlateau {
 	
@@ -146,15 +149,19 @@ public class testPlateau {
 		
 		
 		/* Plateau 5*/
+		@SuppressWarnings("unused")
 		Plateau plateau_5 = new Plateau();
 		
 		/* Plateau 6*/
+		@SuppressWarnings("unused")
 		Plateau plateau_6 = new Plateau();
 		
 		/* Plateau 7*/
+		@SuppressWarnings("unused")
 		Plateau plateau_7 = new Plateau();
 		
 		/* Plateau 8*/
+		@SuppressWarnings("unused")
 		Plateau plateau_8 = new Plateau();
 		
 	}

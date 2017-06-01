@@ -1,54 +1,58 @@
 /*
  * Joueur.java                                            06/05/2017
- * Groupe  Adrien Bouyssou, Vincent Galinier,
- * 		   Kerian Georges, Arthur Pradier, Mickaël Queudet
+ * Tous droits réservés à l'IUT de Rodez
  */
 
 package othello;
 
 import java.io.Serializable;
 
-import java.util.Arrays;
 
 /**
  * Joueur du jeu de l'othello
- * @author Vincent G.
+ * 
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Joueur implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	/** Nom du joueur */
 	private String nom;
-	
+
 	/** Score du joueur */
 	private int score;
-	
+
 	/** Couleur du joueur */
 	private int couleur;
-	
+
 	/** Booléen égal à vrai si le joueur a pu agir au tour précédent,
 	    faux sinon */
 	private boolean peutAgir;
-	
+
 	/** Récupère la couleur de this */
 	public int getCouleur() {
 		return couleur;
 	}
-	
+
 	/** (constructeur d'état d'instance)
-	 * Joueur définit par son nom et sa couleur
+	 * Joueur par défaut (ordinateur) auquel on attribue sa couleur
+	 * @param couleur des pions du joueur
 	 */
-	public Joueur() {
+	public Joueur(int couleur) {
 		this.nom = "Ordinateur";
-		this.couleur = Case.COULEUR_NOIR;
+		this.couleur = couleur;
 		score = 0;
 		peutAgir = true;
 	}
-	
+
 	/** (constructeur d'état d'instance)
-	 * Joueur définit par son nom et sa couleur
+	 * Joueur définit par son nom et auquel on attribue sa couleur
 	 * @param nom
 	 * @param couleur
 	 */
@@ -58,9 +62,7 @@ public class Joueur implements Serializable {
 		score = 0;
 		peutAgir = true;
 	}
-	
-	//TODO : constructeur dans le cas ou on charge une sauvegarde
-	
+
 	/**
 	 * Permet de passer son tour à un joueur par choix
 	 */
@@ -82,6 +84,6 @@ public class Joueur implements Serializable {
 	public String getNom() {
 		return nom;
 	}
-	
-	
+
+
 }
