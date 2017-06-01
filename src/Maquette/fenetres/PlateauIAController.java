@@ -4,6 +4,7 @@
 package Maquette.fenetres;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 import Maquette.BoitesMessage;
@@ -23,6 +24,7 @@ import othello.Case;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
+import othello.Scores;
 import outils.OutilFichier;
 import outils.OutilsIA;
 
@@ -32,6 +34,12 @@ import outils.OutilsIA;
  * @author Arthur Pradier, Mickaël Queudet
  */
 public class PlateauIAController {
+	
+	/** Score du joueur */
+	public static int scoreJoueur;
+	
+	/** Pseudo du joueur */
+	public static String pseudoJoueur;
 	
 	public static String pseudoGagnant;
 	
@@ -224,6 +232,9 @@ public class PlateauIAController {
 	 * TODO : Javadoc
 	 */
 	private void finPartie() {
+        scoreJoueur = Integer.valueOf(lbl_scoreBlanc.getText());
+        pseudoJoueur = lbl_blanc.getText();
+		enregistrerScores(pseudoJoueur, scoreJoueur);
 		afficherRecapitulatif(
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
@@ -395,5 +406,25 @@ public class PlateauIAController {
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
+	}
+	
+	/**
+	 * Permet, à la fin de la partie, d'enregistrer les scores
+	 */
+	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
+		// Fichier de sauvegarde
+		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+
+		// Vérification si le fichier de scores existe
+		if(!file.exists()){
+			// On crée l'objet Scores et on ajoute le score
+			Scores courant = new Scores();
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		} else{
+			// On restaure les scores
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		}
 	}
 }

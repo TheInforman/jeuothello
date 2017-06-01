@@ -17,7 +17,6 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="btn_retour" layoutX="264.0" layoutY="394.0" mnemonicParsing="false" onAction="#HandleRetour" prefHeight="25.0" prefWidth="59.0" text="RETOUR" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="394.0" />
       <GridPane fx:id="grid" layoutX="25.0" layoutY="205.0" prefWidth="650.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="95.0" />
@@ -33,7 +32,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Button fx:id="Retour" defaultButton="true" layoutX="264.0" layoutY="343.0" mnemonicParsing="false" onAction="#HandleRetour" prefHeight="25.0" prefWidth="59.0" text="RETOUR" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="343.0">
+      <Button fx:id="btn_retour" defaultButton="true" layoutX="268.0" layoutY="384.0" mnemonicParsing="false" onAction="#HandleRetour" prefHeight="25.0" prefWidth="59.0" text="RETOUR" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="268.0" AnchorPane.topAnchor="384.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
