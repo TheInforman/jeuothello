@@ -18,19 +18,19 @@ public class SaisiePseudoIAController {
 
 	/** le champ texte ou le joueur 1 entrera son pseudo */
 	@FXML
-	public TextField tf_pseudoJ1;
+	private TextField tf_pseudoJ1;
 
 	/** Bouton permettant de retourner au menu principal */
 	@FXML
-	public Button MainMenuButton;
+	private Button MenuPrincipal;
 
 	/** Bouton permettant d'afficher l'aide */
 	@FXML
-	public Button Aide;
+	private Button Aide;
 
 	/** Bouton permettant de valider la saisie des pseudos et de lancer la partie */
 	@FXML
-	public Button Valider;
+	private Button Valider;
 
 	/**
 	 * Constructeur de la classe
@@ -44,8 +44,8 @@ public class SaisiePseudoIAController {
 	 *  affiche le menu principal
 	 */
 	@FXML
-	public void handleMenuPrincipal(ActionEvent event) {
-		Stage stage = (Stage) MainMenuButton.getScene().getWindow();
+	private void handleMenuPrincipal(ActionEvent event) {
+		Stage stage = (Stage) MenuPrincipal.getScene().getWindow();
 		stage.close();
 		Main.showMenuPrincipal();
 	}
@@ -55,9 +55,10 @@ public class SaisiePseudoIAController {
 	 * les pseudos entrés dans les champs texte et affiche le plateau
 	 */
 	@FXML
-	public void handleValider(ActionEvent event) {
+	private void handleValider(ActionEvent event) {
 		Stage stage = (Stage) Valider.getScene().getWindow();
 		stage.close();
+		//Initialisation d'une partie avec le nom entré par le joueur et 
 		PlateauIAController.initPartieIA(
 				tf_pseudoJ1.getText(),
 				ChoixDifficulteController.choixDifficulte);
@@ -68,7 +69,7 @@ public class SaisiePseudoIAController {
 	 * Affiche l'aide
 	 */
 	@FXML
-	public void handleAide() {
+	private void handleAide() {
 		Main.showAide();
 	}
 

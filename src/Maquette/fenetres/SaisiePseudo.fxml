@@ -28,7 +28,7 @@
          </cursor></TextField>
       <Label layoutX="182.0" layoutY="292.0" text="Pseudo du joueur 1 :" />
       <Label layoutX="181.0" layoutY="378.0" text="Pseudo du joueur 2 : " />
-      <Button fx:id="MainMenuButton" layoutX="340.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="MENU PRINCIPAL">
+      <Button fx:id="MenuPrincipal" layoutX="340.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="MENU PRINCIPAL">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
