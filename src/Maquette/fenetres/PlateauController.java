@@ -379,7 +379,11 @@ public class PlateauController {
 		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
-		//TODO : FERMER FENETRE + revenir au menu principal
+		
+		/* Renvoit au menu principal */
+		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+		stage.close();
+		Main.showMenuPrincipal();
 
 	}
 
@@ -425,6 +429,7 @@ public class PlateauController {
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}
+	
 	/** 
 	 * Ferme la fenêtre courante et renvoie au menu principal 
 	 */

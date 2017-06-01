@@ -345,10 +345,11 @@ public class Main extends Application {
     		 OutilFichier.supprimerSauvegarde(cheminSauvegarde);
     		 
     		 primaryStage.close();
+    		 // test du type de partie
     		 if (partieRestauree.getTypeDePartie() == 0) {
     			 PlateauController.restaurerPartie(partieRestauree);
     			 Main.showPlateau();
-    		 } else {
+    		 } else { // sinon la partie est une partie humain vs machine
     			 PlateauIAController.restaurerPartie(partieRestauree);
     			 Main.showPlateauIA();
     		 }
