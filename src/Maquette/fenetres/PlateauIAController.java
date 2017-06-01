@@ -377,7 +377,7 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * TODO : JDOC
+	 * Enregistre la partie 
 	 */
 	@FXML
 	private void enregistrerPartie() {
@@ -413,7 +413,7 @@ public class PlateauIAController {
 	 */
 	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
 		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
 		if(!file.exists()){
@@ -423,7 +423,7 @@ public class PlateauIAController {
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+					OutilFichier.getEmplacementSaveScores());
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}

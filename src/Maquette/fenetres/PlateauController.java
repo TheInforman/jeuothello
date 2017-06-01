@@ -392,7 +392,7 @@ public class PlateauController {
 	 */
 	private void enregistrerScores(){
 		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
 		if(!file.exists()){
@@ -402,7 +402,7 @@ public class PlateauController {
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+					OutilFichier.getEmplacementSaveScores());
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}
