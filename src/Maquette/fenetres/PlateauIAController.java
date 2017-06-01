@@ -6,13 +6,17 @@ package Maquette.fenetres;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -20,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 import othello.Case;
 import othello.Joueur;
 import othello.Partie;
@@ -181,7 +186,9 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * 
+	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
+	 * affiche une msgBox pour lui notifier que son tour a été passé. 
+	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
@@ -190,13 +197,14 @@ public class PlateauIAController {
 					partieCourante.getListeJoueur()
 					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			BoitesMessage.afficher_msgBoxInfo(
-					"Notification de Partie",
-					"Le tour a été passé",
-					pseudoJoueur + " ne pouvait pas agir.");
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
 			}
 		}
 	}
@@ -377,7 +385,7 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * TODO : JDOC
+	 * Enregistre la partie 
 	 */
 	@FXML
 	private void enregistrerPartie() {
@@ -396,8 +404,18 @@ public class PlateauIAController {
     		}
     	}
 		
+		if (!Main.accederRepertoireOthello()) {
+			return;
+		}
 		OutilFichier.enregistrerPartie(partieCourante);
-		//TODO : Quitter
+		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
+				"Partie sauvegardée avec succès !",
+				"Vous pourrez reprendre votre partie plus tard.");
+		
+		/* Renvoit au menu principal */
+		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+		stage.close();
+		Main.showMenuPrincipal();
 	}
 	
 	/**
@@ -408,12 +426,31 @@ public class PlateauIAController {
 		partieCourante = aRestaurer;
 	}
 	
+
+	/** 
+	 * Ferme la fenêtre courante et renvoie au menu principal 
+	 */
+	@FXML 
+	private void handleMenuPrincipal () {
+		Alert confirmation = new Alert(AlertType.CONFIRMATION);
+		confirmation.setTitle("Confirmation");
+		confirmation.setHeaderText("Retour au menu principal");
+		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
+				"Votre partie ne sera pas sauvegardée");
+		Optional<ButtonType> result = confirmation.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
+		}
+	}
+	
 	/**
 	 * Permet, à la fin de la partie, d'enregistrer les scores
 	 */
 	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
 		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
 		if(!file.exists()){
@@ -423,7 +460,7 @@ public class PlateauIAController {
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+					OutilFichier.getEmplacementSaveScores());
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}

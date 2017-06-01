@@ -213,6 +213,13 @@ public class OutilFichier {
 				+ "\\" + NOM_REPERTOIRE));
 	}
 	/**
+	 * Emplacement des sauvegardes des scores
+	 * @return emplacement de sauvegarde des scores
+	 */
+	public static String getEmplacementSaveScores(){
+		return (getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+	}
+	/**
 	 * Enregistre l'objet {@code Scores} passé en paramètre
 	 * @param aEnregistrer Scores à enregistrer
 	 * @return un booléen égal à vrai ssi la sauvegarde a bien été effecuée

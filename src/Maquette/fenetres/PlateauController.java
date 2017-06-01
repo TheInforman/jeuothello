@@ -5,12 +5,17 @@ package Maquette.fenetres;
 
 
 import java.io.File;
+import java.util.Optional;
+
 import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -191,15 +196,19 @@ public class PlateauController {
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			BoitesMessage.afficher_msgBoxInfo(
-					"Notification de Partie",
-					"Le tour a été passé",
-					"le joueur ne pouvait pas agir.");
-
+			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
-				System.out.println("coucou");
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
 			}
 		}
 	}
@@ -358,6 +367,9 @@ public class PlateauController {
 		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
+		
+		/* Renvoit au menu principal */
+
 		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 		stage.close();
 		Main.showMenuPrincipal();
@@ -397,7 +409,7 @@ public class PlateauController {
 	 */
 	private void enregistrerScores(){
 		// Fichier de sauvegarde
-		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
 		if(!file.exists()){
@@ -407,8 +419,26 @@ public class PlateauController {
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
-					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+					OutilFichier.getEmplacementSaveScores());
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		}
+	}
+	
+	/** 
+	 * Ferme la fenêtre courante et renvoie au menu principal 
+	 */
+	@FXML 
+	private void handleMenuPrincipal () {
+		Alert confirmation = new Alert(AlertType.CONFIRMATION);
+		confirmation.setTitle("Confirmation");
+		confirmation.setHeaderText("Retour au menu principal");
+		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
+				"Votre partie ne sera pas sauvegardée");
+		Optional<ButtonType> result = confirmation.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
+			stage.close();
+			Main.showMenuPrincipal();
 		}
 	}
 	
