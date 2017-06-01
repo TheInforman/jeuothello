@@ -174,7 +174,7 @@ public class OutilFichier {
 	 */
 	public static boolean enregistrerScores(Scores aEnregistrer) {
 
-		String nomFichier = PREFIXE_SAUVEGARDE_SCORES + ".sothl";
+		String nomFichier = PREFIXE_SAUVEGARDE_SCORES + EXTENSION_SAUVEGARDE_SCORES;
 
 		boolean reussi = true;      // vrai ssi l'enregistrement a réussi
 
