@@ -41,6 +41,19 @@ public class OutilsIA {
 			                             {7,1}, {7,8},
 			                             {8,2}, {8,7}};
 	
+	/** Tableau à deux dimensions représentant l'imortance des cases */
+	private static final int[][] tableauStratImportance =
+		{
+				{ 5,-1, 4, 3, 3, 4,-1, 5},
+				{-1,-2, 0, 0, 0, 0,-2,-1},
+				{ 4, 0, 1, 2, 2, 1, 0, 4},
+				{ 3, 0, 2, 0, 0, 2, 0, 3},
+				{ 3, 0, 2, 0, 0, 2, 0, 3},
+				{ 4, 0, 1, 2, 2, 1, 0, 4},
+				{-1,-2, 0, 0, 0, 0,-2,-1},
+				{ 5,-1, 4, 3, 3, 4,-1, 5}
+		};
+	
 	/**
 	 * Coordonnées des cases du plateau ayant
 	 * un très faible intérêt stratégique
@@ -83,12 +96,64 @@ public class OutilsIA {
 		return meilleurChoix;
 	}
 	
+	public static Case strategieNormale(Partie partieCourante) {
+		
+		Plateau plateau = partieCourante.getPlateau();
+		
+		ArrayList<Case> coupsPossibles = plateau.getCoupsPossibles();
+		
+		//Case ayant le plus de pions retournés
+		Case meilleurChoix;
+		
+		/* 
+		 * Si il existe au moins deux coups possible alors traitement nominal:
+		 * Recherche de la meilleure case à jouer
+		 */
+		if (coupsPossibles.size() == 1) {
+			meilleurChoix = coupsPossibles.get(0);
+		} else {
+			
+			int tableauImportanceCases[] = new int[coupsPossibles.size()];
+			
+			/* Recherche de l'importance des cases */
+			for (int indice = 0; indice < tableauImportanceCases.length; indice++) {
+				tableauImportanceCases[indice] =
+						rechercheImportance(coupsPossibles.get(indice));
+			}
+			
+			/*
+			 * Tri des cases par niveaux d'importance
+			 * Les niveaux les plus important en premier
+			 * vers les plus faibles en dernier
+			 */
+			for (int i = 0; i < tableauImportanceCases.length; i++) {
+				for (int j = 0; j < tableauImportanceCases.length; j++) {
+					if (tableauImportanceCases[i] > tableauImportanceCases[j]) {
+						
+						int temporaire = tableauImportanceCases[i];
+						tableauImportanceCases[i] = tableauImportanceCases[j];
+						tableauImportanceCases[j] = temporaire;
+						
+						Case caseTemp = coupsPossibles.get(i);
+						coupsPossibles.set(i, coupsPossibles.get(j));
+						coupsPossibles.set(j, caseTemp);
+					}
+				}
+			}
+			for (int i = 0; i < tableauImportanceCases.length; i++) {
+				System.out.print(tableauImportanceCases[i] + " ");
+			}
+			System.out.println("Joue une priorité " + tableauImportanceCases[0]);
+		}
+		return coupsPossibles.get(0);
+	}
+	
 	/**
 	 * TODO : JDOC
 	 * @param partieCourante
 	 * @return
 	 */
-	public static Case strategieNormale(Partie partieCourante) {
+	public static Case strategieNormaleOLD(Partie partieCourante) {
 		Plateau plateau = partieCourante.getPlateau();
 
 		/*
@@ -99,7 +164,6 @@ public class OutilsIA {
 		/* 
 		 * Si il existe au moins deux coups possible alors traitement nominal:
 		 * Recherche de la meilleure case à jouer
-		 * 
 		 */
 		if (1 < coupsPossibles.size()) {
 
@@ -123,7 +187,7 @@ public class OutilsIA {
 			 * des cases de coupsPossibles
 			 */
 			for (indice = 0 ; indice < coupsPossibles.size() ; indice++) {
-				importanceCase[indice] = rechercheImportanceCase(
+				importanceCase[indice] = rechercheImportance(
 						coupsPossibles.get(indice));
 			}
 
@@ -161,11 +225,17 @@ public class OutilsIA {
 				coupsPossibles.set(etape, aInserer);
 				importanceCase[etape] = niveauAInserer;
 			}
+			for(indice = 0 ; indice < importanceCase.length ; indice++) {
+				System.out.println("-----");
+				System.out.println(coupsPossibles.get(indice) + " " +rechercheImportance(coupsPossibles.get(indice)));
+				System.out.println("-----");
+			}
 
 			/* Recherche de l'indice de fin du premier niveau d'importance */
 			for (indice = 1 ;
-					importanceCase[indice - 1] == importanceCase[indice]
-							&& indice < importanceCase.length;
+					indice < importanceCase.length - 1 &&
+					importanceCase[indice] == importanceCase[indice + 1];
+							
 					indice++);
 
 			if (indice != 0) { 			// sinon un seul coup de haute importance
@@ -215,9 +285,25 @@ public class OutilsIA {
 				}
 			}
 		}
+		System.out.println("caseJ : " + coupsPossibles.get(0) +
+		                   "importance : " + rechercheImportance(coupsPossibles.get(0)));
 		return  coupsPossibles.get(0);
 	}
 	
+	/**
+	 * TODO : JDOC
+	 * @param aDeterminer
+	 * @return
+	 */
+	private static int rechercheImportance(Case aDeterminer) {
+		return tableauStratImportance[aDeterminer.getLigne()][aDeterminer.getColonne()];
+	}
+	
+	/**
+	 * TODO : JDOC
+	 * @param aDeterminer
+	 * @return
+	 */
 	private static int rechercheImportanceCase(Case aDeterminer) {
 		/*
 		 * L'importance de la Case aDeterminer
@@ -266,7 +352,7 @@ public class OutilsIA {
     	if (importance == 0) {
     		importance = 5;
     	}
-    	System.out.println("Importance : " + importance );
+    	System.out.println("Importance :" + importance);
 		return importance;
 	}
 	
