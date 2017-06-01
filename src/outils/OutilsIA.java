@@ -155,13 +155,7 @@ public class OutilsIA {
 						coupsPossibles.set(j, caseTemp);
 					}
 				}
-			}
-			for (int i = 0; i < tableauImportanceCases.length; i++) {
-				System.out.print(tableauImportanceCases[i] + " ");
-			}
-			System.out.println("Joue une priorité " +
-			                   tableauImportanceCases[0]);
-			
+			}			
 			
 			/* Récupération du nombre de cases de plus haute importance */
 			int nbCasesImportantes = 1;
@@ -170,6 +164,8 @@ public class OutilsIA {
 					nbCasesImportantes++;
 				}
 			}
+			
+			meilleurChoix = coupsPossibles.get(0);
 			
 			if(nbCasesImportantes != 1) {
 				
@@ -191,7 +187,7 @@ public class OutilsIA {
 			}
 			
 		}
-		return coupsPossibles.get(0);
+		return meilleurChoix;
 	}
 	
 	/**
