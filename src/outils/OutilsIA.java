@@ -144,6 +144,31 @@ public class OutilsIA {
 				System.out.print(tableauImportanceCases[i] + " ");
 			}
 			System.out.println("Joue une priorité " + tableauImportanceCases[0]);
+			
+			
+			/* Récupération du nombre de cases de plus haute importance */
+			int nbCasesImportantes = 1;
+			for (int i = 1; i < tableauImportanceCases.length; i++) {
+				if (tableauImportanceCases[i] == tableauImportanceCases[0]) {
+					nbCasesImportantes++;
+				}
+			}
+			
+			if(nbCasesImportantes != 1) {
+				
+				/* Nb de pions retournés par pions importants*/
+				int nbPionsRetournesMax = plateau.determinerPionsARetourner(coupsPossibles.get(0), COULEUR_IA).size();
+				meilleurChoix = coupsPossibles.get(0);
+				
+				for (int i = 1; i < nbCasesImportantes; i++) {
+					int nbPionsRetournesCaseI = plateau.determinerPionsARetourner(coupsPossibles.get(i), COULEUR_IA).size();
+					if ( nbPionsRetournesMax < nbPionsRetournesCaseI) {
+						nbPionsRetournesMax = nbPionsRetournesCaseI;
+						meilleurChoix = coupsPossibles.get(i);
+					}
+				}
+			}
+			
 		}
 		return coupsPossibles.get(0);
 	}

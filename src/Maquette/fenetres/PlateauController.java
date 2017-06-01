@@ -235,6 +235,7 @@ public class PlateauController {
 	 * Mets fin à la partie en affichant le récapitulatif de fin
 	 */
 	private void finPartie() {
+		enregistrerScores();
 		afficherRecapitulatif(
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
