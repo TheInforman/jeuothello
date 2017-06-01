@@ -58,17 +58,8 @@ public class Joueur implements Serializable {
 		peutAgir = true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Joueur [nom=" + nom + ", score=" + score +
-			   ", couleur=" + couleur + ", peutAgir=" + peutAgir + "]";
-	}
-
 	/**
-	 * @return 		le nom
+	 * @return 	le nom de this
 	 */
 	public String getNom() {
 		return nom;
@@ -78,5 +69,16 @@ public class Joueur implements Serializable {
 	public int getCouleur() {
 		return couleur;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Joueur [nom=" + nom + ", score=" + score +
+			   ", couleur=" + couleur + ", peutAgir=" + peutAgir + "]";
+	}
+
+
 
 }

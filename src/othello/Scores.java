@@ -32,23 +32,39 @@ public class Scores implements Serializable {
 		tableauScore = new String[6][3];
 	}
 
+	/**
+	 * getter de l'objet scores
+	 * @return le tableau à deux dimensions contenant les scores
+	 */
+	public String[][] getScore() {
+		return tableauScore;
+	}
+	
+	/**
+	 * Ajoute le résultat d'une partie à l'historique des 
+	 * scores qui contient au maximum les 6 derniers scores
+	 * @param pseudo du joueur ayant réaliser le score
+	 * @param le score en tant que String
+	 */
 	public void ajoutScore(String pseudo, String score) {
-		System.out.println("ScoreAjouté");
-		boolean scoreInsere = false; // détermine si on a ou non inséré un score dans le tableau
 		
-		for(int i= 0; i < tableauScore.length; i++) { //on ajoute un score dans la première case vide disponible
+		// détermine si on a ou non inséré un score dans le tableau
+		boolean scoreInsere = false; 
+		
+		//on ajoute un score dans la première case vide disponible
+		for(int i= 0; i < tableauScore.length; i++) { 
 			if (tableauScore[i] == null) {
 				tableauScore[i][0] = pseudo;
 				tableauScore[i][1] = score;
 				tableauScore[i][2] = determinerDate();
 			}
 		}
-		/* si on a pas inséré de score après le balayage, on supprime l'élément le plus à gauche et on décale 
-		 * tous les éléments du tableau vers la gauche, puis on insère la nouvelle valeur dans la case la plus à droite
+		/* si on a pas inséré de score après le balayage, 
+		 * on supprime  l'élément le plus à gauche et on décale 
+		 * tous les éléments du tableau vers la gauche, puis on 
+		 * insère la nouvelle valeur dans la case la plus à droite
 		 */
 		if (!scoreInsere) {
-			
-
 			for(int i=tableauScore.length -1; i > 0 ; i--) {
 				tableauScore[i][0] = tableauScore[i-1][0];
 				tableauScore[i][1] = tableauScore[i-1][1];
@@ -59,23 +75,15 @@ public class Scores implements Serializable {
 
 			tableauScore[0][2] = determinerDate();
 		}
-
 		// Dès que le score est retourné, on enregistre le score courant (this)
 		OutilFichier.enregistrerScores(this);
 	}
 	
-	/**
-	 * getteur de l'objet scores
-	 * @return le tableau à deux dimensions contenant les scores
-	 */
-	public String[][] getScore() {
-		return tableauScore;
-	}
 	
 	/** Détermine la date où l'on a inséré le score sous la forme:
 	 * jj/mm/aaaa à hhhmm
 	 * @return la date de la sauvegarde
-	 * */
+	 */
 	private String determinerDate(){
 		// Récupération de la date 
 		Calendar calendrierMaintenant = Calendar.getInstance();
@@ -88,8 +96,8 @@ public class Scores implements Serializable {
 
 		return ((jour < 10) ? "0" + String.valueOf(jour) : String.valueOf(jour))
 				+ "/" + ((mois < 10) ? "0" + String.valueOf(mois) : String.valueOf(mois))
-						+ "/" + annee + " à "
-		+ heure + "h" +
+				+ "/" + annee + " à "
+				+ heure + "h" +
 		((minute < 10) ? "0" + String.valueOf(minute) : String.valueOf(minute));
 		
 	}
