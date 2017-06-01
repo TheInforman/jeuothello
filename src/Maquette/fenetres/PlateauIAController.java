@@ -161,7 +161,8 @@ public class PlateauIAController {
 
 
 	/**
-	 * TODO : JDOC
+	 * Boucle active après le chargement du programme qui 
+	 * permet le clic sur le plateau
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 		
@@ -402,10 +403,7 @@ public class PlateauIAController {
 			pseudoGagnant = lbl_noir.getText();
 			scoreGagnant = scoreNoir;
 		}
-		/*
-		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
-		TODO: Linker les récapitulatifs
-		*/
+		
 		Main.showRecapitulatif();
 	}
 	
