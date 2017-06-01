@@ -53,6 +53,10 @@ public class PlateauController {
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
 
+	/** Image associée à une case neutre */
+	private static Image caseNeutre =
+			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+	
 	/** La partie actuelle */
 	public static Partie partieCourante;
 
@@ -270,7 +274,7 @@ public class PlateauController {
 	 * Ajout des images des pions sur le plateau. afin de conrrespondre 
 	 * à l'état actuel
 	 */
-	public static void updateTableau(GridPane grid) {
+	public void updateTableau(GridPane grid) {
 
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
@@ -288,8 +292,13 @@ public class PlateauController {
 				case 0 : ImageView Blanc = new ImageView(caseBlanche);
 				grid.add(Blanc, j, i);
 				break;
+				
+				case -1 : ImageView Neutre = new ImageView(caseNeutre);
+				grid.add(Neutre, j, i);
+				break;
 
 				}
+				addPane(j,i);
 			}
 		}
 	}
