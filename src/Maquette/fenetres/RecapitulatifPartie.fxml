@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.RecapitulatifController">
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.RecapitulatifController">
    <children>
       <Label layoutX="169.0" layoutY="44.0" text="Récapitulatif" AnchorPane.topAnchor="47.0">
          <font>
@@ -17,7 +17,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Label fx:id="lbl_pseudoGagnant" layoutX="169.0" layoutY="192.0" prefHeight="17.0" prefWidth="55.0" />
+      <Label fx:id="lbl_pseudoGagnant" layoutX="169.0" layoutY="192.0" prefHeight="17.0" prefWidth="90.0" />
       <Label fx:id="lbl_scoreGagnant" layoutX="410.0" layoutY="192.0" prefHeight="17.0" prefWidth="32.0" />
       <Label layoutX="98.0" layoutY="192.0" text="Le joueur " />
       <Label layoutX="269.0" layoutY="192.0" text="a gagné avec un score de: " />

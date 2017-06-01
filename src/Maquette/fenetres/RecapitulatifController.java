@@ -20,8 +20,11 @@ public class RecapitulatifController {
 	@FXML 
 	public Label lbl_scoreGagnant /*= new Label(pseudoGagnant)*/;
 	
+	
+	/** Initialise la fenêtre en calculant les différents scores */
 	public void initialize() {
 		afficherRecapitulatif();
+		afficherRecapitulatifIA();
 	}
 
 	/** Gère le retour au menu principal */
@@ -38,10 +41,21 @@ public class RecapitulatifController {
 		
 	}
 	
-	/** Affiche le récapitulatif (met à jour les labels) */
+	/** Affiche le récapitulatif (met à jour les labels) lors d'une partie               
+	 *  Joueur contre Joueur*/
 	public void afficherRecapitulatif(){
-		System.out.println(PlateauController.pseudoGagnant + " " + PlateauController.scoreGagnant);
+		System.out.println(PlateauController.pseudoGagnant + " " + 
+	                       PlateauController.scoreGagnant);
+
 		lbl_pseudoGagnant.setText(PlateauController.pseudoGagnant);
 		lbl_scoreGagnant.setText(String.valueOf(PlateauController.scoreGagnant));
+	}
+	
+	/** Affiche le récapitulatif (met à jour les labels) lors d'une partie contre
+	 * une Intelligence Artificielle
+	 */
+	public void afficherRecapitulatifIA(){
+		lbl_pseudoGagnant.setText(PlateauIAController.pseudoGagnant);
+		lbl_scoreGagnant.setText(String.valueOf(PlateauIAController.scoreGagnant));
 	}
 }

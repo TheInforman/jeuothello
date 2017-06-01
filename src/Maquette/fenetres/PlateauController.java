@@ -38,7 +38,7 @@ public class PlateauController {
 
 	/** Revient un tour en arrière au clic */
 	public Button tourPrecedent;
-	
+
 	/** Le gagnant à la fin de la partie */
 	public static String pseudoGagnant;
 
@@ -67,7 +67,7 @@ public class PlateauController {
 	/** Le score du joueur noir */
 	@FXML
 	public Label lbl_scoreNoir;
-	
+
 	/** Le pseudo du joueur blanc */
 	@FXML
 	public Label lbl_blanc;
@@ -179,10 +179,10 @@ public class PlateauController {
 			}
 
 			partieCourante.getPlateau().setActionEffectuee(false);
-			
+
 			// souligne le joueur qui doit jouer 
 			setQuiDoitJouer(partieCourante.getDoitJouer());
-	
+
 			controleSiTourJouable();
 		});
 
@@ -201,7 +201,7 @@ public class PlateauController {
 					partieCourante.getListeJoueur()
 					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			
+
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
 			} else {
@@ -236,8 +236,8 @@ public class PlateauController {
 				partieCourante.getPlateau().appliquerCoups(
 						partieCourante.getPlateau().othellier[rowIndex][colIndex],
 						partieCourante.getDoitJouer()
-				)
-		);
+						)
+				);
 	}
 
 
@@ -338,8 +338,9 @@ public class PlateauController {
 	}
 
 	/**
-	 * Enregistre la partie actuelle dans un répertoire par défaut, notifie le joueur
-	 * de la sauvegarde via une msgBox. Si le répertoire de sauvegarde désiré n'est pas accessible,
+	 * Enregistre la partie actuelle dans un répertoire par défaut, notifie 
+	 * le joueur de la sauvegarde via une msgBox. Si le répertoire de 
+	 * sauvegarde désiré n'est pas accessible,
 	 * on annule la sauvegarde.
 	 */
 	@FXML
@@ -367,7 +368,7 @@ public class PlateauController {
 		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
-		
+
 		/* Renvoit au menu principal */
 
 		Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
@@ -377,7 +378,7 @@ public class PlateauController {
 	}
 
 	/**
-	 * Quitte la partie actuelle sans sauvegarder et retourne au menu principal. 
+	 * Quitte la partie actuelle sans sauvegarder et retourne au menu principal 
 	 * L'utilisateur devra confirmer son choix et sera averti des conséquences
 	 * possibles. 
 	 */
@@ -415,15 +416,15 @@ public class PlateauController {
 		if(!file.exists()){
 			// On crée l'objet Scores et on ajoute le score
 			Scores courant = new Scores();
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
 					OutilFichier.getEmplacementSaveScores());
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+			courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
 	}
-	
+
 	/** 
 	 * Ferme la fenêtre courante et renvoie au menu principal 
 	 */
@@ -441,14 +442,14 @@ public class PlateauController {
 			Main.showMenuPrincipal();
 		}
 	}
-	
+
 	@FXML
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
 			updateTableau(grid);
 		}
-		
+
 	}
 
 }

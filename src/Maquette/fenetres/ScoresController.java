@@ -24,7 +24,7 @@ public class ScoresController {
 	/** Bouton de suppression de la sauvegarde des scores */
 	@FXML
 	public Button btn_supprimer;
-	
+
 	/** GridPane des scores */
 	@FXML
 	private GridPane grid;
@@ -42,19 +42,18 @@ public class ScoresController {
 	 */
 	public void initialize(){
 		// Restauration du fichier de sauvegarde 
-		
+
 		File file = new File(OutilFichier.getEmplacementSaveScores());
 
 		// Vérification si le fichier de scores existe
 		if(!file.exists()){
 			Scores courant = new Scores();
-            remplirVide();
-            OutilFichier.enregistrerScores(courant);
+			OutilFichier.enregistrerScores(courant);
 		} else {
-		Scores courant = OutilFichier.restaurerScores(
-				OutilFichier.getEmplacementSaveScores());
-		// Remplissage du tableau de score
-		remplirScores(courant); 
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getEmplacementSaveScores());
+			// Remplissage du tableau de score
+			remplirScores(courant); 
 		}
 	}
 
@@ -74,7 +73,7 @@ public class ScoresController {
 			}
 		}
 	}
-	
+
 	/**
 	 * Supprime le fichier de sauvegarde (après une BoîteMessage)
 	 * 
@@ -90,23 +89,14 @@ public class ScoresController {
 			// Définition de l'emplacement de la sauvegarde
 			Path emplacementSauvegarde;
 			emplacementSauvegarde =
-					Paths.get(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+					Paths.get(OutilFichier.getEmplacementSaveScores());
 			OutilFichier.supprimerSauvegarde(emplacementSauvegarde);
-			
+
 			// Fermeture de la fenêtre
 			Stage stage = (Stage) btn_supprimer.getScene().getWindow();
 			stage.close();
-			}
-	}
-	
-	private void remplirVide(){
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 3; j++) {
-					Label lbl = new Label(" ");
-					grid.add(lbl, i, j);
-				}
-
-			}
 		}
 	}
+
+}
 
