@@ -34,8 +34,10 @@ import outils.OutilFichier;
  */
 public class PlateauController {
 	
+	/** Le gagnant à la fin de la partie */
 	public static String pseudoGagnant;
 	
+	/** Le score du gagnant à la fin de la partie */
 	public static int scoreGagnant;
 	
 	/** Image associée à une case noire */
@@ -163,10 +165,6 @@ public class PlateauController {
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
 			
-			if(partieCourante.getDoitJouer() != 0) {
-				return;
-			}
-			
 			appliquerCoups(rowIndex,colIndex);
 			
 			//On passe au tour suivant si le coups a pu être effectué
@@ -240,7 +238,6 @@ public class PlateauController {
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
 				);
-		System.out.println("coucou");
 		
 	}
 
