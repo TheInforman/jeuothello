@@ -302,8 +302,8 @@ public class PlateauIAController {
 		}
 		
 		Case meilleurChoix;
-		
 
+		
 		if(partieCourante.getTypeDePartie() == 1) {
 			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
 		} else {

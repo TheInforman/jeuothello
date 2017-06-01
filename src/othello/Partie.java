@@ -5,6 +5,7 @@
 
 package othello;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.io.Serializable;
@@ -22,14 +23,15 @@ public class Partie implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Historique des cases dont l'état a changé au cours de la partie.
+	/** 
+	 *  Historique des cases dont l'état a changé au cours de la partie.
 	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action a été jouée.
 	 *  La première colonne de chaque ligne correspond à la case sur
-	 * 		laquelle le joueur a décidé de placer son pion.
+	 * 	laquelle le joueur a décidé de placer son pion.
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
 	 *  passant du noir au blanc ou du blanc au noir.
 	 */
-	private Case[][] historiqueCoups;
+	private ArrayList<ArrayList<Case>> historiqueCoups;
 
 	/** Partie courante */
 	private Plateau plateauDeJeu;
@@ -52,15 +54,16 @@ public class Partie implements Serializable {
 	 * 1 Correspond à une partie contre Ordinateur en mode Facile
 	 * 2 Correspond à une partie contre Ordinateur en mode Normal
 	 */
-	private static int typeDePartie;
+	private int typeDePartie;
 
 
-
-	//TODO : Javadoc
 	/** (constructeur d'état d'instance)
-	 * 
-	 * @param premierJoueur
-	 * @param secondJoueur
+	 * Place les joueurs dans la liste de joueur de la partie, stocke le type
+	 * de partie et initialise les paramètres par défaut d'une partie
+	 * @param premierJoueur joueur ayant la couleur blanche
+	 * @param secondJoueur	joueur ayant la couleur noire
+	 * @param typeDePartie détermine si la partie est joueur
+	 * 	 	  contre ordinateur (et la difficulté) ou joueur contre joueur	
 	 */
 	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
 		listeJoueur[0] = premierJoueur;
@@ -143,16 +146,26 @@ public class Partie implements Serializable {
 		//TODO : Programmer la méthode
 	}
 
-	/** TODO : Javadoc */
-	public void archiverTour( Case[] plateauPrecedent ){
-		//TODO : Programmer la méthode
-		// on utilisera le tableau retourner par appliquer coup
+	/** 
+	 * Ajoute la liste des pions retourner au tour précédent
+	 * au tableau de l'historique des tours
+	 */
+	public void archiverTour( ArrayList<Case> aArchiver ){
+	historiqueCoups.add(aArchiver);
 	}
+
+	/**
+	 * @return l'historique des coups et leurs conséquences de la partie
+	 */
+	public ArrayList<ArrayList<Case>> getHistoriqueCoups() {
+		return historiqueCoups;
+	}
+
 
 	/**
 	 * @return  typeDePartie
 	 */
-	public static int getTypeDePartie() {
+	public int getTypeDePartie() {
 		return typeDePartie;
 	}
 
@@ -162,9 +175,19 @@ public class Partie implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Partie [listeCoups=" + Arrays.toString(historiqueCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" + Arrays.toString(listeJoueur) + "]";
-
+		String textePartie = "" ;
+		textePartie += "Partie [listeCoups=" ;
+		for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
+			textePartie += "\nCase modifié au Tour n° " + tour + "\n";
+			for (int j = 0 ; j < historiqueCoups.get(i).size(); j++) {
+				textePartie +=  historiqueCoups.get(i).get(j);
+				textePartie += "\n";
+			}
+		}
+		textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
+				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+				+ Arrays.toString(listeJoueur) + "]";
+		return textePartie ;
 	}
 
 }
