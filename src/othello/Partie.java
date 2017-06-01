@@ -129,23 +129,17 @@ public class Partie implements Serializable {
 	public void tourPrecedent() {
 		doitJouer = (doitJouer + 1) % 2 ;
 		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
+		this.actualiserHistoriqueCoups();
 		tour--;
 	}
 
 
 	/** 
-	 * Revient au tour précédent du joueur (2 tour en arrière) dans un partie 
-	 * contre un ordinateur et détermine les coups possibles 
+	 * Supprime le dernier tour sauvegarder dans l'historique des coups
+	 * suite au retour en arrière d'un coup du joueur
 	 */
-	public void tourPrecedentVSOrdi() {
-		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
-		tour -= 2 ;
-	}
-
-	/** TODO : Javadoc */
-	@SuppressWarnings("unused")
-	private void actualiserHisto() {
-		//TODO : Programmer la méthode
+	private void actualiserHistoriqueCoups() {
+		historiqueCoups.remove(tour);
 	}
 
 	/** 
@@ -154,7 +148,7 @@ public class Partie implements Serializable {
 	 */
 	public void archiverTour( ArrayList<Case> aArchiver ){
 		if(aArchiver != null){
-			historiqueCoups.add(new ArrayList<Case>(aArchiver));
+			historiqueCoups.add(tour,new ArrayList<Case>(aArchiver));
 		}
 	}
 
