@@ -31,7 +31,9 @@ import outils.OutilFichier;
  */
 public class PlateauController {
 
-
+	/** Revient un tour en arrière au clic */
+	public Button tourPrecedent;
+	
 	/** Le gagnant à la fin de la partie */
 	public static String pseudoGagnant;
 
@@ -405,6 +407,15 @@ public class PlateauController {
 					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
+	}
+	
+	@FXML
+	public void tourPrecedent() {
+		if (partieCourante.getTour() > 0) {
+			partieCourante.tourPrecedent();
+			updateTableau(grid);
+		}
+		
 	}
 
 }
