@@ -22,10 +22,6 @@ import java.io.Serializable;
  */
 public class Plateau implements Serializable {
 
-
-	//TODO: Expliquer à quoi ça sert
-
-
 	private static final long serialVersionUID = 1L;
 
 

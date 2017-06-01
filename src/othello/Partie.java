@@ -52,15 +52,16 @@ public class Partie implements Serializable {
 	 * 1 Correspond à une partie contre Ordinateur en mode Facile
 	 * 2 Correspond à une partie contre Ordinateur en mode Normal
 	 */
-	private static int typeDePartie;
+	private int typeDePartie;
 
 
-
-	//TODO : Javadoc
 	/** (constructeur d'état d'instance)
-	 * 
-	 * @param premierJoueur
-	 * @param secondJoueur
+	 * Place les joueurs dans la liste de joueur de la partie, stocke le type
+	 * de partie et initialise les paramètres par défaut d'une partie
+	 * @param premierJoueur joueur ayant la couleur blanche
+	 * @param secondJoueur	joueur ayant la couleur noire
+	 * @param typeDePartie détermine si la partie est joueur
+	 * 	 	  contre ordinateur (et la difficulté) ou joueur contre joueur	
 	 */
 	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
 		listeJoueur[0] = premierJoueur;
@@ -152,7 +153,7 @@ public class Partie implements Serializable {
 	/**
 	 * @return typeDePartie
 	 */
-	public static int getTypeDePartie() {
+	public int getTypeDePartie() {
 		return typeDePartie;
 	}
 
