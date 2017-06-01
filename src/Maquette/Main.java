@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import Maquette.fenetres.MenuPrincipalController;
 import Maquette.fenetres.PlateauController;
 import Maquette.fenetres.PlateauIAController;
 import javafx.application.Application;
