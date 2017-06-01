@@ -231,6 +231,7 @@ public class PlateauController {
 	 * TODO : Javadoc
 	 */
 	private void finPartie() {
+		enregistrerScores();
 		afficherRecapitulatif(
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
