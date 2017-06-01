@@ -157,10 +157,6 @@ public class PlateauController {
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
 			
-			if(partieCourante.getDoitJouer() != 0) {
-				return;
-			}
-			
 			appliquerCoups(rowIndex,colIndex);
 			
 			//On passe au tour suivant si le coups a pu être effectué
