@@ -147,7 +147,8 @@ public class Partie implements Serializable {
 		Plateau.coupsPossibles.clear();
 		doitJouer = (doitJouer + 1) % 2 ;
 		plateauDeJeu.determinerCoupsPossibles(
-										listeJoueur[doitJouer].getCouleur());		
+										listeJoueur[doitJouer].getCouleur());	
+		
 	}
 
 	/**
