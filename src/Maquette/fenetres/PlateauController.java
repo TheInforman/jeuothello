@@ -52,7 +52,15 @@ public class PlateauController {
 	/** Image associée à une case blanche */
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
+	
+	/** Image associée à une case vide */
+	private static Image caseVide =
+			new Image("file:src/Maquette/Ressource/Jeton-1.png");
 
+	/** Image associée à une case neutre */
+	private static Image caseNeutre =
+			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+	
 	/** La partie actuelle */
 	public static Partie partieCourante;
 
@@ -270,8 +278,9 @@ public class PlateauController {
 	 * Ajout des images des pions sur le plateau. afin de conrrespondre 
 	 * à l'état actuel
 	 */
-	public static void updateTableau(GridPane grid) {
+	public void updateTableau(GridPane grid) {
 
+		
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
 			for (int j=0; j<8; j++) {
@@ -289,7 +298,14 @@ public class PlateauController {
 				grid.add(Blanc, j, i);
 				break;
 
+				case -1 : ImageView Vide = new ImageView(caseVide);
+						  grid.add(Vide, j, i);
+						  break;
+				
+
 				}
+
+				addPane(j,i);
 			}
 		}
 	}
@@ -446,7 +462,9 @@ public class PlateauController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
+			System.out.println(partieCourante.getPlateau());
 			updateTableau(grid);
+			actualiserScore();
 		}
 		
 	}
