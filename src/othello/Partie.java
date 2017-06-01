@@ -127,10 +127,26 @@ public class Partie implements Serializable {
 	 * dans une partie joueur contre joueur et détermine les coups possibles
 	 */
 	public void tourPrecedent() {
-		doitJouer = (doitJouer + 1) % 2 ;
-		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
-		this.actualiserHistoriqueCoups();
+	
 		tour--;
+		this.annulationCoupPrecedent();
+		this.actualiserHistoriqueCoups();
+		Plateau.coupsPossibles.clear();
+		doitJouer = (doitJouer + 1) % 2;
+		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
+	}
+
+	/**
+	 * Annule le coup jouer au tour précédent
+	 */
+	private void annulationCoupPrecedent() {
+		for( int i = 0 ; i < historiqueCoups.get(tour).size(); i++){
+			if(i == 0){
+				historiqueCoups.get(tour).get(i).setCouleur(-1); ;	
+			}else{
+				historiqueCoups.get(tour).get(i).setCouleur(listeJoueur[doitJouer].getCouleur()); ;
+			}
+		}
 	}
 
 
