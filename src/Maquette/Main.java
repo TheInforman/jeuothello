@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 
 import Maquette.fenetres.PlateauController;
-
+import Maquette.fenetres.PlateauIAController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.FileChooser;
@@ -345,8 +345,14 @@ public class Main extends Application {
     		 OutilFichier.supprimerSauvegarde(cheminSauvegarde);
     		 
     		 primaryStage.close();
-    		 PlateauController.restaurerPartie(partieRestauree);
-    		 Main.showPlateau();
+    		 if (partieRestauree.getTypeDePartie() == 0) {
+    			 PlateauController.restaurerPartie(partieRestauree);
+    			 Main.showPlateau();
+    		 } else {
+    			 PlateauIAController.restaurerPartie(partieRestauree);
+    			 Main.showPlateauIA();
+    		 }
+    		 
     	 }
     }	
 	
