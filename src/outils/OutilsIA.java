@@ -1,5 +1,5 @@
-/**
- * 
+/* OutilsIA.java 						             31/05/2017
+ * 						
  */
 package outils;
 
@@ -10,8 +10,12 @@ import othello.Partie;
 import othello.Plateau;
 
 /**
- * @author Vincent
- *
+ * Classe d'outils permettant de jouer à l'Othello contre l'Ordinateur (Intelligence artificielle)
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class OutilsIA {
 	
@@ -41,7 +45,7 @@ public class OutilsIA {
 			                             {7,1}, {7,8},
 			                             {8,2}, {8,7}};
 	
-	/** Tableau à deux dimensions représentant l'imortance des cases */
+	/** Tableau à deux dimensions représentant l'importance des cases */
 	private static final int[][] tableauStratImportance =
 		{
 				{ 5,-1, 4, 3, 3, 4,-1, 5},
@@ -60,16 +64,17 @@ public class OutilsIA {
 	 */
     private static final int[][] casesTresFaibles = {{2,2}, {2,7},
     		                                {7,2}, {7,7}};
-    /** La couleur de l'ordinateur */
+    /** La couleur de l'ordinateur  */
     public static final int COULEUR_IA = 0;
     
     /** La couleur du joueur humain */
     public static final int COULEUR_HUMAIN = 1;
 	
     /**
-     * TODO: JDOC
-     * @param partieCourante
-     * @return
+     * Stratégie (algorithme) de l'IA en difficulté "facile" permettant de 
+     * choisir sur quelle case l'IA va jouer
+     * @param partieCourante Partie sur laquelle va jouer l'IA
+     * @return la Case où va jouer l'IA
      */
 	public static Case strategieFacile(Partie partieCourante) {
 		Plateau plateau = partieCourante.getPlateau();
@@ -98,6 +103,13 @@ public class OutilsIA {
 		return meilleurChoix;
 	}
 	
+	/**
+	 * Stratégie (algorithme) de l'Intelligence Artificielle en difficulté "normale"
+	 * permettant à celle-ci de choisir sur quelle case elle va jouer
+	 * 
+	 * @param partieCourante Partie sur laquelle l'IA joue
+	 * @return la case où va jouer l'IA
+	 */
 	public static Case strategieNormale(Partie partieCourante) {
 		
 		Plateau plateau = partieCourante.getPlateau();
@@ -179,72 +191,15 @@ public class OutilsIA {
 	}
 	
 	/**
-	 * TODO : JDOC
-	 * @param aDeterminer
-	 * @return
+	 * Permet de déterminer, en fonction d'un tableau représentant 
+	 * l'importance de différentes cases
+	 * @param aDeterminer {@code Case} dont on cherche à déterminer l'importance
+	 * @return Valeur entière représentant l'importance de la {@code Case}
 	 */
 	private static int rechercheImportance(Case aDeterminer) {
 		return tableauStratImportance[aDeterminer.getLigne()]
 				                   [aDeterminer.getColonne()];
 	}
 	
-	/**
-	 * TODO : JDOC
-	 * @param aDeterminer
-	 * @return
-	 */
-	private static int rechercheImportanceCase(Case aDeterminer) {
-		/*
-		 * L'importance de la Case aDeterminer
-		 * == 0 si non déterminée
-		 */
-		int importance = 0;
-		// Test parmis les cases fortes
-    	for (int indice = 0 ; indice < casesFortes.length && importance == 0 ;
-       		 indice++) {
-       		if (aDeterminer.getLigne() == casesFortes[indice][0] &&
-       		    aDeterminer.getColonne() == casesFortes[indice][1]) {
-       			importance = 4;
-       		}
-       	}
-    	
-		// Test parmis les cases moyennes
-    	for (int indice = 0 ;
-             indice < casesMoyennes.length && importance == 0 ;
-       		 indice++) {
-       		if (aDeterminer.getLigne() == casesMoyennes[indice][0] &&
-       		    aDeterminer.getColonne() == casesMoyennes[indice][1]) {
-       			importance = 3;
-       		}
-       	}
-    	
-		// Test parmis les cases faibles
-    	for (int indice = 0 ; indice < casesFaibles.length && importance == 0 ;
-       		 indice++) {
-       		if (aDeterminer.getLigne() == casesFaibles[indice][0] &&
-       		    aDeterminer.getColonne() == casesFaibles[indice][1]) {
-       			importance = 2;
-       		}
-       	}
-    	
-		// Test parmis les cases très faibles
-    	for (int indice = 0 ;
-             indice < casesTresFaibles.length && importance == 0 ;
-       		 indice++) {
-       		if (aDeterminer.getLigne() == casesTresFaibles[indice][0] &&
-       		    aDeterminer.getColonne() == casesTresFaibles[indice][1]) {
-       			importance = 1;
-       		}
-       	}
-    	
-    	/* Si importance est toujours égale à 0 alors
-    	 *  aDeterminer a une très forte importance
-    	 */
-    	if (importance == 0) {
-    		importance = 5;
-    	}
-    	System.out.println("Importance :" + importance);
-		return importance;
-	}
 	
 }

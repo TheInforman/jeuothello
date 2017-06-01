@@ -31,9 +31,6 @@ public class Plateau implements Serializable {
 	/** La hauteur du plateau */ 
 	public static final int HAUTEUR = 8;
 
-	/** True si le pion a été posé, false sinon */
-	private boolean actionEffectuee = false;
-
 	/** L'ensemble des cases constituant le plateau */
 	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
 
@@ -44,12 +41,15 @@ public class Plateau implements Serializable {
 	 * Ensembles des pions retourner dans un tour avec 
 	 * en première position le pions choisis par le joueur
 	 */
-	public ArrayList<Case> tableauRetour; 
+	private ArrayList<Case> tableauRetour; 
 	
 	/**  
 	 * Ensemble des pions à retourner suite à l'action du joueur
 	 */
-	public ArrayList<Case> aRetourner; 
+	private ArrayList<Case> aRetourner; 
+	
+	/** True si le pion a été posé, false sinon */
+	private boolean actionEffectuee = false;
 	
 	/** 
 	 * Tableau à deux dimensions représentant les déplacement 
@@ -81,7 +81,30 @@ public class Plateau implements Serializable {
 		aRetourner = new ArrayList<Case>() ;
 	}
 
+	/**
+	 * @return the coupsPossibles
+	 */
+	public ArrayList<Case> getCoupsPossibles() {
+		return coupsPossibles;
+	}
 
+	
+	/**
+	 * retourne la valeur du boolean actionEffectuer
+	 * @return actionEffectuer
+	 */
+	public boolean isActionEffectuee() {
+		return actionEffectuee;
+	}
+
+	/**
+	 * Change l'état du boolean à celui passé en paramètre
+	 * @param actionEffectuer
+	 */
+	public void setActionEffectuee(boolean actionEffectuer) {
+		this.actionEffectuee = actionEffectuer;
+	}
+	
 	/**
 	 * Applique l'action d'un joueur en retournant les pions de l'adversaire.
 	 * 
@@ -122,14 +145,7 @@ public class Plateau implements Serializable {
 					i++) {
 				 aRetourner.get(i).setCouleur(couleur);
 			}
-
 			
-			
-			/* TODO : utiliser ce morceau de code et déterminer si on limite
-			 * et déterminer si on limite le nombre de coup en arrière
-			 */
-			
-
 			tableauRetour.clear();
 			tableauRetour.add(0, caseConcernee);
 			
@@ -139,30 +155,10 @@ public class Plateau implements Serializable {
 			}
 			actionEffectuee = true ;
 			coupsPossibles.clear();
-		}else{
-			System.out.println("Vous n'avez pas entré des coordonnées"
-					+ "de case possible, veuillez réessayer.");
-			//TODO : à enlever, pas de syso ici
 		}
 		return tableauRetour;
 	}
 
-
-	/**
-	 * retourne la valeur du boolean actionEffectuer
-	 * @return actionEffectuer
-	 */
-	public boolean isActionEffectuee() {
-		return actionEffectuee;
-	}
-
-	/**
-	 * Change l'état du boolean à celui passé en paramètre
-	 * @param actionEffectuer
-	 */
-	public void setActionEffectuee(boolean actionEffectuer) {
-		this.actionEffectuee = actionEffectuer;
-	}
 
 	/**
 	 * Vérifie si la case désignée par le joueur est une case jouable.
@@ -266,7 +262,7 @@ public class Plateau implements Serializable {
 				
 				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
-					if(!(tableauVueDirectionnel[i][j].getCouleur() == couleur)){
+					if(!(tableauVueDirectionnel[i][j].getCouleur() ==couleur)){
 					PionsARetourner.add(tableauVueDirectionnel[i][j]);
 					}
 					indice ++;
@@ -294,38 +290,6 @@ public class Plateau implements Serializable {
 		}
 		return derniereCaseValide;
 	}
-
-	/**
-	 * Détermine l'ensemble des coups possibles d'un joueur pour un
-	 * tour donné.
-	 * 
-	 * @param couleur	la couleur du joueur dont on veut déterminer
-	 * 					les coups possibles
-	 * @return		une liste de cases où le joueur peut poser ses pions
-	 */
-	public void determinerCoupsPossibles(int couleur) {
-
-		/* On détermine l'ensemble des cases vides */
-		ArrayList<Case> casesVides = casesVides();
-
-		/* Pour chaque cases on détermine si elle peut être couplée avec au 
-		 * moins une case sur laquelle un joueur a posé son pion.
-		 */
-		for (int i =0; i < casesVides.size() && casesVides.get(i) !=null ;i++){
-
-			if (aUnePaire(casesVides.get(i), couleur)) {
-				coupsPossibles.add(casesVides.get(i));
-			}
-		}
-	}
-
-	/**
-	 * @return the coupsPossibles
-	 */
-	public ArrayList<Case> getCoupsPossibles() {
-		return coupsPossibles;
-	}
-
 
 	/**
 	 * Détermine si la case spécifiée en paramètre a au moins une paire
@@ -425,6 +389,30 @@ public class Plateau implements Serializable {
 			}
 		}
 		return casesVides;
+	}
+	
+	/**
+	 * Détermine l'ensemble des coups possibles d'un joueur pour un
+	 * tour donné.
+	 * 
+	 * @param couleur	la couleur du joueur dont on veut déterminer
+	 * 					les coups possibles
+	 * @return		une liste de cases où le joueur peut poser ses pions
+	 */
+	public void determinerCoupsPossibles(int couleur) {
+
+		/* On détermine l'ensemble des cases vides */
+		ArrayList<Case> casesVides = casesVides();
+
+		/* Pour chaque cases on détermine si elle peut être couplée avec au 
+		 * moins une case sur laquelle un joueur a posé son pion.
+		 */
+		for (int i =0; i < casesVides.size() && casesVides.get(i) !=null ;i++){
+
+			if (aUnePaire(casesVides.get(i), couleur)) {
+				coupsPossibles.add(casesVides.get(i));
+			}
+		}
 	}
 
 	/**
