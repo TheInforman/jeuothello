@@ -32,10 +32,10 @@ public class Plateau implements Serializable {
 	public static final int HAUTEUR = 8;
 
 	/** L'ensemble des cases constituant le plateau */
-	public Case[][] othellier = new Case[HAUTEUR][LARGEUR];
+	private Case[][] othellier = new Case[HAUTEUR][LARGEUR];
 
 	/** Ensembles des coups possibles pour le joueur jouant  le tour courant */
-	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
+	private ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
 	/** 
 	 * Ensembles des pions retourner dans un tour avec 
@@ -79,6 +79,26 @@ public class Plateau implements Serializable {
 		othellier[3][4].setCouleur(Case.COULEUR_NOIR);
 		tableauRetour = new ArrayList<Case>() ;
 		aRetourner = new ArrayList<Case>() ;
+	}
+
+	/**
+	 * @return othellier
+	 */
+	public Case[][] getOthellier() {
+		return othellier;
+	}
+
+	/**
+	 * Méthode seulement utilisé pour créer des scénarios de test.
+	 * Change une case de l'othellier.
+	 * 
+	 * @param ligne			la ligne de la case à changer
+	 * @param colonne		la colonne de la case à changer
+	 * @param nouvelle		la case par laquelle sera remplacée
+	 * 						l'ancienne case
+	 */
+	public void setCase(int ligne, int colonne, int couleur) {
+		othellier[ligne][colonne] = new Case(ligne, colonne, couleur);
 	}
 
 	/**
@@ -451,6 +471,13 @@ public class Plateau implements Serializable {
 			texte += coupsPossibles.get(taille) + "\n";
 		}
 		return texte;
+	}
+	
+	/**
+	 * Vide le tableau des coups possibles.
+	 */
+	public void viderCoupsPossibles() {
+		coupsPossibles.clear();
 	}
 
 

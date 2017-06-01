@@ -181,7 +181,7 @@ public class PlateauController {
 	private void appliquerCoups(int rowIndex, int colIndex) {
 		partieCourante.archiverTour(
 				partieCourante.getPlateau().appliquerCoups(
-						partieCourante.getPlateau().othellier[rowIndex][colIndex],
+						partieCourante.getPlateau().getOthellier()[rowIndex][colIndex],
 						partieCourante.getDoitJouer()
 						)
 				);
@@ -206,14 +206,14 @@ public class PlateauController {
 	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
 	 */
 	private void controleSiTourJouable() {
-		if(Plateau.coupsPossibles.isEmpty() ) {
+		if(partieCourante.getPlateau().getCoupsPossibles().isEmpty()) {
 			/* Récupère le pseudo du joueur jouant le tour actuel */
 			String pseudoJoueur =
 					partieCourante.getListeJoueur()
 					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
 
-			if(Plateau.coupsPossibles.isEmpty() ) {
+			if(partieCourante.getPlateau().getCoupsPossibles().isEmpty()) {
 				finPartie();
 			} else {
 				BoitesMessage.afficher_msgBoxInfo(
@@ -261,7 +261,7 @@ public class PlateauController {
 				 * Si la case est noire, on ajoute l'image d'un jeton noir. 
 				 * Sinon la case reste vide.
 				 */
-				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
+				switch (partieCourante.getPlateau().getOthellier()[i][j].getCouleur()) {
 
 				case 1 : ImageView Noir = new ImageView(caseNoire);
 				grid.add(Noir, j, i);

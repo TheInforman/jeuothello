@@ -209,7 +209,7 @@ public class PlateauIAController {
 	private void appliquerCoups(int ligne, int colonne) {
 		partieCourante.archiverTour(
 			partieCourante.getPlateau().appliquerCoups(
-					partieCourante.getPlateau().othellier[ligne][colonne],
+					partieCourante.getPlateau().getOthellier()[ligne][colonne],
 					partieCourante.getDoitJouer()
 					)
 		);
@@ -244,7 +244,7 @@ public class PlateauIAController {
 				 * on ajoute l'image d'un jeton noir. 
 				 * Sinon la case reste vide.
 				 */
-				switch (partieCourante.getPlateau().othellier[i][j]
+				switch (partieCourante.getPlateau().getOthellier()[i][j]
 						.getCouleur()) {
 					
 					case 1 : ImageView Noir = new ImageView(caseNoire);
@@ -297,14 +297,14 @@ public class PlateauIAController {
 	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
 	 */
 	private void controleSiTourJouable() {
-		if(Plateau.coupsPossibles.isEmpty() ) {
+		if(partieCourante.getPlateau().getCoupsPossibles().isEmpty()) {
 			/* Récupère le pseudo du joueur jouant le tour actuel */
 			String pseudoJoueur =
 					partieCourante.getListeJoueur()
 					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
 			
-			if(Plateau.coupsPossibles.isEmpty() ) {
+			if(partieCourante.getPlateau().getCoupsPossibles().isEmpty()) {
 				finPartie();
 			} else {
 				BoitesMessage.afficher_msgBoxInfo(
