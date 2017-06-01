@@ -44,7 +44,7 @@ public class Case implements Serializable {
 	 * @param colonne	la colonne
 	 */
 	public Case(int ligne, int colonne) {
-		// vérifi que les coordonnées sont valide
+		// vérifie que les coordonées sont valide
 		if ((0 <= ligne || ligne <= 7) &&
 			(0 <= colonne || colonne <= 7)) {
 			this.ligne = ligne;
@@ -61,7 +61,7 @@ public class Case implements Serializable {
 	 * @param couleur	la couleur
 	 */
 	public Case(int ligne, int colonne, int couleur) {
-		// vérifi que les coordonnées sont valide
+		// vérifie que les coordonées sont valides
 		if ((0 <= ligne || ligne <= 7) &&
 			(0 <= colonne || colonne <= 7) &&
 			(-1 <= couleur || couleur <= 1)) {
@@ -99,18 +99,9 @@ public class Case implements Serializable {
 	public int getColonne() {
 		return colonne;
 	}
-
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Case [couleur=" + getCaractere() + ", ligne=" + ligne
-				+ ", colonne=" + colonne + "]";
-	}
-
+	
 	/**
+	 * Méthode utilisé pour obtenir un affichage console
 	 * @return	le caractère associé à la couleur de la case
 	 */
 	public char getCaractere() {
@@ -125,6 +116,17 @@ public class Case implements Serializable {
 		}
 
 		return caractere;
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Case [couleur=" + getCaractere() + ", ligne=" + ligne
+				+ ", colonne=" + colonne + "]";
 	}
 
 
