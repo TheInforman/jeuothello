@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+import Maquette.fenetres.MenuPrincipalController;
 import Maquette.fenetres.PlateauController;
 import Maquette.fenetres.PlateauIAController;
 import javafx.application.Application;
@@ -311,7 +311,7 @@ public class Main extends Application {
      * Lorsqu'un utilisateur clique sur le bouton "charger une partie", ouvre
      * un explorateur de fichier grâce auquel il ira choisir sa sauvegarde
      */
-    public static void selectionFichier() {
+    public static void selectionFichier(Stage menuPrincipal) {
     	
     	if (!accederRepertoireOthello()) {
     		return;
@@ -344,7 +344,8 @@ public class Main extends Application {
     		 
     		 OutilFichier.supprimerSauvegarde(cheminSauvegarde);
     		 
-    		 primaryStage.close();
+    		 /**/
+    		 menuPrincipal.close();
     		 // test du type de partie
     		 if (partieRestauree.getTypeDePartie() == 0) {
     			 PlateauController.restaurerPartie(partieRestauree);
