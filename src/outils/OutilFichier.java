@@ -51,7 +51,8 @@ public class OutilFichier {
 	 * @return un booléen égal à vrai ssi la sauvegarde a bien été effecuée
 	 */
 	public static boolean enregistrerPartie(Partie aEnregistrer) {
-
+		// TODO: supprimer 
+		System.out.println("Test");
 		String nomFichier = nouveauNomFichierPartie();
 
 		boolean reussi = true;      // vrai ssi l'enregistrement a réussi
