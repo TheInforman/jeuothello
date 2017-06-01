@@ -17,19 +17,19 @@ public class MenuPrincipalController {
 	
 	/** Bouton ouvrant la fenêtre de saisie des pseudos des joueusr */
 	@FXML
-	public Button SaisiePseudoButton;
+	private Button SaisiePseudo;
 	
 	/** Bouton ouvrant la fenêtre du choix de la difficulté de l'IA */
 	@FXML 
-	public Button ChoixDifficulte;
+	private Button ChoixDifficulte;
 	
 	/** Bouton qui ferme l'application */
 	@FXML 
-	public Button Quitter;
+	private Button Quitter;
 	
 	/** Bouton pour choisir la partie à charger */
 	@FXML 
-	public Button Charger;
+	private Button Charger;
 
 	/**
 	 * Constructeur de la classe
@@ -55,18 +55,9 @@ public class MenuPrincipalController {
      */
     @FXML
     private void handleSaisiePseudo() {
-    	Stage stage = (Stage) SaisiePseudoButton.getScene().getWindow();
+    	Stage stage = (Stage) SaisiePseudo.getScene().getWindow();
 	    stage.close();
     	Main.showSaisiePseudo();
-    }
-    
-    /**
-     * Ferme l'application lorsqu'un joueur clique sur le bouton quitter
-     */
-    @FXML
-    private void handleQuitter() {
-    	Stage stage = (Stage) SaisiePseudoButton.getScene().getWindow();
-	    stage.close();
     }
     
     /**
@@ -75,8 +66,18 @@ public class MenuPrincipalController {
      */
     @FXML
     private void handleCharger() {
-    	Main.selectionFichier((Stage) Quitter.getScene().getWindow());
+    	Main.selectionFichier((Stage) Charger.getScene().getWindow());
     }
+    
+    /**
+     * Ferme l'application lorsqu'un joueur clique sur le bouton quitter
+     */
+    @FXML
+    private void handleQuitter() {
+    	Stage stage = (Stage) Quitter.getScene().getWindow();
+	    stage.close();
+    }
+    
     
     /**
      * Affiche la fenêtre modale contenant les scores des joueurs
@@ -87,7 +88,7 @@ public class MenuPrincipalController {
     }
     
     /**
-     * Affiche une fenetre modale d'aide 
+     * Affiche une fenêtre modale d'aide 
      */
     @FXML
     private void handleAide() {

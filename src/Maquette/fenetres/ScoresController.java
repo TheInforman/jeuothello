@@ -1,3 +1,6 @@
+/* ScoresController.java	25/08/2017
+ * IUT Rodez groupe Othello
+ */
 package Maquette.fenetres;
 
 import java.io.File;
@@ -15,26 +18,24 @@ import javafx.stage.Stage;
 import othello.Scores;
 import outils.OutilFichier;
 
+/**
+ * Gestion de la fenêtre affichant un historique de score des 6 dernieres
+ * parties
+ * @author Arthur Pradier
+ */
 public class ScoresController {
 
 	/** Bouton de retour vers le menu principal */
 	@FXML
-	public Button btn_retour;
+	private Button btn_retour;
 
 	/** Bouton de suppression de la sauvegarde des scores */
 	@FXML
-	public Button btn_supprimer;
+	private Button btn_supprimer;
 
 	/** GridPane des scores */
 	@FXML
 	private GridPane grid;
-
-
-	@FXML
-	public void HandleRetour() {
-		Stage stage = (Stage) btn_retour.getScene().getWindow();
-		stage.close();
-	}
 
 	/**
 	 * Initialise la fenêtre de consultation des scores:	 
@@ -56,7 +57,12 @@ public class ScoresController {
 			remplirScores(courant); 
 		}
 	}
-
+	
+	/**
+	 * Insère les éléments du tableau des scores dans les labels de l'interface 
+	 * graphique
+	 * @param aRemplir le score à remplir
+	 */
 	private void remplirScores(Scores aRemplir) {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -75,14 +81,14 @@ public class ScoresController {
 	}
 
 	/**
-	 * Supprime le fichier de sauvegarde (après une BoîteMessage)
-	 * 
+	 * Supprime le fichier de sauvegarde après confirmation de
+	 * l'utilisateur. 
 	 */
 	@FXML
 	private void handleSupprimer(){
 		if (
 				BoitesMessage.afficher_msgBoxConfirmation(
-						"Supprimer la sauvegarde des scors",
+						"Supprimer la sauvegarde des scores",
 						"Vous êtes sur le point de supprimer votre fichier de sauvegarde",
 						"Souhaitez vous réellement supprimer ?"
 						)) {
@@ -96,6 +102,15 @@ public class ScoresController {
 			Stage stage = (Stage) btn_supprimer.getScene().getWindow();
 			stage.close();
 		}
+	}
+	
+	/**
+	 * Ferme la fenêtre des scores 
+	 */
+	@FXML
+	public void HandleRetour() {
+		Stage stage = (Stage) btn_retour.getScene().getWindow();
+		stage.close();
 	}
 
 }
