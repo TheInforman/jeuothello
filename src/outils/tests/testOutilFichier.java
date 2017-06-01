@@ -13,7 +13,7 @@ public class testOutilFichier {
 	
 	/** TODO JDOC */
 	private static void testNouveauNomFichier() {
-		System.out.println(OutilFichier.nouveauNomFichier());
+		System.out.println(OutilFichier.nouveauNomFichierPartie());
 	}
 
 }

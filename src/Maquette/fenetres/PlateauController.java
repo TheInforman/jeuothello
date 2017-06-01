@@ -4,6 +4,9 @@
 package Maquette.fenetres;
 
 
+import java.io.File;
+import java.io.IOException;
+
 import Maquette.Main;
 
 import javafx.collections.ObservableList;
@@ -24,6 +27,7 @@ import othello.Case;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
+import othello.Scores;
 import outils.OutilFichier;
 
 /**
@@ -35,49 +39,49 @@ public class PlateauController {
 	/** Image associée à une case vide */
 	private static Image caseVide =
 			new Image("file:src/Maquette/Ressource/Jeton-1.png");
-	
+
 	/** Image associée à une case noire */
 	private static Image caseNoire =
 			new Image("file:src/Maquette/Ressource/Jeton1.png");
-	
+
 	/** Image associée à une case blanche */
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
-	
+
 	/** La partie actuelle */
 	public static Partie partieCourante;
-	
+
 	/** la grille, partie visible du plateau, de taille 8*8 */
 	@FXML
 	public GridPane grid;
-	
+
 	/** Le score du joueur blanc */
 	@FXML 
 	public Label lbl_scoreBlanc;
-	
+
 	/** Le score du joueur noir */
 	@FXML
 	public Label lbl_scoreNoir;
-	
+
 	/** Le pseudo du joueur blanc */
 	@FXML
 	public Label lbl_blanc;
-	
+
 	/** Le pseudo du joueur noir */
 	@FXML
 	public Label lbl_noir;
-	
+
 	/** Bouton pour sauvegarder la partie actuelle au format.bin */
 	@FXML
 	public Button btn_sauvegarder;
-	
+
 	/**
 	 * Méthode appelée après le chargement de la page 
 	 */
 	public void initialize() {
 
 		Plateau plateauCourant = partieCourante.getPlateau();
-		
+
 		/* On détermine qui est le joueur blanc et qui est le joueur noir*/
 		if (partieCourante.getListeJoueur()[0].getCouleur() == 0) {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[0].getNom());
@@ -86,20 +90,20 @@ public class PlateauController {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[1].getNom());
 			lbl_noir.setText(partieCourante.getListeJoueur()[0].getNom());
 		}
-		
+
 		int numCols = Plateau.LARGEUR; //La largeur du plateau
 		int numRows = Plateau.HAUTEUR; //La hauteur du plateau
-		
+
 		/* Calcule le score de chaque joueur, blanc puis noir */
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
-		
+
 		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
-		
+
 		System.out.println(plateauCourant);
 		updateTableau(grid);
 		setQuiDoitJouer(partieCourante.getDoitJouer());
-		
+
 		for (int i = 0 ; i < numCols ; i++) {
 			ColumnConstraints colConstraints = new ColumnConstraints();
 			colConstraints.setHgrow(Priority.NEVER);
@@ -111,7 +115,7 @@ public class PlateauController {
 			rowConstraints.setVgrow(Priority.NEVER);
 			grid.getRowConstraints().add(rowConstraints);
 		}
-		
+
 		for (int i = 0 ; i < numCols ; i++) {
 			for (int j = 0; j < numRows; j++) {
 				addPane(i,j);				
@@ -119,7 +123,7 @@ public class PlateauController {
 		}
 	}
 
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -132,7 +136,7 @@ public class PlateauController {
 			// Fais jouer un tour au joueur un
 			partieCourante.getPlateau().appliquerCoups(partieCourante.getPlateau().othellier[rowIndex][colIndex],
 					partieCourante.getListeJoueur()[partieCourante.getDoitJouer()].getCouleur());
-			
+
 			//Le joueur courant reste le même tant que son coup n'est pas valide
 			if (partieCourante.getPlateau().isActionEffectuer() == true){	
 				partieCourante.tourSuivant();
@@ -149,47 +153,63 @@ public class PlateauController {
 			setQuiDoitJouer(partieCourante.getDoitJouer());
 			System.out.println("Score : " + nbBlanc + " à " + nbNoir );
 			changerScore(nbBlanc, nbNoir);
-			
-			if(partieCourante.getTour() == 60) {
-				afficherRecapitulatif(nbBlanc, nbNoir);
+
+			if(partieCourante.getTour() == 2) {
+
+				File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+				System.out.println(file.exists());
+				if(!file.exists()){
+					Scores courant = new Scores();
+
+					String nomJ1 = partieCourante.getListeJoueur()[0].getNom();
+					// POUR TEST, on peut le score blanc du score blanc
+					courant.ajoutScore(nomJ1, Integer.toString(nbBlanc));
+				} else{
+					String nomJ1 = partieCourante.getListeJoueur()[0].getNom();
+					String nomJ2 = partieCourante.getListeJoueur()[1].getNom();
+					Scores courant = OutilFichier.restaurerScores(
+							OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+
+					courant.ajoutScore(nomJ1, Integer.toString(nbNoir));
+				}
 			}
 
 		});
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	public static void updateTableau(GridPane grid) {
-		
+
 		for (int i =0; i<8; i++) {
 			for (int j=0; j<8; j++) {
-				
+
 				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
-					
-					case 1 : ImageView Noir = new ImageView(caseNoire);
-									  /* Noir.setFitHeight(28);
+
+				case 1 : ImageView Noir = new ImageView(caseNoire);
+				/* Noir.setFitHeight(28);
 									   Noir.setFitWidth(28);
 									   Noir.setTranslateX(2);
 									   Noir.setTranslateY(2);*/
-									   grid.add(Noir, j, i);
-									   break;
-									   
-					case 0 : ImageView Blanc = new ImageView(caseBlanche);
-									   /*Blanc.setFitHeight(28);
+				grid.add(Noir, j, i);
+				break;
+
+				case 0 : ImageView Blanc = new ImageView(caseBlanche);
+				/*Blanc.setFitHeight(28);
 									   Blanc.setFitWidth(28);
 									   Blanc.setTranslateX(2);
 									   Blanc.setTranslateY(2);*/
-									   grid.add(Blanc, j, i);
-									   break;
-				
+				grid.add(Blanc, j, i);
+				break;
+
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -197,7 +217,7 @@ public class PlateauController {
 		partieCourante.getPlateau().determinerCoupsPossibles(partieCourante.getDoitJouer());//initialisation
 		System.out.println(partieCourante.getPlateau());
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -205,7 +225,7 @@ public class PlateauController {
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
 		lbl_scoreNoir.setText(String.valueOf(nbNoir));
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -218,43 +238,43 @@ public class PlateauController {
 			lbl_noir.setUnderline(true);
 		}
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	public static void initPartie(String pseudo_J1, String pseudo_J2){
-		
+
 		if (Math.random() > 0.5){
-			
+
 			partieCourante = new Partie(
 					new Joueur(pseudo_J1, 0),
 					new Joueur(pseudo_J2, 1)
 					);			
 		} else {
-			
+
 			partieCourante = new Partie(
 					new Joueur(pseudo_J2, 0),
 					new Joueur(pseudo_J1, 1)
 					);
 		}
 	}
-	
+
 	public void determinerBlanc(){
 		// boolean J1commence = (Math.random() > 0.5) ? true : false;
 		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
-		
+
 		/*
 		if (Math.random() > 0.5){
 			lbl_blanc.setText(pseudoJ1);
 			lbl_noir.setText(pseudoJ2);
-			
+
 		} else {
 			lbl_blanc.setText(pseudoJ2);
 			lbl_noir.setText(pseudoJ1);
 		}
-		*/
+		 */
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -276,39 +296,58 @@ public class PlateauController {
 		/*
 		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
 		TODO: Linker les récapitulatifs
-		*/
+		 */
 		Main.showRecapitulatif();
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	@FXML
 	private void enregistrerPartie() {
 		System.out.println("Enregistrement de la partie");
-		
+
 		if (!OutilFichier.isRepertoireOthelloExistant()) {
-    		System.out.println("Le répertoire Othello n'existe pas");
-    		boolean repertoireCree = OutilFichier.creerRepertoireOthello();
-    		if (repertoireCree) {
-    			System.out.println("Répertoire créé avec succès");
-    		} else {
-    			System.out.println("Le répertoire n'a pas pu être créé"
-    					+ " à l'emplacement "
-    					+ OutilFichier.getRepertoireParDefaut());
-    			return;
-    		}
-    	}
-		
+			System.out.println("Le répertoire Othello n'existe pas");
+			boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+			if (repertoireCree) {
+				System.out.println("Répertoire créé avec succès");
+			} else {
+				System.out.println("Le répertoire n'a pas pu être créé"
+						+ " à l'emplacement "
+						+ OutilFichier.getRepertoireParDefaut());
+				return;
+			}
+		}
+
 		OutilFichier.enregistrerPartie(partieCourante);
 		//TODO : Quitter
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 * TODO : Faire tout tourner autour de la partie
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
+	}
+	/**
+	 * Permet, à la fin de la partie, d'enregistrer les scores
+	 */
+	private void enregistrerScores(){
+		// Fichier de sauvegarde
+		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+
+		// Vérification si le fichier de scores existe
+		if(!file.exists()){
+			// On crée l'objet Scores et on ajoute le score
+			Scores courant = new Scores();
+			// courant.ajoutScore(pseudoGagnant, scoreGagnant);
+		} else{
+			// On restaure les scores
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+			// courant.ajoutScore(nomJ1, Integer.toString(nbNoir));
+		}
 	}
 }
