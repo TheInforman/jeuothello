@@ -151,8 +151,8 @@ public class PlateauIAController {
 	 */
 	public static void initPartieIA(String pseudo_J1, int typeDePartie){
 			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 0),
-					new Joueur("Ordinateur",1),
+					new Joueur(pseudo_J1, OutilsIA.COULEUR_HUMAIN),
+					new Joueur("Ordinateur", OutilsIA.COULEUR_IA),
 					typeDePartie);			
 	}
 
@@ -167,7 +167,7 @@ public class PlateauIAController {
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
 			
-			if(partieCourante.getDoitJouer() != 0) {
+			if(partieCourante.getDoitJouer() != OutilsIA.COULEUR_HUMAIN) {
 				return;
 			}
 			
@@ -332,7 +332,7 @@ public class PlateauIAController {
 	@FXML
 	public void JouerTourIA() {
 		
-		if(partieCourante.getDoitJouer() != 1) {
+		if(partieCourante.getDoitJouer() != OutilsIA.COULEUR_IA) {
 			return;
 		}
 		

@@ -149,15 +149,15 @@ public class PlateauController {
 		if (Math.random() > 0.5){
 
 			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 0),
-					new Joueur(pseudo_J2, 1),
+					new Joueur(pseudo_J1, 1),
+					new Joueur(pseudo_J2, 0),
 					typeDePartie
 					);			
 		} else {
 
 			partieCourante = new Partie(
-					new Joueur(pseudo_J2, 0),
-					new Joueur(pseudo_J1, 1),
+					new Joueur(pseudo_J2, 1),
+					new Joueur(pseudo_J1, 0),
 					typeDePartie
 					);
 		}
