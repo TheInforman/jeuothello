@@ -5,6 +5,7 @@
 
 package othello;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.io.Serializable;
@@ -22,14 +23,15 @@ public class Partie implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Historique des cases dont l'état a changé au cours de la partie.
+	/** 
+	 *  Historique des cases dont l'état a changé au cours de la partie.
 	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action a été jouée.
 	 *  La première colonne de chaque ligne correspond à la case sur
-	 * 		laquelle le joueur a décidé de placer son pion.
+	 * 	laquelle le joueur a décidé de placer son pion.
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
 	 *  passant du noir au blanc ou du blanc au noir.
 	 */
-	private Case[][] historiqueCoups;
+	private ArrayList<ArrayList<Case>> historiqueCoups;
 
 	/** Partie courante */
 	private Plateau plateauDeJeu;
@@ -75,6 +77,8 @@ public class Partie implements Serializable {
 
 		tour = 0;
 		doitJouer = 0;
+		
+		historiqueCoups = new ArrayList<ArrayList<Case>>();
 	}
 
 
@@ -144,14 +148,24 @@ public class Partie implements Serializable {
 		//TODO : Programmer la méthode
 	}
 
-	/** TODO : Javadoc */
-	public void archiverTour( Case[] plateauPrecedent ){
-		//TODO : Programmer la méthode
-		// on utilisera le tableau retourner par appliquer coup
+	/** 
+	 * Ajoute la liste des pions retourner au tour précédent
+	 * au tableau de l'historique des tours
+	 */
+	public void archiverTour( ArrayList<Case> aArchiver ){
+		historiqueCoups.add(aArchiver);
 	}
 
 	/**
-	 * @return typeDePartie
+	 * @return l'historique des coups et leurs conséquences de la partie
+	 */
+	public ArrayList<ArrayList<Case>> getHistoriqueCoups() {
+		return historiqueCoups;
+	}
+
+
+	/**
+	 * @return  typeDePartie
 	 */
 	public int getTypeDePartie() {
 		return typeDePartie;
@@ -163,9 +177,19 @@ public class Partie implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Partie [listeCoups=" + Arrays.toString(historiqueCoups) + ", doitJouer=" + doitJouer + ", tour=" + tour
-				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" + Arrays.toString(listeJoueur) + "]";
-
+		String textePartie = "" ;
+		textePartie += "Partie [listeCoups=" ;
+		for(int i = 0 ; i < historiqueCoups.size() ; i++ ) {
+			textePartie += "\nCase modifié au Tour n° " + tour + "\n";
+			for (int j = 0 ; j < historiqueCoups.get(i).size(); j++) {
+				textePartie +=  historiqueCoups.get(i).get(j);
+				textePartie += "\n";
+			}
+		}
+		textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
+				+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+				+ Arrays.toString(listeJoueur) + "]";
+		return textePartie ;
 	}
 
 }

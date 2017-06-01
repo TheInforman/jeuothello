@@ -41,6 +41,12 @@ public class Plateau implements Serializable {
 	public static ArrayList<Case> coupsPossibles = new ArrayList<Case>();
 
 	/** 
+	 * Ensembles des pions retourner dans un tour avec 
+	 * en première position le pions choisis par le joueur
+	 */
+	public ArrayList<Case> tableauRetour = new ArrayList<Case>();
+	
+	/** 
 	 * Tableau à deux dimensions représentant les déplacement 
 	 * dans toutes les directions possibles sur un plateau de jeu,
 	 * c'est à dire les lignes, colonnes,  diagonales
@@ -85,7 +91,7 @@ public class Plateau implements Serializable {
 	 *  				Note : Ce paramètre de retour sert dans le cas où l'on
 	 *  					   archive les coups joués
 	 */
-	public Case[] appliquerCoups(Case caseConcernee, int couleur) {
+	public ArrayList<Case> appliquerCoups(Case caseConcernee, int couleur) {
 
 		actionEffectuee = false ;
 		
@@ -117,17 +123,13 @@ public class Plateau implements Serializable {
 			 * et déterminer si on limite le nombre de coup en arrière
 			 */
 			
-			/* On stocke les pions retourner dans un tableau qui servira
-			   à pouvoir revenir en arrière de un coup ou plusieurs */ 
-			Case[] tableauRetour = new Case[aRetourner.size() + 1];
 
-			tableauRetour[0] = caseConcernee;
+			tableauRetour.clear();
+			tableauRetour.add(0, caseConcernee);
 			
-			for (int i = 1; 
-				 i < tableauRetour.length && aRetourner.get(i-1) != null;
-				 i++) {
+			for (int i = 0; i < aRetourner.size() ; i++) {
 				
-				tableauRetour[i] = aRetourner.get(i-1);
+				tableauRetour.add(i+1,aRetourner.get(i));
 			}
 			actionEffectuee = true ;
 			coupsPossibles.clear();
@@ -136,7 +138,7 @@ public class Plateau implements Serializable {
 					+ "de case possible, veuillez réessayer.");
 			//TODO : à enlever, pas de syso ici
 		}
-		return null;
+		return tableauRetour;
 	}
 
 
