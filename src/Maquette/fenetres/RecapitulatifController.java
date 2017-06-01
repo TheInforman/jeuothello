@@ -29,10 +29,10 @@ public class RecapitulatifController {
 	
 	/** Initialise la fenêtre en calculant les différents scores */
 	public void initialize() {
-		if(PlateauController.partieCourante.typeDePartie == 0 ){
-			afficherRecapitulatif();
-		} else {
+		if(ChoixDifficulteController.choixDifficulte > 0 ){
 			afficherRecapitulatifIA();
+		} else {
+			afficherRecapitulatif();
 		}
 		
 	}
