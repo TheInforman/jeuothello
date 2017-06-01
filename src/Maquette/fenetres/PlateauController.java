@@ -5,15 +5,11 @@ package Maquette.fenetres;
 
 
 import java.io.File;
-import java.util.Optional;
 import Maquette.BoitesMessage;
 import Maquette.Main;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -64,7 +60,7 @@ public class PlateauController {
 	/** Le score du joueur noir */
 	@FXML
 	public Label lbl_scoreNoir;
-
+	
 	/** Le pseudo du joueur blanc */
 	@FXML
 	public Label lbl_blanc;
