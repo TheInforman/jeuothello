@@ -234,6 +234,10 @@ public class Plateau implements Serializable {
 		 */
 		Case[][] tableauVueDirectionnel = new Case[8][8];
 
+		// TODO : transformer en une méthode de recherche directionnel
+		// (pour réutiliser dans les différentes méthodes) que si on a le temps 
+		
+		
 		/* Pour chaque direction du tableau de déplacement */
 		for (int direction =0; direction<TABL_DEPLACEMENT.length; direction++){
 			

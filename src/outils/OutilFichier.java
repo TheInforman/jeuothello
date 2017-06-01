@@ -89,7 +89,7 @@ public class OutilFichier {
 		return PREFIXE_SAUVEGARDE_PARTIE + jour + "_" + mois + "_" + annee +
 			   "_" + heure + "h" + minute + EXTENSION_SAUVEGARDE_PARTIE;
 	}
-
+	
 	/**
 	 * Vérifie si le répertoire {@link NOM_REPERTOIRE} existe 
 	 * @return		vrai si le répertoire {@link NOM_REPERTOIRE} existe dans le
