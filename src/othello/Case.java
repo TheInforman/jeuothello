@@ -39,7 +39,7 @@ public class Case implements Serializable {
 	private int colonne;
 
 	/** (constructeur d'état d'instance)
-	 * Case définie par sa position et sa couleur
+	 * Création d'une case vide aux coordonées indiquées
 	 * @param ligne		la ligne
 	 * @param colonne	la colonne
 	 */
@@ -50,7 +50,8 @@ public class Case implements Serializable {
 	}
 
 	/** (constructeur d'état d'instance)
-	 * Case définie par sa position et sa couleur
+	 * Case d'une case aux coordonées indiquées 
+	 * à laquelle on attribue une couleur
 	 * @param ligne		la ligne
 	 * @param colonne	la colonne
 	 * @param couleur	la couleur
@@ -70,7 +71,7 @@ public class Case implements Serializable {
 
 	/**
 	 * Assigne à la case une nouvelle couleur
-	 * @param nouvelleCouleur		la nouvelle couleur de la case
+	 * @param nouvelleCouleur	la nouvelle couleur de la case
 	 */
 	public void setCouleur(int nouvelleCouleur) {
 			couleur = nouvelleCouleur;
@@ -101,7 +102,7 @@ public class Case implements Serializable {
 	}
 
 	/**
-	 * @return		le caractère associé à la couleur de la case
+	 * @return	le caractère associé à la couleur de la case
 	 */
 	public char getCaractere() {
 		char caractere = ' ';

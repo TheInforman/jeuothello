@@ -10,7 +10,12 @@ import java.io.Serializable;
 
 /**
  * Joueur du jeu de l'othello
- * @author Vincent G.
+ * 
+ * @author Vincent Galinier
+ * @author Adrien Bouyssou
+ * @author Kerian Georges
+ * @author Arthur Pradier
+ * @author Mickaël Queudet 
  */
 public class Joueur implements Serializable {
 
@@ -36,8 +41,8 @@ public class Joueur implements Serializable {
 	}
 
 	/** (constructeur d'état d'instance)
-	 * Joueur définit par son nom et sa couleur
-	 * @param couleur 
+	 * Joueur par défaut (ordinateur) auquel on attribue sa couleur
+	 * @param couleur des pions du joueur
 	 */
 	public Joueur(int couleur) {
 		this.nom = "Ordinateur";
@@ -47,7 +52,7 @@ public class Joueur implements Serializable {
 	}
 
 	/** (constructeur d'état d'instance)
-	 * Joueur définit par son nom et sa couleur
+	 * Joueur définit par son nom et auquel on attribue sa couleur
 	 * @param nom
 	 * @param couleur
 	 */
@@ -57,8 +62,6 @@ public class Joueur implements Serializable {
 		score = 0;
 		peutAgir = true;
 	}
-
-	//TODO : constructeur dans le cas ou on charge une sauvegarde
 
 	/**
 	 * Permet de passer son tour à un joueur par choix
