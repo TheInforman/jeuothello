@@ -72,8 +72,8 @@ public class Partie implements Serializable {
 			      Joueur secondJoueur,
 			      int typeDePartie) {
 		
-		listeJoueur[0] = premierJoueur;
-		listeJoueur[1] = secondJoueur;
+		listeJoueur[1] = premierJoueur;
+		listeJoueur[0] = secondJoueur;
 
 		this.typeDePartie = typeDePartie;	
 		
