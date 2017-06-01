@@ -196,15 +196,19 @@ public class PlateauController {
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			BoitesMessage.afficher_msgBoxInfo(
-					"Notification de Partie",
-					"Le tour a été passé",
-					"le joueur ne pouvait pas agir.");
-
+			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
-				System.out.println("coucou");
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
 			}
 		}
 	}
@@ -217,6 +221,7 @@ public class PlateauController {
 		updateTableau(grid);	//mise à jour du tableau
 
 		actualiserScore();
+		System.out.println(partieCourante);
 	}
 
 
@@ -227,10 +232,12 @@ public class PlateauController {
 	 * @param colIndex numéro de colonne de la case où le coup est à appliquer
 	 */
 	private void appliquerCoups(int rowIndex, int colIndex) {
-		partieCourante.getPlateau().appliquerCoups(
-				partieCourante.getPlateau().othellier[rowIndex][colIndex],
-				partieCourante.getDoitJouer()
-				);
+		partieCourante.archiverTour(
+				partieCourante.getPlateau().appliquerCoups(
+						partieCourante.getPlateau().othellier[rowIndex][colIndex],
+						partieCourante.getDoitJouer()
+				)
+		);
 	}
 
 

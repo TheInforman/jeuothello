@@ -186,7 +186,9 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * 
+	 * Vérifie si le joueur courant peut jouer son tour. Si ce n'est pas le cas, 
+	 * affiche une msgBox pour lui notifier que son tour a été passé. 
+	 * Si aucun des deux joueurs ne peut jouer d'affilée, la partie se termine
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
@@ -195,13 +197,14 @@ public class PlateauIAController {
 					partieCourante.getListeJoueur()
 					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
-			BoitesMessage.afficher_msgBoxInfo(
-					"Notification de Partie",
-					"Le tour a été passé",
-					pseudoJoueur + " ne pouvait pas agir.");
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
+			} else {
+				BoitesMessage.afficher_msgBoxInfo(
+						"Notification de Partie",
+						"Le tour a été passé",
+						pseudoJoueur + " ne pouvait pas agir.");
 			}
 		}
 	}
