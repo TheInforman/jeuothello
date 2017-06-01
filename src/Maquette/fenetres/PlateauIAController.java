@@ -159,8 +159,7 @@ public class PlateauIAController {
 			
 			partieCourante.getPlateau().setActionEffectuee(false);
 			
-			// souligne le joueur qui doit jouer 
-			setQuiDoitJouer(partieCourante.getDoitJouer());
+			//setQuiDoitJouer(partieCourante.getDoitJouer());
 	
 			controleSiTourJouable();
 		});
@@ -173,11 +172,15 @@ public class PlateauIAController {
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
 			BoitesMessage.afficher_msgBoxInfo(
 					"Notification de Partie",
 					"Le tour a été passé",
-					"Le joueur ne pouvait pas agir.");
+					pseudoJoueur + " ne pouvait pas agir.");
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
@@ -193,6 +196,7 @@ public class PlateauIAController {
 		updateTableau(grid);	//mise à jour du tableau
 		
 		actualiserScore();
+		setQuiDoitJouer(partieCourante.getDoitJouer());
 	}
 
 
@@ -303,8 +307,8 @@ public class PlateauIAController {
 		if(partieCourante.getTypeDePartie() == 1) {
 			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
 		} else {
-			//meilleurChoix =  OutilsIA.strategieNormale(partieCourante);
-			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
+			System.out.println("Stratégie normale");
+			meilleurChoix =  OutilsIA.strategieNormale(partieCourante);
 		}
 		
 		

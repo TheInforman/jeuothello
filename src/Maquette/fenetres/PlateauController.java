@@ -151,10 +151,15 @@ public class PlateauController {
 	 * TODO : JDOC
 	 */
 	public void addPane(int colIndex, int rowIndex) {
+		
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
+			
+			if(partieCourante.getDoitJouer() != 0) {
+				return;
+			}
 			
 			appliquerCoups(rowIndex,colIndex);
 			
@@ -165,8 +170,7 @@ public class PlateauController {
 			
 			partieCourante.getPlateau().setActionEffectuee(false);
 			
-			// souligne le joueur qui doit jouer 
-			setQuiDoitJouer(partieCourante.getDoitJouer());
+			//setQuiDoitJouer(partieCourante.getDoitJouer());
 	
 			controleSiTourJouable();
 		});
@@ -175,15 +179,19 @@ public class PlateauController {
 	}
 	
 	/**
-	 * TODO : JDOC
+	 * 
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
+			/* Récupère le pseudo du joueur jouant le tour actuel */
+			String pseudoJoueur =
+					partieCourante.getListeJoueur()
+					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
 			BoitesMessage.afficher_msgBoxInfo(
 					"Notification de Partie",
 					"Le tour a été passé",
-					"Le joueur ne pouvait pas agir.");
+					pseudoJoueur + " ne pouvait pas agir.");
 			
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
@@ -199,6 +207,7 @@ public class PlateauController {
 		updateTableau(grid);	//mise à jour du tableau
 		
 		actualiserScore();
+		setQuiDoitJouer(partieCourante.getDoitJouer());
 	}
 
 

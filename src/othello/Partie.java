@@ -150,7 +150,7 @@ public class Partie implements Serializable {
 	}
 
 	/**
-	 * @return typeDePartie
+	 * @return  typeDePartie
 	 */
 	public static int getTypeDePartie() {
 		return typeDePartie;
