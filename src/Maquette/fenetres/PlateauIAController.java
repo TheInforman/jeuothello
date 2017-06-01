@@ -282,12 +282,13 @@ public class PlateauIAController {
 						.getCouleur()) {
 					
 					case 1 : ImageView Noir = new ImageView(caseNoire);
-									   grid.add(Noir, j, i);
-									   break;
+							 grid.add(Noir, j, i);
+							 break;
 									   
 					case 0 : ImageView Blanc = new ImageView(caseBlanche);
-									   grid.add(Blanc, j, i);
-									   break;
+							 grid.add(Blanc, j, i);
+							 break;
+									  
 				
 				}
 			}
