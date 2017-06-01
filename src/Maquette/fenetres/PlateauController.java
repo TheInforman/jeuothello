@@ -212,6 +212,7 @@ public class PlateauController {
 		updateTableau(grid);	//mise à jour du tableau
 
 		actualiserScore();
+		System.out.println(partieCourante);
 	}
 
 
@@ -222,10 +223,12 @@ public class PlateauController {
 	 * @param colIndex numéro de colonne de la case où le coup est à appliquer
 	 */
 	private void appliquerCoups(int rowIndex, int colIndex) {
-		partieCourante.getPlateau().appliquerCoups(
-				partieCourante.getPlateau().othellier[rowIndex][colIndex],
-				partieCourante.getDoitJouer()
-				);
+		partieCourante.archiverTour(
+				partieCourante.getPlateau().appliquerCoups(
+						partieCourante.getPlateau().othellier[rowIndex][colIndex],
+						partieCourante.getDoitJouer()
+				)
+		);
 	}
 
 
