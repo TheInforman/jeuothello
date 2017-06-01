@@ -5,7 +5,6 @@ package Maquette.fenetres;
 
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import Maquette.BoitesMessage;
@@ -117,10 +116,14 @@ public class PlateauIAController {
 		int numRows = Plateau.HAUTEUR; //La hauteur du plateau
 		
 		/* Calcule le score de chaque joueur, blanc puis noir */
-		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
-		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
+		lbl_scoreBlanc.setText(
+				String.valueOf(plateauCourant.calculerNbPions(0))
+				); 
+		lbl_scoreNoir.setText(
+				String.valueOf(plateauCourant.calculerNbPions(1))
+				);
 		
-		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer()); //init
+		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
 		
 		System.out.println(plateauCourant);
 		updateTableau(grid);
@@ -147,7 +150,7 @@ public class PlateauIAController {
 
 	
 	/**
-	 * TODO : JDOC
+	 * Initialisation de la partie avec un joueur et un ordinateur.
 	 */
 	public static void initPartieIA(String pseudo_J1, int typeDePartie){
 			partieCourante = new Partie(
@@ -164,7 +167,9 @@ public class PlateauIAController {
 		
 		Pane pane = new Pane();	
 
-		// Passage dans cette partie du code lorsque le joueur clique sur une case
+		/* Passage dans cette partie du code lorsque
+		 * le joueur clique sur une case
+		 */
 		pane.setOnMouseClicked(e -> {	
 			
 			if(partieCourante.getDoitJouer() != OutilsIA.COULEUR_HUMAIN) {
@@ -214,7 +219,9 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * TODO : JAVADOC
+	 * Passe un tour en incrémentant le nombre de tour de la partieCourante,
+	 * en mettant à jour le tableau de pions (graphiquement), en actualisant 
+	 * les scores et en déterminant qui doit jouer le tour suivant.
 	 */
 	private void tourSuivant() {
 		partieCourante.tourSuivant();
@@ -226,14 +233,16 @@ public class PlateauIAController {
 
 
 	/**
-	 * TODO : JAVADOC
-	 * @param rowIndex
-	 * @param colIndex
+	 * Joue un coups sur une case dont les coordonnées
+	 * sont passées en paramètre.
+	 * 
+	 * @param ligne		la ligne où l'on applique le coup
+	 * @param colonne	la colonne où l'on applique le coup
 	 */
-	private void appliquerCoups(int rowIndex, int colIndex) {
+	private void appliquerCoups(int ligne, int colonne) {
 		partieCourante.archiverTour(
 			partieCourante.getPlateau().appliquerCoups(
-					partieCourante.getPlateau().othellier[rowIndex][colIndex],
+					partieCourante.getPlateau().othellier[ligne][colonne],
 					partieCourante.getDoitJouer()
 					)
 		);
@@ -241,7 +250,8 @@ public class PlateauIAController {
 
 
 	/**
-	 * TODO : Javadoc
+	 * Déclenche les actions de fin de partie en sauvegardant les
+	 * scores et en affichant un récapitulatif
 	 */
 	private void finPartie() {
         scoreJoueur = Integer.valueOf(lbl_scoreBlanc.getText());
@@ -256,12 +266,11 @@ public class PlateauIAController {
 
 
 	/**
-	 * TODO : JAVAOC
+	 * Actualise les labels de score des deux joueurs.
 	 */
 	private void actualiserScore() {
 		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-		System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
 		lbl_scoreNoir.setText(String.valueOf(nbNoir));
 	}
@@ -270,12 +279,14 @@ public class PlateauIAController {
 	/**
 	 * Ajout des images des pions sur le plateau.
 	 * 
+	 * Todo : @param
 	 */
 	public void updateTableau(GridPane grid) {
 		
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
 			for (int j=0; j<8; j++) {
+				
 				/* Si la case actuelle est blanche,
 				 * on ajoute l'image d'un jeton blanc
 				 * Si la case est noire, 
@@ -305,7 +316,10 @@ public class PlateauIAController {
 	
 	
 	/**
-	 * Met à jour le score de chaque joueur
+	 * Met à jour le score de chaque joueur dans les labels.
+	 * 
+	 * @param nbBlanc	le score du joueur blanc
+	 * @param nbNoir	le score du joueur blanc
 	 */
 	public void changerScore(int nbBlanc, int nbNoir){
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
@@ -314,6 +328,8 @@ public class PlateauIAController {
 	
 	/**
 	 * Souligne le nom du joueur qui doit jouer
+	 * 
+	 * @param joueur 	le joueur qui joue le tour courant
 	 */
 	public void setQuiDoitJouer(int joueur){
 		if (joueur == 0){ 
@@ -327,17 +343,17 @@ public class PlateauIAController {
 	
 
 	/**
-	 * TODO : JDOC
+	 * Fait jouer le tour courant par l'IA si c'est le tour de celle-ci.
 	 */
 	@FXML
 	public void JouerTourIA() {
 		
 		if(partieCourante.getDoitJouer() != OutilsIA.COULEUR_IA) {
-			return;
+			//la méthode s'arrête ici si ce n'est pas le tour de l'ordinateur
+			return; 
 		}
 		
 		Case meilleurChoix;
-
 		
 		if(partieCourante.getTypeDePartie() == 1) {
 			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
@@ -345,10 +361,6 @@ public class PlateauIAController {
 			System.out.println("Stratégie normale");
 			meilleurChoix =  OutilsIA.strategieNormale(partieCourante);
 		}
-		
-		
-
-		
 		
 		appliquerCoups(meilleurChoix.getLigne(),meilleurChoix.getColonne());
 		
@@ -370,7 +382,11 @@ public class PlateauIAController {
 
 
 	/**
-	 * TODO : JDOC
+	 * Afficher une fenêtre récapitulative de fin de partie,
+	 * comprenant le pseudo du gagnant ainsi que son score.
+	 * 
+	 * @param scoreBlanc	le score du joueur blanc à la fin de la partie
+	 * @param scoreNoir		le score du joueur noir à la fin de la partie
 	 */
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
@@ -428,8 +444,11 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * TODO : JDOC
-	 * TODO : Faire tout tourner autour de la partie
+	 * Permet de reprendre une partie grâce à un objet
+	 * partie passé en paramètre.
+	 * Utilisé lors de la restauration d'une sauvegarde.
+	 * 
+	 * @param aRestaurer	 la partie que l'on restaurer
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
@@ -444,7 +463,8 @@ public class PlateauIAController {
 		Alert confirmation = new Alert(AlertType.CONFIRMATION);
 		confirmation.setTitle("Confirmation");
 		confirmation.setHeaderText("Retour au menu principal");
-		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
+		confirmation.setContentText(
+				"Êtes vous sur de vouloir retourner au menu principal? \n" + 
 				"Votre partie ne sera pas sauvegardée");
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
@@ -455,7 +475,10 @@ public class PlateauIAController {
 	}
 	
 	/**
-	 * Permet, à la fin de la partie, d'enregistrer les scores
+	 * Permet, à la fin de la partie, d'enregistrer les scores.
+	 * 
+	 * @param pseudoGagnant		le pseudo du gagnant
+	 * @param scoreGagnant		le score du gagnant
 	 */
 	private void enregistrerScores(String pseudoGagnant, int scoreGagnant){
 		// Fichier de sauvegarde

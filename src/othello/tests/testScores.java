@@ -17,7 +17,9 @@ public class testScores {
 		lesScores.ajoutScore("Pierre", "35", "30/05/2015" );
 		lesScores.ajoutScore("Jean-Yves", "28", "30/05/2015" );
 		lesScores.ajoutScore("Maurice", "29", "30/05/2015" );
-		lesScores.ajoutScore("Dernier", "14", "30/05/2015" ); // à l'insertion de ce 7eme élément, on obtient bien le résultat voulu
+		
+		// à l'insertion de ce 7eme élément, on obtient bien le résultat voulu
+		lesScores.ajoutScore("Dernier", "14", "30/05/2015" ); 
 */
 		String[][] test = lesScores.getScore();
 		

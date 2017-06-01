@@ -144,8 +144,7 @@ public class PlateauController {
 
 
 	/**
-	 * Initialisation de la partie en fonction des pseudos des joueurs et de si la
-	 * partie oppose deux joueurs ou un joueur et l'IA
+	 * Initialisation de la partie en fonction des pseudos des joueurs.
 	 */
 	public static void initPartie(String pseudo_J1, String pseudo_J2,
 			int typeDePartie){
