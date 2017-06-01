@@ -36,6 +36,7 @@ import outils.OutilFichier;
  */
 public class PlateauController {
 
+
 	/** Le gagnant à la fin de la partie */
 	public static String pseudoGagnant;
 
@@ -174,9 +175,10 @@ public class PlateauController {
 			}
 
 			partieCourante.getPlateau().setActionEffectuee(false);
-
-			//setQuiDoitJouer(partieCourante.getDoitJouer());
-
+			
+			// souligne le joueur qui doit jouer 
+			setQuiDoitJouer(partieCourante.getDoitJouer());
+	
 			controleSiTourJouable();
 		});
 
@@ -184,19 +186,15 @@ public class PlateauController {
 	}
 
 	/**
-	 * 
+	 * TODO : JDOC
 	 */
 	private void controleSiTourJouable() {
 		if(Plateau.coupsPossibles.isEmpty() ) {
-			/* Récupère le pseudo du joueur jouant le tour actuel */
-			String pseudoJoueur =
-					partieCourante.getListeJoueur()
-					[partieCourante.getDoitJouer()].getNom();
 			tourSuivant();
 			BoitesMessage.afficher_msgBoxInfo(
 					"Notification de Partie",
 					"Le tour a été passé",
-					pseudoJoueur + " ne pouvait pas agir.");
+					"le joueur ne pouvait pas agir.");
 
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
@@ -213,7 +211,6 @@ public class PlateauController {
 		updateTableau(grid);	//mise à jour du tableau
 
 		actualiserScore();
-		setQuiDoitJouer(partieCourante.getDoitJouer());
 	}
 
 
@@ -239,7 +236,6 @@ public class PlateauController {
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
 				);
-
 	}
 
 
