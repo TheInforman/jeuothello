@@ -155,6 +155,19 @@ public class PlateauIAController {
 	/**
 	 * Boucle active après le chargement du programme qui 
 	 * permet le clic sur le plateau. Ajoute un panneau cliquable à chaque appel
+	 * Initialisation de la partie avec un joueur et un ordinateur.
+	 */
+	public static void initPartieIA(String pseudo_J1, int typeDePartie){
+			partieCourante = new Partie(
+					new Joueur(pseudo_J1, OutilsIA.COULEUR_HUMAIN),
+					new Joueur("Ordinateur", OutilsIA.COULEUR_IA),
+					typeDePartie);			
+	}
+
+
+	/**
+	 * Boucle active après le chargement du programme qui 
+	 * permet le clic sur le plateau
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 		
@@ -187,16 +200,6 @@ public class PlateauIAController {
 		grid.add(pane, colIndex, rowIndex);		
 	}
 
-	
-	/**
-	 * Initialisation de la partie avec un joueur et un ordinateur.
-	 */
-	public static void initPartieIA(String pseudo_J1, int typeDePartie){
-			partieCourante = new Partie(
-					new Joueur(pseudo_J1, OutilsIA.COULEUR_HUMAIN),
-					new Joueur("Ordinateur", OutilsIA.COULEUR_IA),
-					typeDePartie);			
-	}
 	
 	/**
 	 * Joue un coups sur une case dont les coordonnées
@@ -352,7 +355,6 @@ public class PlateauIAController {
 			pseudoGagnant = lbl_noir.getText();
 			scoreGagnant = scoreNoir;
 		}
-
 		Main.showRecapitulatif();
 	}
 	

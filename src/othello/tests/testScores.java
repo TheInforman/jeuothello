@@ -1,3 +1,5 @@
+
+
 package othello.tests;
 
 import othello.Scores;

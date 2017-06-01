@@ -4,7 +4,6 @@
  */
 package othello.tests;
 
-import othello.Case;
 import othello.Joueur;
 
 /**
