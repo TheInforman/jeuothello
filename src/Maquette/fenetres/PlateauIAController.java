@@ -147,8 +147,8 @@ public class PlateauIAController {
 	 */
 	public static void initPartieIA(String pseudo_J1, int typeDePartie){
 			partieCourante = new Partie(
-					new Joueur(pseudo_J1, 0),
-					new Joueur("Ordinateur",1),
+					new Joueur(1),
+					new Joueur(pseudo_J1,0),
 					typeDePartie);			
 	}
 
