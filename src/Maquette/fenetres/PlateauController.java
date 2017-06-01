@@ -454,9 +454,10 @@ public class PlateauController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
-			System.out.println(partieCourante.getPlateau());
-			updateTableau(grid);
+			updateTableau(grid);	//mise à jour du tableau
+			
 			actualiserScore();
+			setQuiDoitJouer(partieCourante.getDoitJouer());
 		}
 
 	}

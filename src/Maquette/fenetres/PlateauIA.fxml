@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
+<AnchorPane prefHeight="600.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.PlateauIAController">
    <children>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="35.0" layoutY="28.0" minHeight="512.0" minWidth="256.0" prefHeight="512.0" prefWidth="512.0">
         <columnConstraints>
@@ -370,19 +370,19 @@
             <Image url="@../Ressource/Jeton1.png" />
          </image>
       </ImageView>
-      <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" onAction="#enregistrerPartie" text="Sauvegarder">
+      <Button fx:id="btn_sauvegarder" layoutX="35.0" layoutY="555.0" mnemonicParsing="false" onAction="#enregistrerPartie" prefHeight="25.0" prefWidth="106.0" text="Sauvegarder">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btn_menuPrincipal" layoutX="135.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" text="Menu principal">
+      <Button fx:id="btn_menuPrincipal" layoutX="151.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleMenuPrincipal" prefHeight="25.0" prefWidth="106.0" text="Menu principal">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btn_jouerIA" defaultButton="true" layoutX="249.0" layoutY="555.0" mnemonicParsing="false" onAction="#JouerTourIA" text="IA">
+      <Button fx:id="btn_jouerIA" defaultButton="true" layoutX="268.0" layoutY="555.0" mnemonicParsing="false" onAction="#JouerTourIA" prefHeight="25.0" prefWidth="149.0" text="Faire jouer l'Ordinateur">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="291.0" layoutY="555.0" mnemonicParsing="false" onAction="#tourPrecedent" text="Tour Précédent" />
+      <Button layoutX="430.0" layoutY="555.0" mnemonicParsing="false" onAction="#tourPrecedent" prefHeight="25.0" prefWidth="119.0" text="Tour précédent" />
    </children>
    <rotationAxis>
       <Point3D />

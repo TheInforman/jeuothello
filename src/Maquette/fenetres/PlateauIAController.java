@@ -191,8 +191,6 @@ public class PlateauIAController {
 			}
 			
 			partieCourante.getPlateau().setActionEffectuee(false);
-			
-			//setQuiDoitJouer(partieCourante.getDoitJouer());
 	
 			controleSiTourJouable();
 		});
@@ -488,9 +486,10 @@ public class PlateauIAController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
-			System.out.println(partieCourante.getPlateau());
-			updateTableau(grid);
+			updateTableau(grid);	//mise à jour du tableau
+			
 			actualiserScore();
+			setQuiDoitJouer(partieCourante.getDoitJouer());
 		}
 		
 	}
