@@ -4,6 +4,7 @@
 package outils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import othello.Case;
 import othello.Partie;
@@ -19,32 +20,6 @@ import othello.Plateau;
  */
 public class OutilsIA {
 	
-	/** Coordonnées des cases du plateau ayant un fort intérêt stratégique */
-	private static final int[][] casesFortes = {{1,3}, {1,6},
-			                             {3,1}, {3,3}, {3,4}, {3,5}, {3,6},
-			                                    {3,8},
-			                             {4,3}, {4,4}, {4,5}, {4,6},
-			                             {5,3}, {5,4}, {5,5}, {5,6},
-			                             {6,1}, {6,3}, {6,4}, {6,5}, {6,6},
-		                                        {6,8},
-		                                 {8,3}, {8,6}};
-	
-	/** Coordonnées des cases du plateau ayant un intérêt stratégique moyen */
-	private static final int[][] casesMoyennes = {{1,4}, {1,5},
-			                               {2,3}, {2,4}, {2,5}, {2,6},
-			                               {3,2}, {3,7},
-			                               {4,1}, {4,2}, {4,7}, {4,8},
-			                               {5,1}, {5,2}, {5,7}, {5,8},
-			                               {6,2}, {6,7},
-			                               {7,3}, {7,4}, {7,5}, {7,6},
-			                               {8,4}, {8,5}};
-	
-	/** Coordonnées des cases du plateau ayant un faible intérêt stratégique */
-	private static final int[][] casesFaibles = {{1,2}, {1,7},
-			                             {2,1}, {2,8},
-			                             {7,1}, {7,8},
-			                             {8,2}, {8,7}};
-	
 	/** Tableau à deux dimensions représentant l'importance des cases */
 	private static final int[][] tableauStratImportance =
 		{
@@ -58,12 +33,6 @@ public class OutilsIA {
 				{ 5,-1, 4, 3, 3, 4,-1, 5}
 		};
 	
-	/**
-	 * Coordonnées des cases du plateau ayant
-	 * un très faible intérêt stratégique
-	 */
-    private static final int[][] casesTresFaibles = {{2,2}, {2,7},
-    		                                {7,2}, {7,7}};
     /** La couleur de l'ordinateur  */
     public static final int COULEUR_IA = 0;
     
@@ -172,6 +141,7 @@ public class OutilsIA {
 				/* Nb de pions retournés par pions importants*/
 				int nbPionsRetournesMax = plateau.determinerPionsARetourner(
 						             coupsPossibles.get(0), COULEUR_IA).size();
+				
 				meilleurChoix = coupsPossibles.get(0);
 				
 				for (int i = 1; i < nbCasesImportantes; i++) {
@@ -184,6 +154,39 @@ public class OutilsIA {
 						meilleurChoix = coupsPossibles.get(i);
 					}
 				}
+				
+				/*
+				 * Recherche du nombre de cases ayant la même priorité
+				 * et entrainant le même nombre de pions retournés
+				 */
+
+				ArrayList<Case> casesADepartagerAleatoirement
+					= new ArrayList<Case>();
+				
+				for (int i = 0; i < nbCasesImportantes; i++) {
+					int nbPionsRetournesCaseI =
+			                 plateau.determinerPionsARetourner(
+			                             coupsPossibles.get(i),
+			                                COULEUR_IA).size();
+					
+					if (nbPionsRetournesCaseI == nbPionsRetournesMax) {
+						casesADepartagerAleatoirement.add(
+								coupsPossibles.get(i)
+								);
+					}
+				}
+				
+				Random random = new Random();
+				
+				/* entier aleatoire entre 0 et la taille du tableau */
+				int aleatoire = random.nextInt(
+						casesADepartagerAleatoirement.size()
+						);
+				
+				/* Le meilleur choix est une des
+				 * cases à départager aléatoirement
+				 */
+				meilleurChoix = casesADepartagerAleatoirement.get(aleatoire);
 			}
 			
 		}

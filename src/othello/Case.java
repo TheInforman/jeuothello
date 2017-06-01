@@ -39,12 +39,12 @@ public class Case implements Serializable {
 	private int colonne;
 
 	/** (constructeur d'état d'instance)
-	 * Création d'une case vide aux coordonées indiquées
+	 * Création d'une case vide aux coordonnées indiquées
 	 * @param ligne		la ligne
 	 * @param colonne	la colonne
 	 */
 	public Case(int ligne, int colonne) {
-		// vérifie que les coordonées sont valide
+		// vérifie que les coordonnées sont valide
 		if ((0 <= ligne || ligne <= 7) &&
 			(0 <= colonne || colonne <= 7)) {
 			this.ligne = ligne;
@@ -54,14 +54,14 @@ public class Case implements Serializable {
 	}
 
 	/** (constructeur d'état d'instance)
-	 * Case d'une case aux coordonées indiquées 
+	 * Case d'une case aux coordonnées indiquées 
 	 * à laquelle on attribue une couleur
 	 * @param ligne		la ligne
 	 * @param colonne	la colonne
 	 * @param couleur	la couleur
 	 */
 	public Case(int ligne, int colonne, int couleur) {
-		// vérifie que les coordonées sont valides
+		// vérifie que les coordonnées sont valides
 		if ((0 <= ligne || ligne <= 7) &&
 			(0 <= colonne || colonne <= 7) &&
 			(-1 <= couleur || couleur <= 1)) {
