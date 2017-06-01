@@ -46,12 +46,12 @@ public class testPlateau {
 //		      0 1 2 3 4 5 6 7 
 //		   0 |                |
 //		   1 |                |
-//		   2 |                |
-//		   3 |                |
-//		   4 |                |
-//		   5 |      * N N B   |
-//		   6 |                |
-//		   7 |                |
+//         2 |                |
+//         3 |                |
+//         4 |    * N N B     |
+//         5 |                |
+//         6 |                |
+//         7 |                |
 		
 		plateau_1.othellier[4][3].setCouleur(Case.COULEUR_NOIR);
 		plateau_1.othellier[4][4].setCouleur(Case.COULEUR_NOIR);

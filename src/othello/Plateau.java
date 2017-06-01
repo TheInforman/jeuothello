@@ -355,7 +355,8 @@ public class Plateau implements Serializable {
 		int deplacementColonne;
 		
 		
-		// TO DO : transformer en une méthode de recherche directionnel (pour réutiliser dans les différentes méthodes) que si on a le temps 
+		// TODO : transformer en une méthode de recherche directionnel
+		// (pour réutiliser dans les différentes méthodes) que si on a le temps 
 		
 		/* Pour chaque direction du tableau */
 		for (int direction = 0; direction < TABL_DEPLACEMENT.length

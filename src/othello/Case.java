@@ -44,9 +44,13 @@ public class Case implements Serializable {
 	 * @param colonne	la colonne
 	 */
 	public Case(int ligne, int colonne) {
-		this.ligne = ligne;
-		this.colonne = colonne;
-		couleur = COULEUR_NEUTRE;
+		// vérifi que les coordonnées sont valide
+		if ((0 <= ligne || ligne <= 7) &&
+			(0 <= colonne || colonne <= 7)) {
+			this.ligne = ligne;
+			this.colonne = colonne;
+			couleur = COULEUR_NEUTRE;
+		}
 	}
 
 	/** (constructeur d'état d'instance)
@@ -57,9 +61,14 @@ public class Case implements Serializable {
 	 * @param couleur	la couleur
 	 */
 	public Case(int ligne, int colonne, int couleur) {
-		this.ligne = ligne;
-		this.colonne = colonne;
-		setCouleur(couleur);
+		// vérifi que les coordonnées sont valide
+		if ((0 <= ligne || ligne <= 7) &&
+			(0 <= colonne || colonne <= 7) &&
+			(-1 <= couleur || couleur <= 1)) {
+			this.ligne = ligne;
+			this.colonne = colonne;
+			setCouleur(couleur);
+		}
 	}
 
 	/**

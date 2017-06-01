@@ -35,11 +35,6 @@ public class Joueur implements Serializable {
 	    faux sinon */
 	private boolean peutAgir;
 
-	/** Récupère la couleur de this */
-	public int getCouleur() {
-		return couleur;
-	}
-
 	/** (constructeur d'état d'instance)
 	 * Joueur par défaut (ordinateur) auquel on attribue sa couleur
 	 * @param couleur des pions du joueur
@@ -63,19 +58,13 @@ public class Joueur implements Serializable {
 		peutAgir = true;
 	}
 
-	/**
-	 * Permet de passer son tour à un joueur par choix
-	 */
-	public void passerTour() {
-		//TODO : Programmer la méthode
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Joueur [nom=" + nom + ", score=" + score + ", couleur=" + couleur + ", peutAgir=" + peutAgir + "]";
+		return "Joueur [nom=" + nom + ", score=" + score +
+			   ", couleur=" + couleur + ", peutAgir=" + peutAgir + "]";
 	}
 
 	/**
@@ -85,5 +74,9 @@ public class Joueur implements Serializable {
 		return nom;
 	}
 
+	/** Récupère la couleur de this */
+	public int getCouleur() {
+		return couleur;
+	}
 
 }

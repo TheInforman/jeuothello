@@ -23,17 +23,32 @@ public class testCase {
 	 * @param args inutilisé
 	 */
 	public static void main(String[] args) {
-		Case caseNeutre = new Case(1,1,-1);
-		Case caseBlanche = new Case(1,2,0);
-		Case caseNoire = new Case(1,3,1);
-		Case caseIncorrect = new Case(1,4,5);
+		System.out.println("-=-=-=-=- Test du constructeur de Case -=-=-=-=-");
 		
-		System.out.println(caseNeutre);
-		System.out.println(caseBlanche);
-		System.out.println(caseNoire);
-		System.out.println(caseIncorrect);
-
+		// test création case avec coordonnées négatives
+		System.out.println(testeurEgalite(new Case(-1, 0, 1), null));
+		System.out.println(testeurEgalite(new Case(1, -2, 1), null));
 		
+		// test création de case avec des coordonnées trop grandes
+		System.out.println(testeurEgalite(new Case(9, 5, 1), null));
+		System.out.println(testeurEgalite(new Case(4, 10, 1), null));
+		
+		// test création de case avec une couleur non-valide
+		System.out.println(testeurEgalite(new Case(5, 3, -4), null));
+		System.out.println(testeurEgalite(new Case(5, 3, 4), null));
+	}
+	
+	/**
+	 * Teste si les deux paramètres ont la même valeur
+	 * 
+	 * @param aTester La valeur a tester
+	 * @param resAttendu La valeur attendu comme résultat
+	 * @return <ul><li>true si le test est réussi</li>
+	 *             <li>false si le test échou</li>
+	 *         </ul>
+	 */
+	private static boolean testeurEgalite(Case aTester, Case resAttendu) {
+		return aTester.equals(resAttendu);
 	}
 
 }

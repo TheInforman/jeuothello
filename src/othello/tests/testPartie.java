@@ -46,14 +46,15 @@ public class testPartie {
 		Partie partieTest = new Partie(player1, player2, 0);
 		Plateau courant = partieTest.getPlateau();
 
-		// Fais jouer un tour au joueur un
+		// Fais jouer un tour au joueur 1
 		courant.determinerCoupsPossibles(0);
 		System.out.println(partieTest.getPlateau());
 
 		while(partieTest.getTour() < 60 ) {
 			while( courant.isActionEffectuee() == false ){
 				courant.appliquerCoups(OutilsConsole.demanderCase(courant),
-						partieTest.getListeJoueur()[partieTest.getDoitJouer()].getCouleur());
+				partieTest.getListeJoueur()[partieTest.getDoitJouer()]
+						  .getCouleur());
 			}
 			partieTest.tourSuivant();
 			System.out.println(partieTest.getPlateau());

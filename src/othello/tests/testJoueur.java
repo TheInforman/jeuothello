@@ -4,6 +4,7 @@
  */
 package othello.tests;
 
+import othello.Case;
 import othello.Joueur;
 
 /**
@@ -23,12 +24,29 @@ public class testJoueur {
 	 * @param args inutilisé
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		Joueur joueurTest = new Joueur("test", 0);
+		System.out.println("\n-=-=-=-=- Test du constructeur de Joueur -=-=-=-=-\n");
 		
-		System.out.println(joueurTest);
-
+		// test d'un joueur avec une couleur invalide
+		System.out.println(testeurEgalite(new Joueur(-5), null));
+		System.out.println(testeurEgalite(new Joueur(5), null));
+		
+		// test d'un joueur avec un nom invalide
+		System.out.println(testeurEgalite(new Joueur(null, 1), null));
+		System.out.println(testeurEgalite(new Joueur("", 1), null));
+		
 	}
-
+	
+	/**
+	 * Teste si les deux paramètres ont la même valeur
+	 * 
+	 * @param aTester La valeur a tester
+	 * @param resAttendu La valeur attendu comme résultat
+	 * @return <ul><li>true si le test est réussi</li>
+	 *             <li>false si le test échou</li>
+	 *         </ul>
+	 */
+	private static boolean testeurEgalite(Joueur aTester, Joueur resAttendu) {
+		return aTester.equals(resAttendu);
+	}
 }

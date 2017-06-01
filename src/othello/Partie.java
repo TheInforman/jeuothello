@@ -25,7 +25,8 @@ public class Partie implements Serializable {
 
 	/** 
 	 *  Historique des cases dont l'état a changé au cours de la partie.
-	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action a été jouée.
+	 *  Le numéro de la ligne correspond au numéro du tour auquel l'action
+	 *  a été jouée.
 	 *  La première colonne de chaque ligne correspond à la case sur
 	 * 	laquelle le joueur a décidé de placer son pion.
 	 *  Les cases suivantes sont des cases qui ont changées d'état,
@@ -42,7 +43,9 @@ public class Partie implements Serializable {
 	/** Numéro du tour courant */
 	private int tour;
 
-	/** Booléen valant false si la partie est bloquée de manière irrémédiable */
+	/** 
+	 * Booléen valant false si la partie est bloquée de manière irrémédiable
+	 */
 	private boolean partieBloquee;
 
 	/** Liste des joueurs disputant la partie */
@@ -65,9 +68,12 @@ public class Partie implements Serializable {
 	 * @param typeDePartie détermine si la partie est joueur
 	 * 	 	  contre ordinateur (et la difficulté) ou joueur contre joueur	
 	 */
-	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
-		listeJoueur[1] = premierJoueur;
-		listeJoueur[0] = secondJoueur;
+	public Partie(Joueur premierJoueur,
+			      Joueur secondJoueur,
+			      int typeDePartie) {
+		
+		listeJoueur[0] = premierJoueur;
+		listeJoueur[1] = secondJoueur;
 
 		this.typeDePartie = typeDePartie;	
 		
@@ -118,7 +124,8 @@ public class Partie implements Serializable {
 	 */
 	public void tourSuivant() {
 		doitJouer = (doitJouer + 1) % 2 ;
-		plateauDeJeu.determinerCoupsPossibles(listeJoueur[doitJouer].getCouleur());
+		plateauDeJeu.determinerCoupsPossibles(
+				                          listeJoueur[doitJouer].getCouleur());
 		tour++;
 	}
 
@@ -127,7 +134,10 @@ public class Partie implements Serializable {
 	 * dans une partie joueur contre joueur et détermine les coups possibles
 	 */
 	public void tourPrecedent() {
-	
+		doitJouer = (doitJouer + 1) % 2 ;
+		plateauDeJeu.determinerCoupsPossibles(
+				                          listeJoueur[doitJouer].getCouleur());
+		this.actualiserHistoriqueCoups();
 		tour--;
 		this.annulationCoupPrecedent();
 		this.actualiserHistoriqueCoups();
@@ -195,7 +205,7 @@ public class Partie implements Serializable {
 			textePartie += "\nCase modifié au Tour n° " + (i+1) + "\n";
 			textePartie +=  historiqueCoups.get(i);
 			textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
-					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
+					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1="
 					+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
 		}
 		return textePartie ;

@@ -14,7 +14,8 @@ import othello.Plateau;
 
 /**
  * Ensemble d'outils permettant de récupérer les intentions de l'utilisateur.
- * Cette classe est vouée à être remplacée par une interface graphique dans le futur.
+ * Cette classe est vouée à être remplacée
+ * par une interface graphique dans le futur.
  * 
  * @author Vincent G.
  */

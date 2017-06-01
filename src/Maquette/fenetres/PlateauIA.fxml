@@ -356,16 +356,16 @@
             </ImageView>
          </children>
       </GridPane>
-      <Label fx:id="lbl_blanc" layoutX="646.0" layoutY="73.0" text="Blanc" />
-      <Label fx:id="lbl_scoreBlanc" layoutX="567.0" layoutY="73.0" text="0" />
-      <Label fx:id="lbl_noir" layoutX="649.0" layoutY="131.0" text="Noir" />
-      <Label fx:id="lbl_scoreNoir" layoutX="567.0" layoutY="131.0" text="0" />
-      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="606.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="lbl_blanc" layoutX="650.0" layoutY="131.0" text="Blanc" />
+      <Label fx:id="lbl_scoreBlanc" layoutX="572.0" layoutY="131.0" text="0" />
+      <Label fx:id="lbl_noir" layoutX="652.0" layoutY="82.0" text="Noir" />
+      <Label fx:id="lbl_scoreNoir" layoutX="572.0" layoutY="82.0" text="0" />
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="605.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Ressource/Jeton0.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="606.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="605.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Ressource/Jeton1.png" />
          </image>
