@@ -187,7 +187,6 @@ public class Partie implements Serializable {
 			textePartie +=  ", doitJouer=" + doitJouer + ", tour=" + tour
 					+ ", \npartieBloquee=" + partieBloquee + ", \nJoueur1=" 
 					+ Arrays.toString(listeJoueur) + "]" + "\n\n\n\n";
-
 		}
 		return textePartie ;
 	}

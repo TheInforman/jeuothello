@@ -264,7 +264,7 @@ public class Plateau implements Serializable {
 			if(derniereCase(tableauVueDirectionnel[i]) != null &&
 			   derniereCase(tableauVueDirectionnel[i]).getCouleur()==couleur){
 				
-				for (int j = 0; j < (tableauVueDirectionnel[i].length)-1 
+				for (int j = 0; j < tableauVueDirectionnel[i].length
 						&& tableauVueDirectionnel[i][j] != null; j++) {
 
 					PionsARetourner.add(tableauVueDirectionnel[i][j]);
