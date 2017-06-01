@@ -325,7 +325,7 @@ public class Main extends Application {
     	
     	fileChooser.getExtensionFilters().addAll(
     	         new ExtensionFilter("Sauvegarde Othello",
-    	        		 "*" + OutilFichier.getExtensionSauvegarde()),
+    	        		 "*" + OutilFichier.getExtensionSauvegardePartie()),
     	         new ExtensionFilter("All Files", "*.*")
     	         );
     	fileChooser.setInitialDirectory(

@@ -4,8 +4,9 @@
 package Maquette.fenetres;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
-
 import Maquette.BoitesMessage;
 import Maquette.Main;
 
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import othello.Joueur;
 import othello.Partie;
 import othello.Plateau;
+import othello.Scores;
 import outils.OutilFichier;
 
 /**
@@ -33,59 +35,60 @@ import outils.OutilFichier;
  * @author Arthur Pradier, Mickaël Queudet
  */
 public class PlateauController {
-	
+
+
+	/** Le gagnant à la fin de la partie */
 	public static String pseudoGagnant;
-	
+
+	/** Le score du gagnant à la fin de la partie */
 	public static int scoreGagnant;
-	
+
 	/** Image associée à une case noire */
 	private static Image caseNoire =
 			new Image("file:src/Maquette/Ressource/Jeton1.png");
-	
+
 	/** Image associée à une case blanche */
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
-	
+
 	/** La partie actuelle */
 	public static Partie partieCourante;
-	
+
 	/** la grille, partie visible du plateau, de taille 8*8 */
 	@FXML
 	public GridPane grid;
-	
+
 	/** Le score du joueur blanc */
 	@FXML 
 	public Label lbl_scoreBlanc;
-	
+
 	/** Le score du joueur noir */
 	@FXML
 	public Label lbl_scoreNoir;
-	
+
 	/** Le pseudo du joueur blanc */
 	@FXML
 	public Label lbl_blanc;
-	
+
 	/** Le pseudo du joueur noir */
 	@FXML
 	public Label lbl_noir;
-	
+
 	/** Bouton pour sauvegarder la partie actuelle au format.bin */
 	@FXML
 	public Button btn_sauvegarder;
-	
+
 	/** bouton pour retourner au menu principal */
 	@FXML 
 	public Button btn_menuPrincipal;
-	
-	public static String gagnant;
-	
+
 	/**
 	 * Méthode appelée après le chargement de la page 
 	 */
 	public void initialize() {
 
 		Plateau plateauCourant = partieCourante.getPlateau();
-		
+
 		/* On détermine qui est le joueur blanc et qui est le joueur noir*/
 		if (partieCourante.getListeJoueur()[0].getCouleur() == 0) {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[0].getNom());
@@ -94,21 +97,22 @@ public class PlateauController {
 			lbl_blanc.setText(partieCourante.getListeJoueur()[1].getNom());
 			lbl_noir.setText(partieCourante.getListeJoueur()[0].getNom());
 		}
-		
+
 		int numCols = Plateau.LARGEUR; //La largeur du plateau
 		int numRows = Plateau.HAUTEUR; //La hauteur du plateau
-		
+
 		/* Calcule le score de chaque joueur, blanc puis noir */
 		lbl_scoreBlanc.setText(String.valueOf(plateauCourant.calculerNbPions(0))); 
 		lbl_scoreNoir.setText(String.valueOf(plateauCourant.calculerNbPions(1)));
-		
+
+
 		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
 
-		
+
 		System.out.println(plateauCourant);
 		updateTableau(grid);
 		setQuiDoitJouer(partieCourante.getDoitJouer());
-		
+
 		for (int i = 0 ; i < numCols ; i++) {
 			ColumnConstraints colConstraints = new ColumnConstraints();
 			colConstraints.setHgrow(Priority.NEVER);
@@ -120,7 +124,7 @@ public class PlateauController {
 			rowConstraints.setVgrow(Priority.NEVER);
 			grid.getRowConstraints().add(rowConstraints);
 		}
-		
+
 		for (int i = 0 ; i < numCols ; i++) {
 			for (int j = 0; j < numRows; j++) {
 				addPane(i,j);				
@@ -128,22 +132,22 @@ public class PlateauController {
 		}
 	}
 
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	public static void initPartie(String pseudo_J1, String pseudo_J2,
 			int typeDePartie){
-		
+
 		if (Math.random() > 0.5){
-			
+
 			partieCourante = new Partie(
 					new Joueur(pseudo_J1, 0),
 					new Joueur(pseudo_J2, 1),
 					typeDePartie
 					);			
 		} else {
-			
+
 			partieCourante = new Partie(
 					new Joueur(pseudo_J2, 0),
 					new Joueur(pseudo_J1, 1),
@@ -157,18 +161,19 @@ public class PlateauController {
 	 * TODO : JDOC
 	 */
 	public void addPane(int colIndex, int rowIndex) {
+
 		Pane pane = new Pane();	
 
 		// Passage dans cette partie du code lorsque le joueur clique sur une case
 		pane.setOnMouseClicked(e -> {	
-			
+
 			appliquerCoups(rowIndex,colIndex);
-			
+
 			//On passe au tour suivant si le coups a pu être effectué
 			if (partieCourante.getPlateau().isActionEffectuee()){	
 				tourSuivant();
 			}
-			
+
 			partieCourante.getPlateau().setActionEffectuee(false);
 			
 			// souligne le joueur qui doit jouer 
@@ -179,8 +184,7 @@ public class PlateauController {
 
 		grid.add(pane, colIndex, rowIndex);		
 	}
-	
-	
+
 	/**
 	 * TODO : JDOC
 	 */
@@ -190,22 +194,22 @@ public class PlateauController {
 			BoitesMessage.afficher_msgBoxInfo(
 					"Notification de Partie",
 					"Le tour a été passé",
-					"Le joueur ne pouvait pas agir.");
-			
+					"le joueur ne pouvait pas agir.");
+
 			if(Plateau.coupsPossibles.isEmpty() ) {
 				finPartie();
 				System.out.println("coucou");
 			}
 		}
 	}
-	
+
 	/**
 	 * TODO : JAVADOC
 	 */
 	private void tourSuivant() {
 		partieCourante.tourSuivant();
 		updateTableau(grid);	//mise à jour du tableau
-		
+
 		actualiserScore();
 	}
 
@@ -231,8 +235,6 @@ public class PlateauController {
 				partieCourante.getPlateau().calculerNbPions(0),
 				partieCourante.getPlateau().calculerNbPions(1)
 				);
-		System.out.println("coucou");
-		
 	}
 
 
@@ -253,7 +255,7 @@ public class PlateauController {
 	 * 
 	 */
 	public static void updateTableau(GridPane grid) {
-		
+
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
 			for (int j=0; j<8; j++) {
@@ -262,22 +264,38 @@ public class PlateauController {
 				 * Sinon la case reste vide.
 				 */
 				switch (partieCourante.getPlateau().othellier[i][j].getCouleur()) {
-					
-				//TODO :supprimer commentaires :
-					case 1 : ImageView Noir = new ImageView(caseNoire);
-									   grid.add(Noir, j, i);
-									   break;
-									   
-					case 0 : ImageView Blanc = new ImageView(caseBlanche);
-									   grid.add(Blanc, j, i);
-									   break;
-				
+
+				case 1 : ImageView Noir = new ImageView(caseNoire);
+				grid.add(Noir, j, i);
+				break;
+
+				case 0 : ImageView Blanc = new ImageView(caseBlanche);
+				grid.add(Blanc, j, i);
+				break;
+
 				}
 			}
 		}
 	}
-	
+
 	/**
+	 * TODO : JDOC
+	 */
+	public static void debutPartie() {
+		partieCourante.getPlateau().determinerCoupsPossibles(partieCourante.getDoitJouer());//initialisation
+		System.out.println(partieCourante.getPlateau());
+	}
+
+	/**
+	 * TODO : JDOC
+	 */
+	public void changerScore(int nbBlanc, int nbNoir){
+		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
+		lbl_scoreNoir.setText(String.valueOf(nbNoir));
+	}
+
+	/**
+	 * TODO : JDOC
 	 * Souligne le nom du joueur qui doit jouer
 	 */
 	public void setQuiDoitJouer(int joueur){
@@ -289,10 +307,28 @@ public class PlateauController {
 			lbl_noir.setUnderline(true);
 		}
 	}
-	
+
+
+	public void determinerBlanc(){
+		// boolean J1commence = (Math.random() > 0.5) ? true : false;
+		// Si le nombre est supérieur à 0.5 alors le joueur 1 a les blancs
+
+		/*
+		if (Math.random() > 0.5){
+			lbl_blanc.setText(pseudoJ1);
+			lbl_noir.setText(pseudoJ2);
+
+		} else {
+			lbl_blanc.setText(pseudoJ2);
+			lbl_noir.setText(pseudoJ1);
+		}
+		 */
+	}
+
 	/**
 	 * TODO : JDOC
 	 */
+
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
 		// 1 = noirs
@@ -309,45 +345,59 @@ public class PlateauController {
 		/*
 		RecapitulatifController.setRecapitulatif(pseudoGagnant, scoreGagnant);
 		TODO: Linker les récapitulatifs
-		*/
+		 */
 		System.out.println("Recapitulatif");
 		Main.showRecapitulatif();
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	@FXML
 	private void enregistrerPartie() {
 		System.out.println("Enregistrement de la partie");
-		
+
+		if (!OutilFichier.isRepertoireOthelloExistant()) {
+			System.out.println("Le répertoire Othello n'existe pas");
+			boolean repertoireCree = OutilFichier.creerRepertoireOthello();
+			if (repertoireCree) {
+				System.out.println("Répertoire créé avec succès");
+			} else {
+				System.out.println("Le répertoire n'a pas pu être créé"
+						+ " à l'emplacement "
+						+ OutilFichier.getRepertoireParDefaut());
+				return;
+			}
+		}
+
+
 		if (!Main.accederRepertoireOthello()) {
-    		return;
-    	}
+			return;
+		}
 		OutilFichier.enregistrerPartie(partieCourante);
 		BoitesMessage.afficher_msgBoxInfo("Sauvegarde de la partie",
 				"Partie sauvegardée avec succès !",
 				"Vous pourrez reprendre votre partie plus tard.");
 		//TODO : FERMER FENETRE + revenir au menu principal
-		
+
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 */
 	@FXML
 	private void quitterPartie() {
 		if (
-		BoitesMessage.afficher_msgBoxConfirmation(
-				"Revenir au Menu Principal",
-				"Vous êtes sur le point de revenir au Menu Prncipal",
-				"Souhaitez vous quittez la partie ?" +
-				"\n L'avancement ne sera pas sauvegardé !"
-				)) {
+				BoitesMessage.afficher_msgBoxConfirmation(
+						"Revenir au Menu Principal",
+						"Vous êtes sur le point de revenir au Menu Prncipal",
+						"Souhaitez vous quittez la partie ?" +
+								"\n L'avancement ne sera pas sauvegardé !"
+						)) {
 			//TODO : FERMER FENETRE + revenir au menu principal
 		}
 	}
-	
+
 	/**
 	 * TODO : JDOC
 	 * TODO : Faire tout tourner autour de la partie
@@ -355,7 +405,25 @@ public class PlateauController {
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
 	}
-	
+	/**
+	 * Permet, à la fin de la partie, d'enregistrer les scores
+	 */
+	private void enregistrerScores(){
+		// Fichier de sauvegarde
+		File file = new File(OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+
+		// Vérification si le fichier de scores existe
+		if(!file.exists()){
+			// On crée l'objet Scores et on ajoute le score
+			Scores courant = new Scores();
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		} else{
+			// On restaure les scores
+			Scores courant = OutilFichier.restaurerScores(
+					OutilFichier.getRepertoireParDefaut() +"\\Othello\\scoresOthello.sothl");
+			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+		}
+	}
 	/** 
 	 * Ferme la fenêtre courante et renvoie au menu principal 
 	 */
@@ -365,13 +433,13 @@ public class PlateauController {
 		confirmation.setTitle("Confirmation");
 		confirmation.setHeaderText("Retour au menu principal");
 		confirmation.setContentText("Êtes vous sur de vouloir retourner au menu principal? \n" + 
-									 "Votre partie ne sera pas sauvegardée");
+				"Votre partie ne sera pas sauvegardée");
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			Stage stage = (Stage) btn_menuPrincipal.getScene().getWindow();
 			stage.close();
 			Main.showMenuPrincipal();
 		}
-		
+
 	}
 }
