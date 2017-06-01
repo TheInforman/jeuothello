@@ -294,10 +294,9 @@ public class PlateauController {
 				grid.add(Blanc, j, i);
 				break;
 
-				case -1 :
-						 ImageView Vide = new ImageView(caseVide);
-						 grid.add(Vide, j, i);
-						 break;
+				case -1 : ImageView Vide = new ImageView(caseVide);
+						  grid.add(Vide, j, i);
+						  break;
 				
 				}
 				

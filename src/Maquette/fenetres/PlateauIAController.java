@@ -58,6 +58,10 @@ public class PlateauIAController {
 	private static Image caseBlanche =
 			new Image("file:src/Maquette/Ressource/Jeton0.png");
 	
+	/** Image associée à une case vide */
+	private static Image caseVide =
+			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+	
 	/** La partie actuelle */
 	public static Partie partieCourante;
 	
@@ -267,7 +271,7 @@ public class PlateauIAController {
 	 * Ajout des images des pions sur le plateau.
 	 * 
 	 */
-	public static void updateTableau(GridPane grid) {
+	public void updateTableau(GridPane grid) {
 		
 		/* balayage du tableau */
 		for (int i =0; i<8; i++) {
@@ -289,8 +293,12 @@ public class PlateauIAController {
 							 grid.add(Blanc, j, i);
 							 break;
 									  
+					case -1 : ImageView Vide = new ImageView(caseVide);
+							  grid.add(Vide, j, i);
+							  break;
 				
 				}
+				addPane(j,i);
 			}
 		}
 	}
@@ -464,5 +472,17 @@ public class PlateauIAController {
 					OutilFichier.getEmplacementSaveScores());
 			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
 		}
+	}
+	
+	/** Retour un tour en arrière */
+	@FXML
+	public void tourPrecedent() {
+		if (partieCourante.getTour() > 0) {
+			partieCourante.tourPrecedent();
+			System.out.println(partieCourante.getPlateau());
+			updateTableau(grid);
+			actualiserScore();
+		}
+		
 	}
 }
