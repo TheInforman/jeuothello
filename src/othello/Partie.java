@@ -52,7 +52,7 @@ public class Partie implements Serializable {
 	 * 1 Correspond à une partie contre Ordinateur en mode Facile
 	 * 2 Correspond à une partie contre Ordinateur en mode Normal
 	 */
-	private int typeDePartie;
+	public int typeDePartie;
 
 	/** (constructeur d'état d'instance)
 	 * Place les joueurs dans la liste de joueur de la partie, stocke le type

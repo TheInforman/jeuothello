@@ -129,7 +129,6 @@ public class PlateauIAController {
 		
 		plateauCourant.determinerCoupsPossibles(partieCourante.getDoitJouer());
 		
-		System.out.println(plateauCourant);
 		updateTableau(grid);
 		setQuiDoitJouer(partieCourante.getDoitJouer());
 		
@@ -187,7 +186,6 @@ public class PlateauIAController {
 			//On passe au tour suivant si le coups a pu être effectué
 			if (partieCourante.getPlateau().isActionEffectuee()){	
 				tourSuivant();
-				System.out.println(partieCourante);
 			}
 			
 			partieCourante.getPlateau().setActionEffectuee(false);
@@ -346,7 +344,6 @@ public class PlateauIAController {
 		// 1 = noirs
 		
 		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
-		System.out.println(gagnant);
 		if (gagnant == 0){
 			pseudoGagnant = lbl_blanc.getText();
 			scoreGagnant = scoreBlanc;
@@ -427,7 +424,6 @@ public class PlateauIAController {
 		if(partieCourante.getTypeDePartie() == 1) {
 			meilleurChoix = OutilsIA.strategieFacile(partieCourante);
 		} else {
-			System.out.println("Stratégie normale");
 			meilleurChoix =  OutilsIA.strategieNormale(partieCourante);
 		}
 		
@@ -445,8 +441,6 @@ public class PlateauIAController {
 
 		controleSiTourJouable();
 		
-		System.out.println(meilleurChoix);
-		System.out.println(partieCourante);
 	}
 	
 	/**
@@ -488,7 +482,6 @@ public class PlateauIAController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
-			System.out.println(partieCourante.getPlateau());
 			updateTableau(grid);
 			actualiserScore();
 		}

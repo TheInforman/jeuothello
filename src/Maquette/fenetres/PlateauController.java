@@ -86,7 +86,11 @@ public class PlateauController {
 	/** Le score du gagnant à la fin de la partie */
 	public static int scoreGagnant;
 
+	/** Score du joueur */
+	public static int scoreJoueur;
 	
+	/** Pseudo du joueur */
+	public static String pseudoJoueur;
 
 	/** La partie actuelle */
 	public static Partie partieCourante;
@@ -232,7 +236,6 @@ public class PlateauController {
 		updateTableau(grid);	//mise à jour du tableau
 
 		actualiserScore();
-		System.out.println(partieCourante);
 	}
 	
 	/**
@@ -242,7 +245,6 @@ public class PlateauController {
 	private void actualiserScore() {
 		int nbBlanc = partieCourante.getPlateau().calculerNbPions(0);
 		int nbNoir = partieCourante.getPlateau().calculerNbPions(1);
-		System.out.println("Score : " + nbBlanc + " à " + nbNoir ); //Affichage console pour le debugging
 		lbl_scoreBlanc.setText(String.valueOf(nbBlanc));
 		lbl_scoreNoir.setText(String.valueOf(nbNoir));
 	}
@@ -299,14 +301,17 @@ public class PlateauController {
 	
 
 	/**
-	 * Détermine quel joueur est le gagnant, puis appelle un récapitulatif 
-	 * affichant son pseudo et son score
+	 * Afficher une fenêtre récapitulative de fin de partie,
+	 * comprenant le pseudo du gagnant ainsi que son score.
+	 * 
+	 * @param scoreBlanc	le score du joueur blanc à la fin de la partie
+	 * @param scoreNoir		le score du joueur noir à la fin de la partie
 	 */
 	public void afficherRecapitulatif(int scoreBlanc, int scoreNoir) {
 		// 0 = blancs
 		// 1 = noirs
+		System.out.println("oui");
 		int gagnant = (scoreBlanc > scoreNoir) ? 0 : 1;
-		System.out.println(gagnant);
 		if (gagnant == 0){
 			pseudoGagnant = lbl_blanc.getText();
 			scoreGagnant = scoreBlanc;
@@ -315,8 +320,6 @@ public class PlateauController {
 			pseudoGagnant = lbl_noir.getText();
 			scoreGagnant = scoreNoir;
 		}
-
-		System.out.println("Recapitulatif");
 		Main.showRecapitulatif();
 	}
 	
@@ -380,10 +383,8 @@ public class PlateauController {
 	 */
 	@FXML
 	private void enregistrerPartie() {
-		System.out.println("Enregistrement de la partie");
 
 		if (!OutilFichier.isRepertoireOthelloExistant()) {
-			System.out.println("Le répertoire Othello n'existe pas");
 			boolean repertoireCree = OutilFichier.creerRepertoireOthello();
 			if (repertoireCree) {
 				System.out.println("Répertoire créé avec succès");
@@ -454,7 +455,6 @@ public class PlateauController {
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
 			partieCourante.tourPrecedent();
-			System.out.println(partieCourante.getPlateau());
 			updateTableau(grid);
 			actualiserScore();
 		}

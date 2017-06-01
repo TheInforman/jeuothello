@@ -29,15 +29,17 @@ public class RecapitulatifController {
 	
 	/** Initialise la fenêtre en calculant les différents scores */
 	public void initialize() {
-		afficherRecapitulatif();
-		afficherRecapitulatifIA();
+		if(PlateauController.partieCourante.typeDePartie == 0 ){
+			afficherRecapitulatif();
+		} else {
+			afficherRecapitulatifIA();
+		}
+		
 	}
 
 	/** Affiche le récapitulatif (met à jour les labels) lors d'une partie               
 	 *  Joueur contre Joueur*/
 	private void afficherRecapitulatif(){
-		System.out.println(PlateauController.pseudoGagnant + " " + 
-	                       PlateauController.scoreGagnant);
 
 		lbl_pseudoGagnant.setText(PlateauController.pseudoGagnant);
 		lbl_scoreGagnant.setText(String.valueOf(PlateauController.scoreGagnant));
