@@ -38,7 +38,7 @@ public class testPartie {
 		partie.tourSuivant();
 		System.out.println(partie);
 
-		System.out.println("\n\n\n\n\n\n\n");
+		System.out.println("\n\n\n\n\n\n\n\n");
 
 		// Test déroulement de 2 tour 
 		Joueur player1 = new Joueur("Test",0);
