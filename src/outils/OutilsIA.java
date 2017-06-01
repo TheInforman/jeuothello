@@ -61,10 +61,10 @@ public class OutilsIA {
     private static final int[][] casesTresFaibles = {{2,2}, {2,7},
     		                                {7,2}, {7,7}};
     /** La couleur de l'ordinateur */
-    private static final int COULEUR_IA = 1;
+    public static final int COULEUR_IA = 0;
     
     /** La couleur du joueur humain */
-    private static final int COULEUR_HUMAIN = 0;
+    public static final int COULEUR_HUMAIN = 1;
 	
     /**
      * TODO: JDOC
