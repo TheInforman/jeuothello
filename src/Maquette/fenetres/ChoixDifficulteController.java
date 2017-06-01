@@ -34,13 +34,6 @@ public class ChoixDifficulteController {
 	public static int choixDifficulte;
 	
 	/**
-	 * Constructeur
-	 */
-	public ChoixDifficulteController() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/**
 	 * Retourne au menu principal et ferme la fenêtre courante
 	 */
 	@FXML
