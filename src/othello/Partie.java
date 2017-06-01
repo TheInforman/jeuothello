@@ -66,8 +66,8 @@ public class Partie implements Serializable {
 	 * 	 	  contre ordinateur (et la difficulté) ou joueur contre joueur	
 	 */
 	public Partie(Joueur premierJoueur, Joueur secondJoueur, int typeDePartie) {
-		listeJoueur[0] = premierJoueur;
-		listeJoueur[1] = secondJoueur;
+		listeJoueur[1] = premierJoueur;
+		listeJoueur[0] = secondJoueur;
 
 		this.typeDePartie = typeDePartie;	
 		
@@ -76,7 +76,7 @@ public class Partie implements Serializable {
 		plateauDeJeu = new Plateau();
 
 		tour = 0;
-		doitJouer = 0;
+		doitJouer = 1;
 		
 		historiqueCoups = new ArrayList<ArrayList<Case>>();
 	}
