@@ -378,12 +378,14 @@ public class PlateauIAController {
 		if(!file.exists()){
 			// On crée l'objet Scores et on ajoute le score
 			Scores courant = new Scores();
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+			 courant.ajoutScore(lbl_noir.getText(), 
+					            String.valueOf(lbl_scoreNoir.getText()));
 		} else{
 			// On restaure les scores
 			Scores courant = OutilFichier.restaurerScores(
 					OutilFichier.getEmplacementSaveScores());
-			 courant.ajoutScore(pseudoGagnant, String.valueOf(scoreGagnant));
+			 courant.ajoutScore(lbl_noir.getText(), 
+			            String.valueOf(lbl_scoreNoir.getText()));
 		}
 	}
 

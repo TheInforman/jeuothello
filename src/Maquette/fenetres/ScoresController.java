@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 
 import Maquette.BoitesMessage;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -82,7 +81,6 @@ public class ScoresController {
 				if (!(aRemplir.getScore()[i][j] == null)){
 					Label lbl = new Label(aRemplir.getScore()[i][j]);
 					lbl.setFont(new Font("Arial", 11));
-					lbl.setAlignment(Pos.CENTER);
 					grid.add(lbl, i, j);
 				} else {
 					Label lbl = new Label(" ");
