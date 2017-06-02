@@ -14,9 +14,11 @@ import javafx.stage.Stage;
  */
 public class AideController {
 
+        /** Texte d'aide pour l'utilisateur */
 	@FXML
 	private Text Aide; 
 	
+	/** Aide pour le joueur */
 	String aideOthello = "Bienvenue dans l'aide de ce jeu d'Othello. Pour commencer à jouer, choisissez simplement ce que vous voulez faire. \n\nSi vous voulez jouer contre l'ordinateur,"
 						+" cliquez sur \"jouer contre l'IA\", choisissez votre niveau de difficulté puis saisissez votre pseudo. \n\nSi vous préférez jouer avec un ami, cliquez sur " +
 						 "\"Jouer avec un ami\". Chaque joueur devra entrer un pseudo. Une fois vos choix effectués, appuyez sur Valider. \n\nSi vous désirez reprendre une partie " +
@@ -25,7 +27,8 @@ public class AideController {
 						 " possible à la fin de la partie. Pour poser un jeton, il vous suffit de cliquer sur la case où vous voulez le positionner. Le pion doit être placé de sorte" +
 						 " à encercler un ou plusieurs pions adverses, et ce horizontalement, verticalement ou diagonalement. Lorsque vous placez un pion, tous les pions adverses " +
 						 "ainsi encerclés seront changés en votre couleur. La partie se termine lorsque le plateau est plein ou si aucun des deux joueurs ne peut jouer son tour.\n\n" +
-						 "Quand vous jouez contre l'IA, vous devez lui indiquer manuellement qu'elle doit jouer en cliquant sur le bouton \"IA\", puis en appuyant sur entrée par la suite. La touche espace fait aussi office de raccourci pour la sauvergarde ou l'IA.\n\n" + 
+						 "Quand vous jouez contre l'IA, vous devez lui indiquer manuellement qu'elle doit jouer en cliquant sur le bouton \"IA\", puis en appuyant sur entrée par la suite." +
+						 "La touche espace fait aussi office de raccourci pour la sauvergarde ou l'IA.\n\n" + 
 						 "Pour en savoir plus, vous pouvez vous rendre sur www.ffothello.org";
 	
 	/** Bouton de fermeture de l'aide */
@@ -39,6 +42,10 @@ public class AideController {
 		
 	}
 	
+	/**
+	 * Appelée dès le chargement de la classe, insère l'aide dans 
+	 * le Text "aide"
+	 */
 	public void initialize () {
 		Aide.setText(aideOthello);
 	}

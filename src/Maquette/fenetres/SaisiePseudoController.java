@@ -54,6 +54,7 @@ public class SaisiePseudoController {
 	/**
 	 *  ferme la fenêtre courante et
 	 *  affiche le menu principal
+	 * @param event Evènement au clic
 	 */
 	@FXML
 	private void handleMenuPrincipal(ActionEvent event) {
@@ -65,6 +66,7 @@ public class SaisiePseudoController {
 	/**
 	 * Ferme la fenêtre courante, initialise une partie avec 
 	 * les pseudos entrés dans les champs texte et affiche le plateau
+	 * @param event au clic
 	 */
 	@FXML
 	private void handleValider(ActionEvent event) {

@@ -155,6 +155,8 @@ public class PlateauIAController {
 	 * Boucle active après le chargement du programme qui 
 	 * permet le clic sur le plateau. Ajoute un panneau cliquable à chaque appel
 	 * Initialisation de la partie avec un joueur et un ordinateur.
+	 * @param pseudo_J1 Pseudo du premier joueur
+	 * @param typeDePartie si la partie oppose un joueur à un autre ou un joueur à une IA
 	 */
 	public static void initPartieIA(String pseudo_J1, int typeDePartie){
 			partieCourante = new Partie(
@@ -167,6 +169,8 @@ public class PlateauIAController {
 	/**
 	 * Boucle active après le chargement du programme qui 
 	 * permet le clic sur le plateau
+	 * @param colIndex La colonne ou ajouter un panneau
+	 * @param rowIndex La ligne ou ajouter un panneau
 	 */
 	public void addPane(int colIndex, int rowIndex) {
 		

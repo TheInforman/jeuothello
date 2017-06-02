@@ -53,7 +53,7 @@ public class BoitesMessage {
 	 * @param titre		le titre de la fenêtre
 	 * @param Header	le header de la fenêtre
 	 * @param Contenu	le contenu de la fenêtre
-	 * @return 
+	 * @return Si l'utilisateur a appuyé sur OK ou non
 	 */
 	public static boolean afficher_msgBoxConfirmation(String titre,
 			String Header, String Contenu) {

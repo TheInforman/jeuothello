@@ -34,14 +34,14 @@ import outils.OutilFichier;
  */
 public class Main extends Application {
 	
-	private static Stage primaryStage;
+    /** La scene principale de l'application */
+    private static Stage primaryStage;
     
 	
     /**
      * Lancement de l'application
      */
-    @SuppressWarnings("static-access")
-	@Override
+    @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Othello");
@@ -318,6 +318,7 @@ public class Main extends Application {
     /**
      * Lorsqu'un utilisateur clique sur le bouton "charger une partie", ouvre
      * un explorateur de fichier grâce auquel il ira choisir sa sauvegarde
+     * @param menuPrincipal le stage depuis lequel on choisit nos fichiers
      */
     public static void selectionFichier(Stage menuPrincipal) {
     	

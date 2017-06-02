@@ -65,7 +65,6 @@ public class OutilsIA {
 		for (int i = 1; i < coupsPossibles.size()
 				&& coupsPossibles.get(i) != null; i++) {
 			
-			//if (coupsPossibles.size() > nombrePionsRetournesMax) {
 			if (plateau.determinerPionsARetourner(coupsPossibles.get(i),
 					COULEUR_IA).size() > nombrePionsRetournesMax) {
 				nombrePionsRetournesMax = plateau.determinerPionsARetourner(

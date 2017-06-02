@@ -146,6 +146,8 @@ public class PlateauController {
 	 * Boucle active après le chargement du programme qui 
 	 * permet le clic sur le plateau. Ajoute un panneau cliquable 
 	 * pour chaque case paramètre
+	 * @param colonne la colonne ou ajouter un panneau
+	 * @param ligne la ligne ou ajouter un panneau
 	 */
 	public void addPane(int colonne, int ligne) {
 
@@ -190,6 +192,7 @@ public class PlateauController {
 	
 	/**
 	 * Souligne le nom du joueur qui doit jouer
+	 * @param joueur Le numéro identificateur d'un des joueurs
 	 */
 	public void setQuiDoitJouer(int joueur){
 		if (joueur == 0){ 
@@ -249,6 +252,7 @@ public class PlateauController {
 	/**
 	 * Ajout des images des pions sur le plateau. afin de conrrespondre 
 	 * à l'état actuel
+	 * @param grid La grille à actualiser
 	 */
 	public void updateTableau(GridPane grid) {
 
@@ -323,6 +327,10 @@ public class PlateauController {
 	
 	/**
 	 * Initialisation de la partie en fonction des pseudos des joueurs.
+	 * @param pseudo_J1 Le pseudo du joueur 1
+	 * @param pseudo_J2 Le pseudo du joueur 2
+	 * @param typeDePartie Type de la aprtie: joueur contre joueur ou joueur
+	 * contre IA
 	 */
 	public static void initPartie(String pseudo_J1, String pseudo_J2,
 			int typeDePartie){
@@ -348,6 +356,7 @@ public class PlateauController {
 	 * Appelé lors du chargement d'une partie. 
 	 * Remplace le plateau vide généré au chargement par le plateau 
 	 * récupéré dans e fichier de sauvegarde
+	 * @param aRestaurer La partie sauvegardée précedemment chargée
 	 */
 	public static void restaurerPartie(Partie aRestaurer){
 		partieCourante = aRestaurer;
@@ -448,6 +457,9 @@ public class PlateauController {
 		}
 	}
 
+	/** 
+	 * Revient un tour en arrière
+	 */
 	@FXML
 	public void tourPrecedent() {
 		if (partieCourante.getTour() > 0) {
