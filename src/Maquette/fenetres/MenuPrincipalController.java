@@ -33,9 +33,11 @@ public class MenuPrincipalController {
 	@FXML 
 	private Button Charger;
 	
+	/** Une image contenant le titre "Othello" */
 	@FXML
 	private ImageView Titre ;
 	
+	/** Image servant de titre */
 	private static Image ImageTitre = new Image ("file:src/Maquette/Ressource/OthelloTitre.png");
 
 	/**
@@ -45,6 +47,10 @@ public class MenuPrincipalController {
 		
 	}
 	
+	/**
+	 * Appellée après le chargement de la fenêtre, insère une image de titre
+	 *
+	 */
 	public void initialize() {
 		Titre.setImage(ImageTitre);
 	}
