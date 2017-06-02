@@ -21,11 +21,11 @@ public class AideController {
 						+" cliquez sur \"jouer contre l'IA\", choisissez votre niveau de difficulté puis saisissez votre pseudo. \n\nSi vous préférez jouer avec un ami, cliquez sur " +
 						 "\"Jouer avec un ami\". Chaque joueur devra entrer un pseudo. Une fois vos choix effectués, appuyez sur Valider. \n\nSi vous désirez reprendre une partie " +
 						 "précédemment sauvegardée, cliquez sur \"charger une partie\" et sélectionnez la partie correspondante. Vous pouvez retrouver facilement votre fichier " +
-						 "de sauvegarde: il est identifié par la date et l'heure ou vous avez sauvegardé.\n\n Une fois la partie lancée, l'objectif est de posséder le plus de pions" +
-						 "possible à la fin de la partie. Pour poser un jeton, il vous suffit de cliquer sur la case où vous voulez le positionner. Le pion doit être placé de sorte" +
+						 "de sauvegarde: il est identifié par la date et l'heure où vous avez sauvegardé.\n\nUne fois la partie lancée, l'objectif est de posséder le plus de pions" +
+						 " possible à la fin de la partie. Pour poser un jeton, il vous suffit de cliquer sur la case où vous voulez le positionner. Le pion doit être placé de sorte" +
 						 " à encercler un ou plusieurs pions adverses, et ce horizontalement, verticalement ou diagonalement. Lorsque vous placez un pion, tous les pions adverses " +
 						 "ainsi encerclés seront changés en votre couleur. La partie se termine lorsque le plateau est plein ou si aucun des deux joueurs ne peut jouer son tour.\n\n" +
-						 "Quand vous jouez contre l'IA, vous devez lui indiquer manuellement qu'elle doit jouer en cliquant sur le bouton \"IA\"\n\n" + 
+						 "Quand vous jouez contre l'IA, vous devez lui indiquer manuellement qu'elle doit jouer en cliquant sur le bouton \"IA\", puis en appuyant sur entrée par la suite. La touche espace fait aussi office de raccourci pour la sauvergarde ou l'IA.\n\n" + 
 						 "Pour en savoir plus, vous pouvez vous rendre sur www.ffothello.org";
 	
 	/** Bouton de fermeture de l'aide */

@@ -11,7 +11,8 @@ import othello.Partie;
 import othello.Plateau;
 
 /**
- * Classe d'outils permettant de jouer à l'Othello contre l'Ordinateur (Intelligence artificielle)
+ * Classe d'outils permettant de jouer à l'Othello contre l'Ordinateur
+ * (Intelligence artificielle)
  * @author Vincent Galinier
  * @author Adrien Bouyssou
  * @author Kerian Georges
@@ -20,7 +21,9 @@ import othello.Plateau;
  */
 public class OutilsIA {
 	
-	/** Tableau à deux dimensions représentant l'importance des cases */
+	/** Tableau à deux dimensions représentant
+	 * l'importance stratégique des cases
+	 */
 	private static final int[][] tableauStratImportance =
 		{
 				{ 5,-1, 4, 3, 3, 4,-1, 5},
@@ -53,7 +56,6 @@ public class OutilsIA {
 		//Case ayant le plus de pions retournés
 		Case meilleurChoix;
 		
-		
 		/* test de la première case comme initialisation */
 		meilleurChoix = coupsPossibles.get(0);
 		
@@ -63,7 +65,9 @@ public class OutilsIA {
 		for (int i = 1; i < coupsPossibles.size()
 				&& coupsPossibles.get(i) != null; i++) {
 			
-			if (coupsPossibles.size() > nombrePionsRetournesMax) {
+			//if (coupsPossibles.size() > nombrePionsRetournesMax) {
+			if (plateau.determinerPionsARetourner(coupsPossibles.get(i),
+					COULEUR_IA).size() > nombrePionsRetournesMax) {
 				nombrePionsRetournesMax = plateau.determinerPionsARetourner(
 						             coupsPossibles.get(i), COULEUR_IA).size();
 				meilleurChoix = coupsPossibles.get(i);

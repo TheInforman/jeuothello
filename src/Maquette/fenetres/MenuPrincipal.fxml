@@ -5,9 +5,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.MenuPrincipalController">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.MenuPrincipalController">
    <children>
-      <Button fx:id="ChoixDifficulte" layoutX="196.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleChoixDifficulte" prefHeight="40.0" prefWidth="400.0" text="JOUER CONTRE L'IA" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="270.0">
+      <Button fx:id="ChoixDifficulte" layoutX="196.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleChoixDifficulte" prefHeight="40.0" prefWidth="400.0" text="JOUER CONTRE L'IA">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -23,11 +23,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="454.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleAide" prefHeight="30.0" prefWidth="59.0" text="AIDE" AnchorPane.leftAnchor="456.0" AnchorPane.rightAnchor="285.0">
+      <Button layoutX="454.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleAide" prefHeight="30.0" prefWidth="59.0" text="AIDE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="285.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleScores" text="SCORES" AnchorPane.bottomAnchor="370.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="456.0" AnchorPane.topAnchor="200.0">
+      <Button layoutX="285.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleScores" text="SCORES">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

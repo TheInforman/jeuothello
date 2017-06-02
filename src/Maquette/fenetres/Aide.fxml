@@ -7,15 +7,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="558.0" minWidth="600.0" prefHeight="558.0" prefWidth="600.0" styleClass="background" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.AideController">
+<AnchorPane minHeight="558.0" minWidth="600.0" prefHeight="558.0" prefWidth="600.0" styleClass="background" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maquette.fenetres.AideController">
    <children>
-      <Label layoutX="249.0" layoutY="29.0" prefHeight="70.0" prefWidth="120.0" text="AIDE" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="231.0" AnchorPane.topAnchor="29.0">
+      <Label layoutX="241.0" layoutY="24.0" prefHeight="70.0" prefWidth="120.0" text="AIDE" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="24.0">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Text fx:id="Aide" layoutX="51.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aide sur le fonctionnement du jeu et de ses différentes fonctionnalités. " wrappingWidth="515.13671875" />
-      <Button fx:id="CloseHelp" defaultButton="true" layoutX="261.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleCloseAide" prefHeight="25.0" prefWidth="79.0" text="RETOUR" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="510.0">
+      <Text fx:id="Aide" fill="WHITE" layoutX="51.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aide sur le fonctionnement du jeu et de ses différentes fonctionnalités. " wrappingWidth="515.13671875" />
+      <Button fx:id="CloseHelp" defaultButton="true" layoutX="262.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleCloseAide" prefHeight="25.0" prefWidth="79.0" text="RETOUR" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="259.0" AnchorPane.topAnchor="508.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
