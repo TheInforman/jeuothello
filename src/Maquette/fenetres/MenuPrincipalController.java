@@ -36,7 +36,7 @@ public class MenuPrincipalController {
 	@FXML
 	private ImageView Titre ;
 	
-	private static Image ImageTitre = new Image ("file:src/Maquette/Ressource/OthelloTitre.png");
+	private static Image ImageTitre = new Image ("/Maquette/Ressource/OthelloTitre.png");
 
 	/**
 	 * Constructeur de la classe

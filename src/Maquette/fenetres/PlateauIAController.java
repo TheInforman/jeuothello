@@ -73,15 +73,15 @@ public class PlateauIAController {
 	
 	/** Image associée à une case noire */
 	private static Image caseNoire =
-			new Image("file:src/Maquette/Ressource/Jeton1.png");
+			new Image("/Maquette/Ressource/Jeton1.png");
 	
 	/** Image associée à une case blanche */
 	private static Image caseBlanche =
-			new Image("file:src/Maquette/Ressource/Jeton0.png");
+			new Image("/Maquette/Ressource/Jeton0.png");
 	
 	/** Image associée à une case vide */
 	private static Image caseVide =
-			new Image("file:src/Maquette/Ressource/Jeton-1.png");
+			new Image("/Maquette/Ressource/Jeton-1.png");
 	
 	/** Score du joueur */
 	public static int scoreJoueur;
